@@ -1,0 +1,109 @@
+<template>
+	<view>
+		<view class="uni-container">
+			<view class="uni-header-logo">
+				<text class="txt__lable">{{bridegroom}}❤{{bride}}</text>
+				<u-count-down
+					:time="getDay()"
+					format="DD:HH:mm:ss"
+					autoStart
+					millisecond
+					@change="onChange">
+					<view class="time">
+						<view class="time__custom">
+							<text class="time__custom__item">{{ timeData.days }}&nbsp;天</text>
+						</view>
+						<text class="time__doc">:</text>
+						<view class="time__custom">
+							<text class="time__custom__item">{{ timeData.hours>10?timeData.hours:'0'+timeData.hours}}时</text>
+						</view>
+						<text class="time__doc">:</text>
+						<view class="time__custom">
+							<text class="time__custom__item">{{ timeData.minutes>10?timeData.minutes:'0'+timeData.minutes }}分</text>
+						</view>
+						<text class="time__doc">:</text>
+						<view class="time__custom">
+							<text class="time__custom__item">{{ timeData.seconds<10?'0'+timeData.seconds:timeData.seconds }}秒</text>
+						</view>
+					</view>
+				</u-count-down>
+			</view>
+		</view>
+		<view>
+			<u--text text="时间:2022年1月27日正月初六"></u--text>
+			<u--text text="地点:江西省鄱阳县油墩街镇南路"></u--text>
+			<u--text text="新郎:吴礼彬"></u--text>
+			<u--text text="新娘:陈苗苗"></u--text>
+			<u--text text="预计宾客:100人"></u--text>
+			<u--text text="采购物品:气球300只,喜糖盒200只,喜糖50斤"></u--text>
+			<u--text text="共花费:50000元"></u--text>
+		</view>
+	</view>
+</template>
+<script>
+	export default {
+		data() {
+			return {
+				timeData: {},
+				bridegroom: '吴礼彬',
+				bride: '️陈苗苗'
+			}
+		},
+		methods: {
+			onChange(e) {
+				this.timeData = e
+			},
+			getDay(){
+				var now = new Date(); 
+				var marryDate = new Date("2023-01-27 00:00:00");
+				return marryDate - now; 
+			}
+		}
+	}
+</script>
+
+	
+
+<style lang="scss">
+@import '../../../common/uni-nvue.css';
+.time {
+    @include flex;
+    align-items: center;
+
+    &__custom {
+         margin-top: 0px;
+         width: 35px;
+         height: 35px;
+         background-color: $u-primary;
+         border-radius: 4px;
+         /* #ifndef APP-NVUE */
+         display: flex;
+         /* #endif */
+         justify-content: center;
+         align-items: center;
+    
+        &__item {
+             color: #fff;
+             font-size: 15px;
+             text-align: center;
+         }
+    }
+    
+    &__doc {
+         color: $u-primary;
+         padding: 0px 4px;
+     }
+    
+    &__item {
+         color: #606266;
+         font-size: 15px;
+         margin-right: 4px;
+     }
+}
+.txt{
+	&__lable{
+		margin-top: -25px;
+		margin-bottom: 10px;
+	}
+}
+</style>

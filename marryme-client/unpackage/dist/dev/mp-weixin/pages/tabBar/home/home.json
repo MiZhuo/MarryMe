@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "首页",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationBarTextStyle": "black",
+  "usingComponents": {
+    "u-count-down": "/uni_modules/uview-ui/components/u-count-down/u-count-down",
+    "u--text": "/uni_modules/uview-ui/components/u--text/u--text"
+  }
+}

@@ -1,0 +1,39 @@
+<template>
+	<view>
+		<u-avatar text="喵喵" fontSize="18" randomBgColor></u-avatar>
+
+		<u-collapse @change="change" @close="close" @open="open">
+			<u-collapse-item title="建组" name="Docs guide">
+				<text class="u-collapse-content">1111111</text>
+			</u-collapse-item>
+			<u-collapse-item title="管理" name="Variety components">
+				<text class="u-collapse-content">222222</text>
+			</u-collapse-item>
+			<u-collapse-item title="邀请函" name="Variety components">
+				<text class="u-collapse-content">123</text>
+			</u-collapse-item>
+			<u-collapse-item title="设置" name="Numerous tools">
+				<text class="u-collapse-content">33333</text>
+			</u-collapse-item>
+		</u-collapse>
+	</view>
+</template>
+
+<script>
+	export default {
+		data() {
+			return {}
+		},
+		methods: {
+			open(e) {
+				// console.log('open', e)
+			},
+			close(e) {
+				// console.log('close', e)
+			},
+			change(e) {
+				// console.log('change', e)
+			}
+		}
+	}
+</script>

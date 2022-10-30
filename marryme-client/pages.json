@@ -1,0 +1,128 @@
+{
+	"easycom": {
+		"^u-(.*)": "@/uni_modules/uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		// pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/tabBar/home/home",
+			"style": {
+				"navigationBarTitleText": "首页",
+				"navigationBarBackgroundColor":"#FFFFFF", // 导航栏背景颜色
+				"navigationBarTextStyle": "black", // 导航栏字体颜色
+				"app-plus": {
+					"bounce": "vertical",
+					"titleNView": {
+						"buttons": [{
+							"text": "\ue534",
+							"fontSrc": "/static/uni.ttf",
+							"fontSize": "23px",
+							"color": "#FFFFFF"
+						}]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/tabBar/friends/friends",
+			"style": {
+				"navigationBarTitleText": "亲友",
+				"navigationBarBackgroundColor":"#FFFFFF", // 导航栏背景颜色
+				"navigationBarTextStyle": "black", // 导航栏字体颜色
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+							"text": "\ue534",
+							"fontSrc": "/static/uni.ttf",
+							"fontSize": "22px",
+							"color": "#FFFFFF"
+						}]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/tabBar/goods/goods",
+			"style": {
+				"navigationBarTitleText": "物品",
+				"navigationBarBackgroundColor":"#FFFFFF", // 导航栏背景颜色
+				"navigationBarTextStyle": "black", // 导航栏字体颜色
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+							"text": "\ue534",
+							"fontSrc": "/static/icon/iconfont.ttf",
+							"fontSize": "22px",
+							"color": "#FFFFFF"
+						}]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/tabBar/mine/mine",
+			"style": {
+				"navigationBarTitleText": "我的",
+				"navigationBarBackgroundColor":"#FFFFFF", // 导航栏背景颜色
+				"navigationBarTextStyle": "black", // 导航栏字体颜色
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+							"text": "\ue534",
+							"fontSrc": "/static/uni.ttf",
+							"fontSize": "22px",
+							"color": "#FFFFFF"
+						}]
+					}
+				}
+			}
+		}
+	],
+	"globalStyle": {
+		"pageOrientation": "portrait",
+		"navigationBarTitleText": "Hello uniapp",
+		"navigationBarTextStyle": "white",
+		"navigationBarBackgroundColor": "#007AFF",
+		"backgroundColor": "#F8F8F8",
+		"backgroundColorTop": "#F4F5F6",
+		"backgroundColorBottom": "#F4F5F6",
+		"mp-360": {
+			"navigationStyle": "custom"
+		},
+		"h5": {
+			"maxWidth": 1190,
+			"navigationBarTextStyle": "black",
+			"navigationBarBackgroundColor": "#F1F1F1"
+		}
+	
+	},
+	"tabBar": {
+		"color": "#0f0f10",
+		"selectedColor": "#f53c1f",
+		"borderStyle": "black",
+		"backgroundColor": "#FFFFFF",
+		"list": [{
+				"pagePath": "pages/tabBar/home/home",
+				"iconPath": "static/tabBar/home.png",
+				"selectedIconPath": "static/tabBar/homeHL.png",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/tabBar/friends/friends",
+				"iconPath": "static/tabBar/friends.png",
+				"selectedIconPath": "static/tabBar/friendsHL.png",
+				"text": "亲友"
+			}, {
+				"pagePath": "pages/tabBar/goods/goods",
+				"iconPath": "static/tabBar/goods.png",
+				"selectedIconPath": "static/tabBar/goodsHL.png",
+				"text": "物品"
+			}, {
+				"pagePath": "pages/tabBar/mine/mine",
+				"iconPath": "static/tabBar/cat.png",
+				"selectedIconPath": "static/tabBar/catHL.png",
+				"text": "我的"
+			}
+		]
+	}
+}

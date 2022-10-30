@@ -1,0 +1,37 @@
+{
+  "id": "1790352",
+  "name": "marry",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1029956",
+      "name": "home",
+      "font_class": "home",
+      "unicode": "e756",
+      "unicode_decimal": 59222
+    },
+    {
+      "icon_id": "1075267",
+      "name": "cat",
+      "font_class": "cat",
+      "unicode": "e65e",
+      "unicode_decimal": 58974
+    },
+    {
+      "icon_id": "1512532",
+      "name": "goods_favor_light",
+      "font_class": "goods_favor_light",
+      "unicode": "e7e4",
+      "unicode_decimal": 59364
+    },
+    {
+      "icon_id": "17173825",
+      "name": "friends",
+      "font_class": "friends",
+      "unicode": "e655",
+      "unicode_decimal": 58965
+    }
+  ]
+}
