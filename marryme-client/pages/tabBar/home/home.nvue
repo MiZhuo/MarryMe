@@ -3,27 +3,25 @@
 		<view class="uni-container">
 			<view class="uni-header-logo">
 				<text class="txt__lable">{{bridegroom}}❤{{bride}}</text>
-				<u-count-down
-					:time="getDay()"
-					format="DD:HH:mm:ss"
-					autoStart
-					millisecond
-					@change="onChange">
+				<u-count-down :time="getDay()" format="DD:HH:mm:ss" autoStart millisecond @change="onChange">
 					<view class="time">
 						<view class="time__custom">
 							<text class="time__custom__item">{{ timeData.days }}&nbsp;天</text>
 						</view>
 						<text class="time__doc">:</text>
 						<view class="time__custom">
-							<text class="time__custom__item">{{ timeData.hours>10?timeData.hours:'0'+timeData.hours}}时</text>
+							<text
+								class="time__custom__item">{{ timeData.hours>10?timeData.hours:'0'+timeData.hours}}时</text>
 						</view>
 						<text class="time__doc">:</text>
 						<view class="time__custom">
-							<text class="time__custom__item">{{ timeData.minutes>10?timeData.minutes:'0'+timeData.minutes }}分</text>
+							<text
+								class="time__custom__item">{{ timeData.minutes>10?timeData.minutes:'0'+timeData.minutes }}分</text>
 						</view>
 						<text class="time__doc">:</text>
 						<view class="time__custom">
-							<text class="time__custom__item">{{ timeData.seconds<10?'0'+timeData.seconds:timeData.seconds }}秒</text>
+							<text
+								class="time__custom__item">{{ timeData.seconds<10?'0'+timeData.seconds:timeData.seconds }}秒</text>
 						</view>
 					</view>
 				</u-count-down>
@@ -41,6 +39,10 @@
 	</view>
 </template>
 <script>
+	import {
+		wxLogin
+	} from '@/api/login.js';
+
 	export default {
 		data() {
 			return {
@@ -53,57 +55,74 @@
 			onChange(e) {
 				this.timeData = e
 			},
-			getDay(){
-				var now = new Date(); 
+			getDay() {
+				var now = new Date();
 				var marryDate = new Date("2023-01-27 00:00:00");
-				return marryDate - now; 
+				return marryDate - now;
 			}
+		},
+		created() {
+			//调用
+			wxLogin(obj).then(res => {
+
+				console.log('登录结果：', res);
+
+			}).catch(err => {
+
+				console.error('登录结果:', err);
+
+			}).finally(() => {
+				console.error('最终回调');
+
+			});
 		}
 	}
 </script>
 
-	
+
 
 <style lang="scss">
-@import '../../../common/uni-nvue.css';
-.time {
-    @include flex;
-    align-items: center;
+	@import '../../../common/uni-nvue.css';
 
-    &__custom {
-         margin-top: 0px;
-         width: 35px;
-         height: 35px;
-         background-color: $u-primary;
-         border-radius: 4px;
-         /* #ifndef APP-NVUE */
-         display: flex;
-         /* #endif */
-         justify-content: center;
-         align-items: center;
-    
-        &__item {
-             color: #fff;
-             font-size: 15px;
-             text-align: center;
-         }
-    }
-    
-    &__doc {
-         color: $u-primary;
-         padding: 0px 4px;
-     }
-    
-    &__item {
-         color: #606266;
-         font-size: 15px;
-         margin-right: 4px;
-     }
-}
-.txt{
-	&__lable{
-		margin-top: -25px;
-		margin-bottom: 10px;
+	.time {
+		@include flex;
+		align-items: center;
+
+		&__custom {
+			margin-top: 0px;
+			width: 35px;
+			height: 35px;
+			background-color: $u-primary;
+			border-radius: 4px;
+			/* #ifndef APP-NVUE */
+			display: flex;
+			/* #endif */
+			justify-content: center;
+			align-items: center;
+
+			&__item {
+				color: #fff;
+				font-size: 15px;
+				text-align: center;
+			}
+		}
+
+		&__doc {
+			color: $u-primary;
+			padding: 0px 4px;
+		}
+
+		&__item {
+			color: #606266;
+			font-size: 15px;
+			margin-right: 4px;
+		}
 	}
-}
+
+	.txt {
+		&__lable {
+			margin-top: -25px;
+			margin-bottom: 10px;
+		}
+	}
 </style>
