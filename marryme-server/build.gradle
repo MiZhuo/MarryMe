@@ -1,0 +1,75 @@
+
+buildscript {
+    ext {
+        springBootVersion = '2.3.7.RELEASE'
+        springCloudVersion = '2021.0.3'
+        springCloudAlibabaVersion = '2021.0.1.0'
+        springPagehelperVersion = '1.4.2'
+        pagehelperVersion = '5.3.0'
+        druidVersion = '1.2.9'
+        mybatisGeneratorVersion = '1.4.1'
+        mybatisVersion = '3.5.9'
+        mysqlVersion = '8.0.29'
+        jjwtVersion = '0.9.1'
+        nimbusdsVersion = '9.23'
+        logstashVersion = '5.3'
+        minioVersion = '8.4.1'
+        hutoolVersion = '5.8.0'
+    }
+    repositories {
+        mavenLocal()
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+allprojects {
+    group = 'site.mizhuo'
+    version = '0.0.1-SNAPSHOT'
+    apply plugin: 'java'
+    // 指定JDK版本
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    //指定编码格式
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+    }
+
+    repositories {
+        mavenLocal()
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        mavenCentral()
+    }
+}
+
+subprojects {
+    //dependency-management 插件
+    apply plugin: 'io.spring.dependency-management'
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+            mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
+            mavenBom "com.github.pagehelper:pagehelper-spring-boot-starter:${springPagehelperVersion}"
+            mavenBom "com.github.pagehelper:pagehelper:${pagehelperVersion}"
+            mavenBom "com.alibaba:druid-spring-boot-starter:${druidVersion}"
+            mavenBom "org.mybatis.generator:mybatis-generator-core:${mybatisGeneratorVersion}"
+            mavenBom "org.mybatis:mybatis:${mybatisVersion}"
+            mavenBom "mysql:mysql-connector-java:${mysqlVersion}"
+            mavenBom "io.jsonwebtoken:jjwt:${jjwtVersion}"
+            mavenBom "com.nimbusds:nimbus-jose-jwt:${nimbusdsVersion}"
+            mavenBom "net.logstash.logback:logstash-logback-encoder:${logstashVersion}"
+            mavenBom "io.minio:minio:${minioVersion}"
+            mavenBom "cn.hutool:hutool-all:${hutoolVersion}"
+        }
+    }
+    jar {
+        manifest.attributes provider: 'gradle'
+    }
+
+
+}
+
+

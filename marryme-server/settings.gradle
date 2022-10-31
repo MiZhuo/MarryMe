@@ -1,0 +1,8 @@
+rootProject.name = 'marryme-server'
+include('marry-gateway')
+include('marry-common')
+include('marry-auth')
+include('marry-friends')
+include('marry-goods')
+include('marry-portal')
+include('marry-mbg')
