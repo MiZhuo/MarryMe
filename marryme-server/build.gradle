@@ -1,20 +1,18 @@
 
 buildscript {
     ext {
-        springBootVersion = '2.3.7.RELEASE'
-        springCloudVersion = '2021.0.3'
-        springCloudAlibabaVersion = '2021.0.1.0'
+        springBootVersion = '2.3.12.RELEASE'
+        springCloudVersion = 'Hoxton.SR12'
+        springCloudAlibabaVersion = '2.2.9.RELEASE'
         springPagehelperVersion = '1.4.2'
-        pagehelperVersion = '5.3.0'
-        druidVersion = '1.2.9'
-        mybatisGeneratorVersion = '1.4.1'
-        mybatisVersion = '3.5.9'
-        mysqlVersion = '8.0.29'
+        mybatisPlusVersion = '3.5.2'
+        mybatisGeneratorVersion = '3.5.2'
+        mysqlVersion = '8.0.26'
         jjwtVersion = '0.9.1'
-        nimbusdsVersion = '9.23'
-        logstashVersion = '5.3'
-        minioVersion = '8.4.1'
-        hutoolVersion = '5.8.0'
+        nimbusdsVersion = '9.25.4'
+        logstashVersion = '7.2'
+        minioVersion = '8.4.5'
+        hutoolVersion = '5.8.9'
     }
     repositories {
         mavenLocal()
@@ -53,10 +51,9 @@ subprojects {
             mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
             mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
             mavenBom "com.github.pagehelper:pagehelper-spring-boot-starter:${springPagehelperVersion}"
-            mavenBom "com.github.pagehelper:pagehelper:${pagehelperVersion}"
-            mavenBom "com.alibaba:druid-spring-boot-starter:${druidVersion}"
-            mavenBom "org.mybatis.generator:mybatis-generator-core:${mybatisGeneratorVersion}"
-            mavenBom "org.mybatis:mybatis:${mybatisVersion}"
+            mavenBom "org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}"
+            mavenBom "com.baomidou:mybatis-plus:${mybatisPlusVersion}"
+            mavenBom "com.baomidou:mybatis-plus-generator:${mybatisGeneratorVersion}"
             mavenBom "mysql:mysql-connector-java:${mysqlVersion}"
             mavenBom "io.jsonwebtoken:jjwt:${jjwtVersion}"
             mavenBom "com.nimbusds:nimbus-jose-jwt:${nimbusdsVersion}"
