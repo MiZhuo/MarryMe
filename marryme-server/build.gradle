@@ -13,6 +13,8 @@ buildscript {
         logstashVersion = '7.2'
         minioVersion = '8.4.5'
         hutoolVersion = '5.8.9'
+        lombokVersion = '1.18.24'
+        knife4jVersion = '3.0.3'
     }
     repositories {
         mavenLocal()
@@ -23,6 +25,7 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
 }
+
 allprojects {
     group = 'site.mizhuo'
     version = '0.0.1-SNAPSHOT'
@@ -60,13 +63,14 @@ subprojects {
             mavenBom "net.logstash.logback:logstash-logback-encoder:${logstashVersion}"
             mavenBom "io.minio:minio:${minioVersion}"
             mavenBom "cn.hutool:hutool-all:${hutoolVersion}"
+            mavenBom "org.projectlombok:lombok:${lombokVersion}"
+            mavenBom "com.github.xiaoymin:knife4j-micro-spring-boot-starter:${knife4jVersion}"
+            mavenBom "com.github.xiaoymin:knife4j-spring-boot-starter:${knife4jVersion}"
         }
     }
     jar {
         manifest.attributes provider: 'gradle'
     }
-
-
 }
 
 
