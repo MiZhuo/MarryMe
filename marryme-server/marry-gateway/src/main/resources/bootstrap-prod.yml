@@ -1,0 +1,8 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: http://marry.mizhuo.site:8848
+      config:
+        server-addr: http://marry.mizhuo.site:8848
+        file-extension: yaml

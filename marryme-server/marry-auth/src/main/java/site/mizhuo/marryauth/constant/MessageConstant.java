@@ -2,7 +2,9 @@ package site.mizhuo.marryauth.constant;
 
 /**
  * 消息常量
- * Created by macro on 2020/6/19.
+ *
+ * @author macro
+ * @date 2020/6/19
  */
 public class MessageConstant {
 

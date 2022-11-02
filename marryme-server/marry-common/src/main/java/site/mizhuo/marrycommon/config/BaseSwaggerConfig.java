@@ -1,5 +1,6 @@
 package site.mizhuo.marrycommon.config;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.annotation.Bean;
@@ -23,17 +24,19 @@ import java.util.stream.Collectors;
 
 /**
  * Swagger基础配置
- * Created by macro on 2020/7/16.
+ *
+ * @author mizhuo
+ * @date 2022/11/02
  */
 public abstract class BaseSwaggerConfig {
 
     @Bean
     public Docket createRestApi() {
         SwaggerProperties swaggerProperties = swaggerProperties();
-        Docket docket = new Docket(DocumentationType.SWAGGER_2)
+        Docket docket = new Docket(DocumentationType.OAS_30)
                 .apiInfo(apiInfo(swaggerProperties))
                 .select()
-                .apis(RequestHandlerSelectors.basePackage(swaggerProperties.getApiBasePackage()))
+                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
                 .build();
         if (swaggerProperties.isEnableSecurity()) {
@@ -105,6 +108,7 @@ public abstract class BaseSwaggerConfig {
             private List<RequestMappingInfoHandlerMapping> getHandlerMappings(Object bean) {
                 try {
                     Field field = ReflectionUtils.findField(bean.getClass(), "handlerMappings");
+                    assert field != null;
                     field.setAccessible(true);
                     return (List<RequestMappingInfoHandlerMapping>) field.get(bean);
                 } catch (IllegalArgumentException | IllegalAccessException e) {
