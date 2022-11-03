@@ -1,24 +1,17 @@
 
 buildscript {
     ext {
-        springBootVersion = '2.3.12.RELEASE'
-        springCloudVersion = 'Hoxton.SR12'
-        springCloudAlibabaVersion = '2.2.9.RELEASE'
-        springPagehelperVersion = '1.4.2'
-        mybatisPlusVersion = '3.5.2'
-        mybatisGeneratorVersion = '3.5.2'
-        mysqlVersion = '8.0.26'
-        jjwtVersion = '0.9.1'
-        nimbusdsVersion = '9.25.4'
-        logstashVersion = '7.2'
-        minioVersion = '8.4.5'
-        hutoolVersion = '5.8.9'
-        lombokVersion = '1.18.24'
-        knife4jVersion = '3.0.3'
+        set("springBootVersion","2.7.5")
+        set("springCloudVersion","2021.0.4")
+        set("springCloudAlibabaVersion","2.2.9.RELEASE")
+        set("logstashVersion","7.2")
+        set("hutoolVersion","5.8.9")
+        set("lombokVersion","1.18.24")
+        set("knife4jVersion","3.0.3")
     }
     repositories {
         mavenLocal()
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
         mavenCentral()
     }
     dependencies {
@@ -30,46 +23,71 @@ allprojects {
     group = 'site.mizhuo'
     version = '0.0.1-SNAPSHOT'
     apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'maven-publish'
+
     // 指定JDK版本
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
     //指定编码格式
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
+//        options.addStringOption("Xdoclint:none", "-quiet")
+    }
+    //指定上传的注释，包含标注date和email
+    javadoc {
+        options.encoding = 'UTF-8'
+        options.tags = ["date", "email"]
+    }
+    //上传source
+    task sourcesJar(type: Jar) {
+        from sourceSets.main.allJava
+        archiveClassifier = 'sources'
+    }
+    //上传java注释
+    task javadocJar(type: Jar) {
+        from javadoc
+        archiveClassifier = 'javadoc'
+    }
+
+    publishing {
+        publications {
+            maven(MavenPublication) {
+                artifactId "marry-server"
+                from components.java
+                artifact sourcesJar
+                artifact javadocJar
+            }
+        }
+        repositories {
+            mavenLocal()
+        }
     }
 
     repositories {
         mavenLocal()
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
         mavenCentral()
     }
 }
 
-subprojects {
-    //dependency-management 插件
-    apply plugin: 'io.spring.dependency-management'
-    dependencyManagement {
-        imports {
-            mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
-            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-            mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
-            mavenBom "com.github.pagehelper:pagehelper-spring-boot-starter:${springPagehelperVersion}"
-            mavenBom "org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}"
-            mavenBom "com.baomidou:mybatis-plus:${mybatisPlusVersion}"
-            mavenBom "com.baomidou:mybatis-plus-generator:${mybatisGeneratorVersion}"
-            mavenBom "mysql:mysql-connector-java:${mysqlVersion}"
-            mavenBom "io.jsonwebtoken:jjwt:${jjwtVersion}"
-            mavenBom "com.nimbusds:nimbus-jose-jwt:${nimbusdsVersion}"
-            mavenBom "net.logstash.logback:logstash-logback-encoder:${logstashVersion}"
-            mavenBom "io.minio:minio:${minioVersion}"
-            mavenBom "cn.hutool:hutool-all:${hutoolVersion}"
-            mavenBom "org.projectlombok:lombok:${lombokVersion}"
-            mavenBom "com.github.xiaoymin:knife4j-micro-spring-boot-starter:${knife4jVersion}"
-            mavenBom "com.github.xiaoymin:knife4j-spring-boot-starter:${knife4jVersion}"
+subprojects{
+    dependencies{
+        implementation "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+        implementation "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        implementation "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
+        implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+        implementation "org.springframework.boot:spring-boot-starter-data-redis:${springBootVersion}"
+        implementation "net.logstash.logback:logstash-logback-encoder:${logstashVersion}"
+        implementation "cn.hutool:hutool-all:${hutoolVersion}"
+        implementation "com.github.xiaoymin:knife4j-micro-spring-boot-starter:${knife4jVersion}"
+        implementation "com.github.xiaoymin:knife4j-spring-boot-starter:${knife4jVersion}"
+        implementation "org.projectlombok:lombok:${lombokVersion}"
+        annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+        testImplementation('org.springframework.boot:spring-boot-starter-test:2.7.5') {
+            exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
         }
-    }
-    jar {
-        manifest.attributes provider: 'gradle'
+        testAnnotationProcessor "org.projectlombok:lombok:1.18.24"
     }
 }
 

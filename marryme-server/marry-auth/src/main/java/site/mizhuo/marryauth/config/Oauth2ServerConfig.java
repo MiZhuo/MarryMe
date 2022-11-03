@@ -14,6 +14,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 import org.springframework.security.rsa.crypto.KeyStoreKeyFactory;
 import site.mizhuo.marryauth.component.JwtTokenEnhancer;
 import site.mizhuo.marryauth.service.impl.UserServiceImpl;
