@@ -15,7 +15,9 @@ import java.util.List;
 
 /**
  * Swagger资源配置
- * Created by macro on 2020/7/9.
+ *
+ * @author macro
+ * @date 2020/7/9
  */
 @Slf4j
 @Component

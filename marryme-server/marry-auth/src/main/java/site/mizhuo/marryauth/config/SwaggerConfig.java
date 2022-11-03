@@ -3,11 +3,15 @@ package site.mizhuo.marryauth.config;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import site.mizhuo.marrycommon.config.BaseSwaggerConfig;
+import site.mizhuo.marrycommon.domain.SwaggerProperties;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * Swagger API文档相关配置
- * Created by macro on 2018/4/26.
+ *
+ * @author mizhuo
+ * @date 2022/11/03
  */
 @Configuration
 @EnableSwagger2
@@ -17,9 +21,9 @@ public class SwaggerConfig extends BaseSwaggerConfig {
     public SwaggerProperties swaggerProperties() {
         return SwaggerProperties.builder()
                 .apiBasePackage("com.macro.mall.auth.controller")
-                .title("mall认证中心")
-                .description("mall认证中心相关接口文档")
-                .contactName("macro")
+                .title("marry认证中心")
+                .description("marry认证中心相关接口文档")
+                .contactName("mizhuo")
                 .version("1.0")
                 .enableSecurity(true)
                 .build();

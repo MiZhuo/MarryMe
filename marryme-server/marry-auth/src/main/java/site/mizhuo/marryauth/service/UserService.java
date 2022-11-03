@@ -1,16 +1,18 @@
 package site.mizhuo.marryauth.service;
 
-import com.macro.mall.common.domain.UserDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import site.mizhuo.marrycommon.domain.UserDto;
 
 /**
- * Created by macro on 2019/10/18.
+ *
+ * @author mizhuo
+ * @date 2022/11/03
  */
-@FeignClient("mall-admin")
-public interface UmsAdminService {
+@FeignClient("marry-portal")
+public interface UserService {
 
-    @GetMapping("/admin/loadByUsername")
+    @GetMapping("/user/loadByUsername")
     UserDto loadUserByUsername(@RequestParam String username);
 }

@@ -1,6 +1,6 @@
 package site.mizhuo.marryauth.config;
 
-import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,7 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * SpringSecurity配置
- * Created by macro on 2020/6/19.
+ *
+ * @author macro
+ * @date 2020/6/19
  */
 @Configuration
 @EnableWebSecurity
@@ -21,7 +23,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
+//                .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
+                .requestMatchers(PathRequest.toH2Console()).permitAll()
                 .antMatchers("/rsa/publicKey").permitAll()
                 .antMatchers("/v2/api-docs").permitAll()
                 .antMatchers("/oauth/token").permitAll()

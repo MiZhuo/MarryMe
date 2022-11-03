@@ -1,7 +1,6 @@
 package site.mizhuo.marrygateway.filter;
 
 import cn.hutool.core.util.StrUtil;
-import com.macro.mall.common.constant.AuthConstant;
 import com.nimbusds.jose.JWSObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,17 +11,20 @@ import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
+import site.mizhuo.marrycommon.constant.AuthConstant;
 
 import java.text.ParseException;
 
 /**
  * 将登录用户的JWT转化成用户信息的全局过滤器
- * Created by macro on 2020/6/17.
+ *
+ * @author macro
+ * @date 2020/6/17
  */
 @Component
 public class AuthGlobalFilter implements GlobalFilter, Ordered {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(AuthGlobalFilter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthGlobalFilter.class);
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {

@@ -1,8 +1,5 @@
 package site.mizhuo.marryauth.controller;
 
-import com.macro.mall.auth.domain.Oauth2TokenDto;
-import com.macro.mall.common.api.CommonResult;
-import com.macro.mall.common.constant.AuthConstant;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -15,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import site.mizhuo.marryauth.domain.Oauth2TokenDto;
+import site.mizhuo.marrycommon.api.CommonResult;
+import site.mizhuo.marrycommon.constant.AuthConstant;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -22,7 +21,9 @@ import java.util.Map;
 
 /**
  * 自定义Oauth2获取令牌接口
- * Created by macro on 2020/7/17.
+ *
+ * @author macro
+ * @date 2020/7/17
  */
 @RestController
 @Api(tags = "AuthController", description = "认证中心登录认证")

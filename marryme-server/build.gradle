@@ -29,39 +29,16 @@ allprojects {
     // 指定JDK版本
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
+    
     //指定编码格式
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
-//        options.addStringOption("Xdoclint:none", "-quiet")
-    }
-    //指定上传的注释，包含标注date和email
-    javadoc {
-        options.encoding = 'UTF-8'
-        options.tags = ["date", "email"]
-    }
-    //上传source
-    task sourcesJar(type: Jar) {
-        from sourceSets.main.allJava
-        archiveClassifier = 'sources'
-    }
-    //上传java注释
-    task javadocJar(type: Jar) {
-        from javadoc
-        archiveClassifier = 'javadoc'
     }
 
-    publishing {
-        publications {
-            maven(MavenPublication) {
-                artifactId "marry-server"
-                from components.java
-                artifact sourcesJar
-                artifact javadocJar
-            }
-        }
-        repositories {
-            mavenLocal()
-        }
+    //声明一个打包源码的Task
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        from sourceSets.main.allJava
+        archiveClassifier = 'sources'
     }
 
     repositories {

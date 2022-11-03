@@ -9,7 +9,9 @@ import java.util.List;
 
 /**
  * 网关白名单配置
- * Created by macro on 2020/6/17.
+ *
+ * @author macro
+ * @date 2020/6/17
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

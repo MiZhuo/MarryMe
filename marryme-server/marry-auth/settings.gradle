@@ -1,0 +1,2 @@
+include ':marry-common'
+project(':marry-common').projectDir = new File(settingsDir, '../marry-common')

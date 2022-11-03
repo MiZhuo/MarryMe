@@ -4,13 +4,16 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import site.mizhuo.marrycommon.domain.UserDto;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 /**
  * 登录用户信息
- * Created by macro on 2020/6/19.
+ *
+ * @author macro
+ * @date 2020/6/19
  */
 @Data
 public class SecurityUser implements UserDetails {

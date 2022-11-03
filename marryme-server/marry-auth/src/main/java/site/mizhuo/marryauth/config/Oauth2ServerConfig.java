@@ -15,7 +15,6 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
-import org.springframework.security.rsa.crypto.KeyStoreKeyFactory;
 import site.mizhuo.marryauth.component.JwtTokenEnhancer;
 import site.mizhuo.marryauth.service.impl.UserServiceImpl;
 
@@ -25,7 +24,9 @@ import java.util.List;
 
 /**
  * 认证服务器配置
- * Created by macro on 2020/6/19.
+ *
+ * @author macro
+ * @date 2020/6/19
  */
 @AllArgsConstructor
 @Configuration

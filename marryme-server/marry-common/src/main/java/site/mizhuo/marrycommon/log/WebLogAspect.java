@@ -108,7 +108,7 @@ public class WebLogAspect {
             if (requestParam != null) {
                 Map<String, Object> map = new HashMap<>();
                 String key = parameters[i].getName();
-                if (!StringUtils.isEmpty(requestParam.value())) {
+                if (StringUtils.hasLength(requestParam.value())) {
                     key = requestParam.value();
                 }
                 map.put(key, args[i]);

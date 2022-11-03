@@ -1,11 +1,6 @@
 package site.mizhuo.marrygateway.config;
 
 import cn.hutool.core.util.ArrayUtil;
-import com.macro.mall.authorization.AuthorizationManager;
-import com.macro.mall.common.constant.AuthConstant;
-import com.macro.mall.component.RestAuthenticationEntryPoint;
-import com.macro.mall.component.RestfulAccessDeniedHandler;
-import com.macro.mall.filter.IgnoreUrlsRemoveJwtFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,10 +15,17 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtGra
 import org.springframework.security.oauth2.server.resource.authentication.ReactiveJwtAuthenticationConverterAdapter;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import reactor.core.publisher.Mono;
+import site.mizhuo.marrycommon.constant.AuthConstant;
+import site.mizhuo.marrygateway.authorization.AuthorizationManager;
+import site.mizhuo.marrygateway.component.RestAuthenticationEntryPoint;
+import site.mizhuo.marrygateway.component.RestfulAccessDeniedHandler;
+import site.mizhuo.marrygateway.filter.IgnoreUrlsRemoveJwtFilter;
 
 /**
  * 资源服务器配置
- * Created by macro on 2020/6/19.
+ *
+ * @author macro
+ * @date 2020/6/19
  */
 @AllArgsConstructor
 @Configuration
