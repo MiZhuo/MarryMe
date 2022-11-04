@@ -17,8 +17,8 @@ public class MarryMbgApplication {
 
     public static void main(String[] args) {
         List<String> war=new ArrayList<>();
-        Boolean ovr=true;
-        File file=new File("src/main/resources/generatorConfig.xml");
+        boolean ovr=true;
+        File file=new File("marry-mbg/src/main/resources/generatorConfig.xml");
         ConfigurationParser cp = new ConfigurationParser(war);
         try {
             Configuration config = cp.parseConfiguration(file);
