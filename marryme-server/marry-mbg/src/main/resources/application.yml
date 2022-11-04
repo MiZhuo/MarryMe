@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: marry-mbg
+management:
+  endpoints:
+    jmx:
+      exposure:
+        include: *
+    web:
+      exposure:
+        include: *
+    health:
+      show-details: always
+mybatis:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: site.mizhuo.marrymbg.dao
+
+
+
+
+
