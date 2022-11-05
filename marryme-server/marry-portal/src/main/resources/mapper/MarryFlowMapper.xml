@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.mizhuo.marryportal.mapper.MarryFlowMapper">
+  <resultMap id="BaseResultMap" type="site.mizhuo.marryportal.entity.MarryFlow">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_group_id" jdbcType="BIGINT" property="userGroupId" />
+    <result column="flow_index" jdbcType="INTEGER" property="flowIndex" />
+    <result column="flow_time" jdbcType="TIMESTAMP" property="flowTime" />
+    <result column="next_flow_id" jdbcType="BIGINT" property="nextFlowId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+</mapper>
