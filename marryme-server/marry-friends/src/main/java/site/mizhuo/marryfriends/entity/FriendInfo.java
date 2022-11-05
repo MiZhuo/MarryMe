@@ -9,7 +9,7 @@ import java.util.Date;
 public class FriendInfo implements Serializable {
     private Long id;
 
-    private Long userGroupId;
+    private Long friendGroupId;
 
     private Long inviterId;
 
@@ -35,12 +35,12 @@ public class FriendInfo implements Serializable {
         this.id = id;
     }
 
-    public Long getUserGroupId() {
-        return userGroupId;
+    public Long getFriendGroupId() {
+        return friendGroupId;
     }
 
-    public void setUserGroupId(Long userGroupId) {
-        this.userGroupId = userGroupId;
+    public void setFriendGroupId(Long friendGroupId) {
+        this.friendGroupId = friendGroupId;
     }
 
     public Long getInviterId() {
@@ -112,7 +112,7 @@ public class FriendInfo implements Serializable {
         }
         FriendInfo other = (FriendInfo) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getUserGroupId() == null ? other.getUserGroupId() == null : this.getUserGroupId().equals(other.getUserGroupId()))
+            && (this.getFriendGroupId() == null ? other.getFriendGroupId() == null : this.getFriendGroupId().equals(other.getFriendGroupId()))
             && (this.getInviterId() == null ? other.getInviterId() == null : this.getInviterId().equals(other.getInviterId()))
             && (this.getFriendName() == null ? other.getFriendName() == null : this.getFriendName().equals(other.getFriendName()))
             && (this.getFriendSex() == null ? other.getFriendSex() == null : this.getFriendSex().equals(other.getFriendSex()))
@@ -127,7 +127,7 @@ public class FriendInfo implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getUserGroupId() == null) ? 0 : getUserGroupId().hashCode());
+        result = prime * result + ((getFriendGroupId() == null) ? 0 : getFriendGroupId().hashCode());
         result = prime * result + ((getInviterId() == null) ? 0 : getInviterId().hashCode());
         result = prime * result + ((getFriendName() == null) ? 0 : getFriendName().hashCode());
         result = prime * result + ((getFriendSex() == null) ? 0 : getFriendSex().hashCode());
@@ -145,7 +145,7 @@ public class FriendInfo implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", userGroupId=").append(userGroupId);
+        sb.append(", friendGroupId=").append(friendGroupId);
         sb.append(", inviterId=").append(inviterId);
         sb.append(", friendName=").append(friendName);
         sb.append(", friendSex=").append(friendSex);

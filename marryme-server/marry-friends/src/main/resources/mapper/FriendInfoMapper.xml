@@ -3,7 +3,7 @@
 <mapper namespace="site.mizhuo.marryfriends.mapper.FriendInfoMapper">
   <resultMap id="BaseResultMap" type="site.mizhuo.marryfriends.entity.FriendInfo">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="user_group_id" jdbcType="BIGINT" property="userGroupId" />
+    <result column="friend_group_id" jdbcType="BIGINT" property="friendGroupId" />
     <result column="inviter_id" jdbcType="BIGINT" property="inviterId" />
     <result column="friend_name" jdbcType="VARCHAR" property="friendName" />
     <result column="friend_sex" jdbcType="VARCHAR" property="friendSex" />
