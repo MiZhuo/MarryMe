@@ -8,6 +8,7 @@ buildscript {
         set("hutoolVersion","5.8.9")
         set("lombokVersion","1.18.24")
         set("knife4jVersion","3.0.3")
+        set("nettyVersion","4.1.84.Final")
     }
     repositories {
         mavenLocal()
@@ -60,6 +61,7 @@ subprojects{
         implementation "com.github.xiaoymin:knife4j-micro-spring-boot-starter:${knife4jVersion}"
         implementation "com.github.xiaoymin:knife4j-spring-boot-starter:${knife4jVersion}"
         implementation "org.projectlombok:lombok:${lombokVersion}"
+        implementation "io.netty:netty-all:${nettyVersion}"
         annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
         testImplementation('org.springframework.boot:spring-boot-starter-test:2.7.5') {
             exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
