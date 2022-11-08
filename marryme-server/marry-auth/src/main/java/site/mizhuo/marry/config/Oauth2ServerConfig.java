@@ -42,14 +42,14 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
                 .withClient("admin-app")
-                .secret(passwordEncoder.encode("123456"))
+                .secret(passwordEncoder.encode("mizhuo123"))
                 .scopes("all")
                 .authorizedGrantTypes("password", "refresh_token")
                 .accessTokenValiditySeconds(3600*24)
                 .refreshTokenValiditySeconds(3600*24*7)
                 .and()
                 .withClient("portal-app")
-                .secret(passwordEncoder.encode("123456"))
+                .secret(passwordEncoder.encode("mizhuo123"))
                 .scopes("all")
                 .authorizedGrantTypes("password", "refresh_token")
                 .accessTokenValiditySeconds(3600*24)
@@ -84,8 +84,8 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
     @Bean
     public KeyPair keyPair() {
         //从classpath下的证书中获取秘钥对
-        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource("jwt.jks"), "123456".toCharArray());
-        return keyStoreKeyFactory.getKeyPair("jwt", "123456".toCharArray());
+        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource("jwt.jks"), "mizhuo123".toCharArray());
+        return keyStoreKeyFactory.getKeyPair("jwt", "mizhuo123".toCharArray());
     }
 
 }

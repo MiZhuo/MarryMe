@@ -1,5 +1,54 @@
+server:
+  port: 8088
 spring:
-  application:
-    name: marry-portal
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://localhost:3306/marryme?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false
+    username: root
+    password: mizhuo123
+    hikari:
+      maximum-pool-size: 100  #连接池中允许的最大连接数
+      minimum-idle: 10        #连接池中允许的最小连接数
+      auto-commit: true       #自动提交
+      idle-timeout: 30000     #一个连接idle状态的最大时长（毫秒），超时则被释放（retired）
+      connection-test-query: SELECT 1
+      connection-timeout: 30000
+  mybatis:
+    mapper-locations:
+      - classpath:mapper/*.xml
+  redis:
+    database: 0
+    port: 6379
+    host: localhost
+    password:
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+feign:
+  okhttp:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
+# 自定义redis key
+redis:
+  database: marryme
+  key:
+    authCode: 'user:authCode'
+    member: 'user:member'
+  expire:
+    authCode: 90 # 验证码超期时间
+    common: 86400 # 24小时
 
 

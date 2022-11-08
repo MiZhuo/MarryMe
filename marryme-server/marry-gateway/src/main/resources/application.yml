@@ -8,8 +8,8 @@ spring:
     gateway:
       discovery:
         locator:
-          enabled: true
-          lower-case-service-id: true #使用小写service-id
+          enabled: true #开启从注册中心动态创建路由的功能
+          lower-case-service-id: true #使用小写服务名，默认是大写
       routes: #配置路由路径
         - id: marry-auth
           uri: lb://marry-auth
@@ -39,7 +39,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: 'http://localhost:8029/marry-auth/rsa/publicKey' #配置RSA的公钥访问地址
+          jwk-set-uri: 'http://localhost:8029/rsa/publicKey' #配置RSA的公钥访问地址
   redis:
     database: 0
     port: 6379
