@@ -2,7 +2,10 @@ dependencies {
     implementation 'com.baomidou:mybatis-plus-core:3.5.2'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.1.4'
+    implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer:3.1.4'
     implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:2.2.9.RELEASE'
     implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:2.2.9.RELEASE'
+    implementation 'mysql:mysql-connector-java:8.0.30'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator:2.7.5'
     implementation project(":marry-common")
 }

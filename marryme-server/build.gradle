@@ -9,6 +9,7 @@ buildscript {
         set("lombokVersion","1.18.24")
         set("knife4jVersion","3.0.3")
         set("nettyVersion","4.1.84.Final")
+        set("bootstrapVersion","3.1.4")
     }
     repositories {
         mavenLocal()
@@ -55,13 +56,14 @@ subprojects{
         implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
         implementation "org.springframework.boot:spring-boot-starter-data-redis:${springBootVersion}"
         implementation "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        implementation "org.springframework.cloud:spring-cloud-starter-bootstrap:${bootstrapVersion}"
         implementation "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
         implementation "net.logstash.logback:logstash-logback-encoder:${logstashVersion}"
         implementation "cn.hutool:hutool-all:${hutoolVersion}"
         implementation "com.github.xiaoymin:knife4j-micro-spring-boot-starter:${knife4jVersion}"
         implementation "com.github.xiaoymin:knife4j-spring-boot-starter:${knife4jVersion}"
         implementation "org.projectlombok:lombok:${lombokVersion}"
-        implementation "io.netty:netty-all:${nettyVersion}"
+        implementation "io.netty:netty-resolver-dns-native-macos:${nettyVersion}"
         annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
         testImplementation('org.springframework.boot:spring-boot-starter-test:2.7.5') {
             exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
