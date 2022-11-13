@@ -53,13 +53,13 @@ allprojects {
 subprojects{
     dependencies{
         implementation "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
-        implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
         implementation "org.springframework.boot:spring-boot-starter-data-redis:${springBootVersion}"
         implementation "org.springframework.boot:spring-boot-starter-validation:${springBootVersion}"
         implementation "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
         implementation "org.springframework.cloud:spring-cloud-starter-bootstrap:${bootstrapVersion}"
         implementation "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
-        implementation "net.logstash.logback:logstash-logback-encoder:${logstashVersion}"
+//        implementation "net.logstash.logback:logstash-logback-encoder:${logstashVersion}"
+        implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
         implementation "cn.hutool:hutool-all:${hutoolVersion}"
         implementation "com.github.xiaoymin:knife4j-micro-spring-boot-starter:${knife4jVersion}"
         implementation "com.github.xiaoymin:knife4j-spring-boot-starter:${knife4jVersion}"
