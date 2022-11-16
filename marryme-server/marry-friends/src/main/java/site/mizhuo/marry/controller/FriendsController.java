@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import site.mizhuo.marry.api.CommonResult;
 import site.mizhuo.marry.domain.UserDto;
-import site.mizhuo.marry.entity.FriendGroup;
-import site.mizhuo.marry.entity.FriendInfo;
+import site.mizhuo.marry.domain.FriendGroup;
+import site.mizhuo.marry.domain.FriendInfo;
 import site.mizhuo.marry.service.IFriendsService;
 
 import java.util.List;

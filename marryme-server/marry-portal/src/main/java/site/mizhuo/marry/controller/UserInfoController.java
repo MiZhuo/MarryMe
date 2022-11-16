@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import site.mizhuo.marry.api.CommonResult;
 import site.mizhuo.marry.domain.UserDto;
-import site.mizhuo.marry.entity.UserInfo;
+import site.mizhuo.marry.domain.UserInfo;
 import site.mizhuo.marry.service.IUserService;
 
 

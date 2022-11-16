@@ -18,7 +18,7 @@ import site.mizhuo.marry.api.ResultCode;
 import site.mizhuo.marry.constant.AuthConstant;
 import site.mizhuo.marry.domain.UserDto;
 import site.mizhuo.marry.exception.Asserts;
-import site.mizhuo.marry.entity.UserInfo;
+import site.mizhuo.marry.domain.UserInfo;
 import site.mizhuo.marry.mapper.UserInfoMapper;
 import site.mizhuo.marry.service.IAuthService;
 import site.mizhuo.marry.service.IUserCacheService;

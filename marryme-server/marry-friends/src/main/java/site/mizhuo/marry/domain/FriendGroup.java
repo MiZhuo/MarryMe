@@ -1,4 +1,4 @@
-package site.mizhuo.marry.entity;
+package site.mizhuo.marry.domain;
 
 import java.io.Serializable;
 

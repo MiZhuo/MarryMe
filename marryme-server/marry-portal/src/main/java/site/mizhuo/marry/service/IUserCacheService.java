@@ -1,6 +1,6 @@
 package site.mizhuo.marry.service;
 
-import site.mizhuo.marry.entity.UserInfo;
+import site.mizhuo.marry.domain.UserInfo;
 
 /**
  * 会员信息缓存业务类

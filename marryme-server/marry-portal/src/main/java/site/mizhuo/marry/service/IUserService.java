@@ -3,7 +3,7 @@ package site.mizhuo.marry.service;
 import org.springframework.transaction.annotation.Transactional;
 import site.mizhuo.marry.api.CommonResult;
 import site.mizhuo.marry.domain.UserDto;
-import site.mizhuo.marry.entity.UserInfo;
+import site.mizhuo.marry.domain.UserInfo;
 
 /**
  * 会员管理Service

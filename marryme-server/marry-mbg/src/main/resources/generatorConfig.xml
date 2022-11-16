@@ -32,7 +32,7 @@
             <property name="forceBigDecimals" value="false" />
         </javaTypeResolver>
         <!-- 指定javaBean的生成策略  文件夹自己定义-->
-        <javaModelGenerator targetPackage="site.mizhuo.marry.entity"
+        <javaModelGenerator targetPackage="site.mizhuo.marry.domain"
                             targetProject="marry-mbg/src/main/java">
             <property name="enableSubPackages" value="false" />
             <property name="trimStrings" value="true" />

@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import site.mizhuo.marry.annotation.CacheException;
 import site.mizhuo.marry.service.RedisService;
-import site.mizhuo.marry.entity.UserInfo;
+import site.mizhuo.marry.domain.UserInfo;
 import site.mizhuo.marry.service.IUserCacheService;
 
 /**

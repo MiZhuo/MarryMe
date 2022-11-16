@@ -3,7 +3,7 @@ package site.mizhuo.marry;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import site.mizhuo.marry.entity.FriendInfo;
+import site.mizhuo.marry.domain.FriendInfo;
 import site.mizhuo.marry.mapper.FriendInfoMapper;
 
 import java.util.List;

@@ -1,7 +1,7 @@
 package site.mizhuo.marry.service;
 
-import site.mizhuo.marry.entity.FriendGroup;
-import site.mizhuo.marry.entity.FriendInfo;
+import site.mizhuo.marry.domain.FriendGroup;
+import site.mizhuo.marry.domain.FriendInfo;
 
 import java.util.List;
 

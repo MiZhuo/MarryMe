@@ -1,0 +1,27 @@
+server:
+  port: 8029
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  redis:
+    database: 0
+    port: 6379
+    host: localhost
+    password:
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+feign:
+  okhttp:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
+
+
