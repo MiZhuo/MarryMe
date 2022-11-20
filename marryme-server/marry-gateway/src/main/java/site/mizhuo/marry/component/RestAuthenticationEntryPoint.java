@@ -17,9 +17,7 @@ import java.nio.charset.Charset;
 
 /**
  * 自定义返回结果：没有登录或token过期时
- *
- * @author macro
- * @date 2020/6/18
+ * @author mizhuo
  */
 @Component
 public class RestAuthenticationEntryPoint implements ServerAuthenticationEntryPoint {

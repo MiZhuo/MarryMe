@@ -7,9 +7,7 @@ import lombok.EqualsAndHashCode;
 
 /**
  * Oauth2获取Token返回信息封装
- *
- * @author macro
- * @date 2020/7/17
+ * @author mizhuo
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

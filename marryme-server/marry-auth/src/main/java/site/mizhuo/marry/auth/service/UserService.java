@@ -13,6 +13,11 @@ import site.mizhuo.marry.domain.UserDto;
 @FeignClient("marry-portal")
 public interface UserService {
 
-    @GetMapping("/user/loadByUsername")
+    /**
+     * 根据用户名获取通用用户信息
+     * @param username
+     * @return
+     */
+    @GetMapping("/sso/loadByUsername")
     UserDto loadUserByUsername(@Param String username);
 }

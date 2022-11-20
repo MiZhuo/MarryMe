@@ -15,12 +15,9 @@ import site.mizhuo.marry.api.CommonResult;
 
 import java.nio.charset.Charset;
 
-
 /**
  * 自定义返回结果：没有权限访问时
- *
- * @author macro
- * @date 2018/4/26
+ * @author mizhuo
  */
 @Component
 public class RestfulAccessDeniedHandler implements ServerAccessDeniedHandler {

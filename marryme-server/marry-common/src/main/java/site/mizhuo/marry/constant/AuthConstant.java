@@ -2,7 +2,6 @@ package site.mizhuo.marry.constant;
 
 /**
  * 权限相关常量定义
- * Created by macro on 2020/6/19.
  */
 public interface AuthConstant {
 
@@ -24,12 +23,12 @@ public interface AuthConstant {
     /**
      * 前台商城client_id
      */
-    String PORTAL_CLIENT_ID = "portal-app";
+    String MARRY_CLIENT_ID = "marry-app";
 
     /**
      * 后台管理接口路径匹配
      */
-    String ADMIN_URL_PATTERN = "/marry-admin/**";
+    String ADMIN_URL_PATTERN = "/admin/**";
 
     /**
      * Redis缓存权限规则key

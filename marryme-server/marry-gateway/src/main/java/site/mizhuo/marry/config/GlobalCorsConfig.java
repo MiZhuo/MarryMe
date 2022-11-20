@@ -10,9 +10,7 @@ import org.springframework.web.util.pattern.PathPatternParser;
 /**
  * 全局跨域配置
  * 注意：前端从网关进行调用时需要配置
- *
- * @author macro
- * @date 2019/7/27
+ * @author mizhuo
  */
 @Configuration
 public class GlobalCorsConfig {

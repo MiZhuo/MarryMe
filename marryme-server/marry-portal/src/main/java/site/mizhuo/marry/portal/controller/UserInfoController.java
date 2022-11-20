@@ -11,19 +11,25 @@ import site.mizhuo.marry.portal.service.IUserService;
 
 
 /**
- * 会员登录注册管理Controller
+ * 用户登录注册管理Controller
  *
  * @author macro
  * @date 2018/8/3
  */
 @RestController
-@Api(tags = "UserInfoController", value = "会员登录注册管理")
+@Api(tags = "UserInfoController", value = "用户登录注册管理")
 @RequestMapping("/sso")
 public class UserInfoController {
     @Autowired
     IUserService userService;
 
-    @ApiOperation("会员注册")
+    @ApiOperation("根据用户名获取用户信息")
+    @PostMapping("/loadByUsername")
+    public UserDto loadUserByUsername(@RequestParam String username) {
+        return userService.loadUserByUsername(username);
+    }
+
+    @ApiOperation("用户注册")
     @PostMapping("/register")
     public CommonResult<?> register(@RequestParam String username,
                                  @RequestParam String password,
@@ -33,18 +39,18 @@ public class UserInfoController {
         return CommonResult.success(null,"注册成功");
     }
 
-    @ApiOperation("会员登录")
+    @ApiOperation("用户登录")
     @PostMapping( "/login")
     public CommonResult<?> login(@RequestParam String username,
                               @RequestParam String password) {
         return userService.login(username, password);
     }
 
-    @ApiOperation("获取会员信息")
+    @ApiOperation("获取用户信息")
     @PostMapping("/info")
     public CommonResult<?> info() {
-        UserInfo member = userService.getCurrentMember();
-        return CommonResult.success(member);
+        UserInfo User = userService.getCurrentUser();
+        return CommonResult.success(User);
     }
 
     @ApiOperation("获取验证码")
@@ -62,10 +68,5 @@ public class UserInfoController {
         userService.updatePassword(telephone,password,authCode);
         return CommonResult.success(null,"密码修改成功");
     }
-
-    @ApiOperation("根据用户名获取通用用户信息")
-    @PostMapping("/loadByUsername")
-    public UserDto loadUserByUsername(@RequestParam String username) {
-        return userService.loadUserByUsername(username);
-    }
+    
 }

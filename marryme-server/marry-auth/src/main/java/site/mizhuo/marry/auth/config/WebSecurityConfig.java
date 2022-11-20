@@ -12,9 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * SpringSecurity配置
- *
- * @author macro
- * @date 2020/6/19
+ * @author mizhuo
  */
 @Configuration
 @EnableWebSecurity
@@ -23,7 +21,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .requestMatchers(PathRequest.toH2Console()).permitAll()
                 .antMatchers("/rsa/publicKey").permitAll()
                 .antMatchers("/v2/api-docs").permitAll()
                 .antMatchers("/oauth/token").permitAll()

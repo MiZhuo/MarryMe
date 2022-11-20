@@ -17,9 +17,7 @@ import java.text.ParseException;
 
 /**
  * 将登录用户的JWT转化成用户信息的全局过滤器
- *
- * @author macro
- * @date 2020/6/17
+ * @author mizhuo
  */
 @Component
 public class AuthGlobalFilter implements GlobalFilter, Ordered {

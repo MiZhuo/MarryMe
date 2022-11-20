@@ -28,33 +28,36 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 /**
- * 会员管理Service实现类
- *
- * @author macro
- * @date 2018/8/3
+ * 用户管理Service实现类
  */
 @Service
 public class UserServiceImpl implements IUserService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
+
     @Autowired
     private UserInfoMapper userMapper;
+
     @Autowired
     private IUserCacheService userCacheService;
+
     @Value("${redis.key.authCode}")
     private String REDIS_KEY_PREFIX_AUTH_CODE;
+
     @Value("${redis.expire.authCode}")
     private Long AUTH_CODE_EXPIRE_SECONDS;
+
     @Autowired
     private IAuthService authService;
+
     @Autowired
     private HttpServletRequest request;
 
     @Override
     public UserInfo getByUsername(String username) {
         QueryWrapper wrapper = new QueryWrapper();
-        List<UserInfo> memberList = userMapper.selectList(wrapper);
-        if (!CollectionUtils.isEmpty(memberList)) {
-            return memberList.get(0);
+        List<UserInfo> UserList = userMapper.selectList(wrapper);
+        if (!CollectionUtils.isEmpty(UserList)) {
+            return UserList.get(0);
         }
         return null;
     }
@@ -101,22 +104,22 @@ public class UserServiceImpl implements IUserService {
         UserInfo userInfo = userInfoList.get(0);
         userInfo.setPassword(BCrypt.hashpw(password));
         userMapper.updateById(userInfo);
-        userCacheService.delMember(userInfo.getId());
+        userCacheService.delUser(userInfo.getId());
     }
 
     @Override
-    public UserInfo getCurrentMember() {
+    public UserInfo getCurrentUser() {
         String userStr = request.getHeader(AuthConstant.USER_TOKEN_HEADER);
         if(StrUtil.isEmpty(userStr)){
             Asserts.fail(ResultCode.UNAUTHORIZED);
         }
         UserDto userDto = JSONUtil.toBean(userStr, UserDto.class);
-        UserInfo userInfo = userCacheService.getMember(userDto.getId());
+        UserInfo userInfo = userCacheService.getUser(userDto.getId());
         if(userInfo!=null){
             return userInfo;
         }else{
             userInfo = getById(userDto.getId());
-            userCacheService.setMember(userInfo);
+            userCacheService.setUser(userInfo);
             return userInfo;
         }
     }
@@ -124,11 +127,11 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserDto loadUserByUsername(String username) {
-        UserInfo member = getByUsername(username);
-        if(member!=null){
+        UserInfo User = getByUsername(username);
+        if(User!=null){
             UserDto userDto = new UserDto();
-            BeanUtil.copyProperties(member,userDto);
-            userDto.setRoles(CollUtil.toList("前台会员"));
+            BeanUtil.copyProperties(User,userDto);
+            userDto.setRoles(CollUtil.toList("前台用户"));
             return userDto;
         }
         return null;
@@ -139,8 +142,8 @@ public class UserServiceImpl implements IUserService {
         if(StrUtil.isEmpty(username)||StrUtil.isEmpty(password)){
             Asserts.fail("用户名或密码不能为空！");
         }
-        Map<String, String> params = new HashMap<>();
-        params.put("client_id", AuthConstant.PORTAL_CLIENT_ID);
+        Map<String, String> params = new HashMap<>(16);
+        params.put("client_id", AuthConstant.MARRY_CLIENT_ID);
         params.put("client_secret","123456");
         params.put("grant_type","password");
         params.put("username",username);

@@ -9,9 +9,7 @@ import java.util.Map;
 
 /**
  * 认证服务远程调用
- *
- * @author macro
- * @date 2020/7/19
+ * @author mizhuo
  */
 @FeignClient("marry-auth")
 public interface IAuthService {

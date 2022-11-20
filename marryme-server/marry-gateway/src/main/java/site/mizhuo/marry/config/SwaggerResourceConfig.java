@@ -15,9 +15,7 @@ import java.util.List;
 
 /**
  * Swagger资源配置
- *
- * @author macro
- * @date 2020/7/9
+ * @author mizhuo
  */
 @Slf4j
 @Component
@@ -51,7 +49,7 @@ public class SwaggerResourceConfig implements SwaggerResourcesProvider {
         SwaggerResource swaggerResource = new SwaggerResource();
         swaggerResource.setName(name);
         swaggerResource.setLocation(location);
-        swaggerResource.setSwaggerVersion("2.0");
+        swaggerResource.setSwaggerVersion("3.0");
         return swaggerResource;
     }
 }

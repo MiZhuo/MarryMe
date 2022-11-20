@@ -12,9 +12,7 @@ import java.util.Optional;
 
 /**
  * 自定义Swagger的各个配置节点
- *
- * @author macro
- * @date 2020/7/9
+ * @author mizhuo
  */
 @RestController
 public class SwaggerHandler {

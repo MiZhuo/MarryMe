@@ -23,9 +23,7 @@ import java.util.List;
 
 /**
  * Swagger API文档相关配置
- *
- * @author macro
- * @date 2018/4/26
+ * @author mizhuo
  */
 @Configuration
 @EnableSwagger2

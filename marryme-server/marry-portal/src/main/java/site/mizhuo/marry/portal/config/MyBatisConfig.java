@@ -6,12 +6,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * MyBatis相关配置
- *
- * @author macro
- * @date 2019/4/8
+ * @author mizhuo
  */
 @Configuration
 @EnableTransactionManagement
-@MapperScan("site.mizhuo.marry.mapper")
+@MapperScan("site.mizhuo.marry.portal.mapper")
 public class MyBatisConfig {
 }

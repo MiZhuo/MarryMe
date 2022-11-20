@@ -31,9 +31,7 @@ import java.util.stream.Collectors;
 
 /**
  * 鉴权管理器，用于判断是否有资源的访问权限
- *
- * @author macro
- * @date 2020/6/19
+ * @author mizhuo
  */
 @Component
 public class AuthorizationManager implements ReactiveAuthorizationManager<AuthorizationContext> {
@@ -71,7 +69,7 @@ public class AuthorizationManager implements ReactiveAuthorizationManager<Author
             if (AuthConstant.ADMIN_CLIENT_ID.equals(userDto.getClientId()) && !pathMatcher.match(AuthConstant.ADMIN_URL_PATTERN, uri.getPath())) {
                 return Mono.just(new AuthorizationDecision(false));
             }
-            if (AuthConstant.PORTAL_CLIENT_ID.equals(userDto.getClientId()) && pathMatcher.match(AuthConstant.ADMIN_URL_PATTERN, uri.getPath())) {
+            if (AuthConstant.MARRY_CLIENT_ID.equals(userDto.getClientId()) && pathMatcher.match(AuthConstant.ADMIN_URL_PATTERN, uri.getPath())) {
                 return Mono.just(new AuthorizationDecision(false));
             }
         } catch (ParseException e) {

@@ -11,9 +11,7 @@ import java.util.Collection;
 
 /**
  * 登录用户信息
- *
- * @author macro
- * @date 2020/6/19
+ * @author mizhuo
  */
 @Data
 public class SecurityUser implements UserDetails {

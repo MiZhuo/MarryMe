@@ -14,9 +14,7 @@ import java.util.Map;
 
 /**
  * 获取RSA公钥接口
- *
- * @author macro
- * @date 2020/6/19
+ * @author mizhuo
  */
 @RestController
 @Api(tags = "KeyPairController", value = "获取RSA公钥接口")

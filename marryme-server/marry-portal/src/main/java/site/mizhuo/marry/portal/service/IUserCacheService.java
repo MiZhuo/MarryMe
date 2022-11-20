@@ -3,34 +3,41 @@ package site.mizhuo.marry.portal.service;
 import site.mizhuo.marry.portal.domain.UserInfo;
 
 /**
- * 会员信息缓存业务类
- *
- * @author macro
- * @date 2020/3/14
+ /**
+ * 用户信息缓存业务类
+ * @author mizhuo
  */
 public interface IUserCacheService {
     /**
-     * 删除会员用户缓存
+     * 删除用户用户缓存
+     * @param UserId
      */
-    void delMember(Long memberId);
+    void delUser(Long UserId);
 
     /**
-     * 获取会员用户缓存
+     * 获取用户用户缓存
+     * @param UserId
+     * @return
      */
-    UserInfo getMember(Long memberId);
+    UserInfo getUser(Long UserId);
 
     /**
-     * 设置会员用户缓存
+     * 设置用户用户缓存
+     * @param User
      */
-    void setMember(UserInfo member);
+    void setUser(UserInfo User);
 
     /**
      * 设置验证码
+     * @param telephone
+     * @param authCode
      */
     void setAuthCode(String telephone, String authCode);
 
     /**
      * 获取验证码
+     * @param telephone
+     * @return
      */
     String getAuthCode(String telephone);
 }

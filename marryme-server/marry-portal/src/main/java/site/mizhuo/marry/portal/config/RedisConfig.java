@@ -6,9 +6,7 @@ import site.mizhuo.marry.config.BaseRedisConfig;
 
 /**
  * Redis相关配置
- *
- * @author macro
- * @date 2020/3/2
+ * @author mizhuo
  */
 @EnableCaching
 @Configuration

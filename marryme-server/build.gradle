@@ -64,7 +64,7 @@ subprojects{
         implementation "com.github.xiaoymin:knife4j-micro-spring-boot-starter:${knife4jVersion}"
         implementation "com.github.xiaoymin:knife4j-spring-boot-starter:${knife4jVersion}"
         implementation "org.projectlombok:lombok:${lombokVersion}"
-        implementation "io.netty:netty-resolver-dns-native-macos:${nettyVersion}"
+        implementation "io.netty:netty-all:${nettyVersion}"
         annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
         testImplementation('org.springframework.boot:spring-boot-starter-test:2.7.5') {
             exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'

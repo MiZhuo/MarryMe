@@ -18,9 +18,7 @@ import java.util.Map;
 
 /**
  * 自定义Oauth2获取令牌接口
- *
- * @author macro
- * @date 2020/7/17
+ * @author mizhuo
  */
 @RestController
 @Api(tags = "AuthController", value = "认证中心登录认证")
@@ -39,7 +37,7 @@ public class AuthController {
                                                         @ApiParam("刷新token") @RequestParam(required = false) String refresh_token,
                                                         @ApiParam("登录用户名") @RequestParam(required = false) String username,
                                                         @ApiParam("登录密码") @RequestParam(required = false) String password) throws HttpRequestMethodNotSupportedException {
-        Map<String, String> parameters = new HashMap<>();
+        Map<String, String> parameters = new HashMap<>(16);
         parameters.put("grant_type",grant_type);
         parameters.put("client_id",client_id);
         parameters.put("client_secret",client_secret);

@@ -9,9 +9,7 @@ import site.mizhuo.marry.api.CommonResult;
 
 /**
  * 全局处理Oauth2抛出的异常
- *
- * @author macro
- * @date 2020/7/17
+ * @author mizhuo
  */
 @RestControllerAdvice
 public class Oauth2ExceptionHandler {
