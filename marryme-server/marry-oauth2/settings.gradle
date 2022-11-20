@@ -1,2 +1,0 @@
-include ':marry-oauth2'
-project(':marry-oauth2').projectDir = new File(settingsDir, '../marry-oauth2')

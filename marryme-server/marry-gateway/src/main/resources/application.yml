@@ -14,25 +14,25 @@ spring:
         - id: marry-auth
           uri: lb://marry-auth
           predicates:
-            - Path=/marry-auth/**
+            - Path=/auth/**
           filters:
             - StripPrefix=1
         - id: marry-portal
           uri: lb://marry-portal
           predicates:
-            - Path=/marry-portal/**
+            - Path=/portal/**
           filters:
             - StripPrefix=1
         - id: marry-friends
           uri: lb://marry-friends
           predicates:
-            - Path=/marry-friends/**
+            - Path=/friends/**
           filters:
             - StripPrefix=1
         - id: marry-goods
           uri: lb://marry-goods
           predicates:
-            - Path=/marry-goods/**
+            - Path=/goods/**
           filters:
             - StripPrefix=1
   security:
@@ -58,9 +58,11 @@ secure:
       - "/*/*.ico"
       - "/webjars/**"
       - "/actuator/**"
-      - "/marry-auth/oauth/token"
-      - "/marry-auth/rsa/publicKey"
-      - "/marry-portal/**"
+      - "/auth/oauth/token"
+      - "/auth/rsa/publicKey"
+      - "/portal/**"
+      - "/friends/**"
+      - "/goods/**"
 management: #开启SpringBoot Admin的监控
   endpoints:
     web:

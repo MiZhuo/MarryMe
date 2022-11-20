@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="site.mizhuo.marry.mapper.FriendGroupMapper">
-  <resultMap id="BaseResultMap" type="site.mizhuo.marry.domain.FriendGroup">
+<mapper namespace="site.mizhuo.marry.friends.mapper.FriendGroupMapper">
+  <resultMap id="BaseResultMap" type="site.mizhuo.marry.friends.domain.FriendGroup">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="user_group_id" jdbcType="BIGINT" property="userGroupId" />
     <result column="friend_type" jdbcType="VARCHAR" property="friendType" />

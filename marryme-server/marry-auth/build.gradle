@@ -2,10 +2,13 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.1.4'
     implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer:3.1.4'
     implementation 'org.springframework.cloud:spring-cloud-starter-oauth2:2.2.5.RELEASE'
-    implementation 'org.springframework.cloud:spring-cloud-starter-security:2.2.5.RELEASE'
-    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:2.2.9.RELEASE'
-    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:2.2.9.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-security:2.7.5'
+    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:2021.0.1.0'
+    implementation 'com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config:2021.0.1.0'
     implementation 'com.nimbusds:nimbus-jose-jwt:9.25.6'
     implementation 'io.github.openfeign:feign-okhttp:12.0'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator:2.7.5'
+    implementation 'org.springframework.boot:spring-boot-starter-aop:2.7.5'
+    implementation 'org.springframework.boot:spring-boot-configuration-processor:2.7.5'
     implementation project(":marry-common")
 }
