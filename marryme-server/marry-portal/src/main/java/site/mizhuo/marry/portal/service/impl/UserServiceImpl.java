@@ -29,6 +29,7 @@ import java.util.*;
 
 /**
  * 用户管理Service实现类
+ * @author mizhuo
  */
 @Service
 public class UserServiceImpl implements IUserService {
@@ -54,7 +55,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserInfo getByUsername(String username) {
-        QueryWrapper wrapper = new QueryWrapper();
+        QueryWrapper<UserInfo> wrapper = new QueryWrapper<UserInfo>().eq("username",username);
         List<UserInfo> UserList = userMapper.selectList(wrapper);
         if (!CollectionUtils.isEmpty(UserList)) {
             return UserList.get(0);

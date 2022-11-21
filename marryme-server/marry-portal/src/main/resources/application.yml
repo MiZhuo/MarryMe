@@ -16,14 +16,11 @@ spring:
       idle-timeout: 30000     #一个连接idle状态的最大时长（毫秒），超时则被释放（retired）
       connection-test-query: SELECT 1
       connection-timeout: 30000
-  mybatis:
-    mapper-locations:
-      - classpath:mapper/*.xml
   redis:
     database: 0
     port: 6379
     host: localhost
-    password:
+    password: mizhuo
 management:
   endpoints:
     web:
@@ -50,5 +47,10 @@ redis:
   expire:
     authCode: 90 # 验证码超期时间
     common: 86400 # 24小时
-
-
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml    # mapper映射文件
+  global-config:
+    db-config:
+      table-prefix: t_
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

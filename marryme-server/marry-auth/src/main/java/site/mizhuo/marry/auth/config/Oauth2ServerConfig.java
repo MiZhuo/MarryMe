@@ -48,7 +48,7 @@ public class Oauth2ServerConfig extends AuthorizationServerConfigurerAdapter {
                 .accessTokenValiditySeconds(3600*24)
                 .refreshTokenValiditySeconds(3600*24*7)
                 .and()
-                .withClient("portal-app")
+                .withClient("marry-app")
                 .secret(passwordEncoder.encode("mizhuo123"))
                 .scopes("all")
                 .authorizedGrantTypes("password", "refresh_token")

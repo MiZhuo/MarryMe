@@ -3,6 +3,9 @@ package site.mizhuo.marry.portal.domain;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * @author mizhuo
+ */
 public class UserInfo implements Serializable {
     private Long id;
 

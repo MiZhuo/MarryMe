@@ -1,8 +1,8 @@
 package site.mizhuo.marry.auth.service;
 
-import feign.Param;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import site.mizhuo.marry.domain.UserDto;
 
 /**
@@ -18,6 +18,6 @@ public interface UserService {
      * @param username
      * @return
      */
-    @GetMapping("/sso/loadByUsername")
-    UserDto loadUserByUsername(@Param String username);
+    @PostMapping("/sso/loadByUsername")
+    UserDto loadUserByUsername(@RequestParam("username") String username);
 }
