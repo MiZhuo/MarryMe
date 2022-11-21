@@ -14,16 +14,22 @@ import site.mizhuo.marry.service.RedisService;
  */
 @Service
 public class UserCacheServiceImpl implements IUserCacheService {
+
     @Autowired
     private RedisService redisService;
+
     @Value("${redis.database}")
     private String REDIS_DATABASE;
+
     @Value("${redis.expire.common}")
     private Long REDIS_EXPIRE;
+
     @Value("${redis.expire.authCode}")
     private Long REDIS_EXPIRE_AUTH_CODE;
+
     @Value("${redis.key.user}")
     private String REDIS_KEY_USER;
+
     @Value("${redis.key.authCode}")
     private String REDIS_KEY_AUTH_CODE;
 

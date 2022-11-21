@@ -17,8 +17,8 @@ public class SwaggerConfig extends BaseSwaggerConfig {
     public SwaggerProperties swaggerProperties() {
         return SwaggerProperties.builder()
                 .apiBasePackage("com.macro.mall.portal.controller")
-                .title("marry首页")
-                .description("marry首页相关接口文档")
+                .title("marry-app首页")
+                .description("marry-app相关接口文档")
                 .contactName("mizhuo")
                 .version("1.0")
                 .enableSecurity(true)

@@ -54,6 +54,18 @@ public class UserServiceImpl implements IUserService {
     private HttpServletRequest request;
 
     @Override
+    public UserDto loadUserByUsername(String username) {
+        UserInfo User = getByUsername(username);
+        if(User!=null){
+            UserDto userDto = new UserDto();
+            BeanUtil.copyProperties(User,userDto);
+            userDto.setRoles(CollUtil.toList("前台用户"));
+            return userDto;
+        }
+        return null;
+    }
+
+    @Override
     public UserInfo getByUsername(String username) {
         QueryWrapper<UserInfo> wrapper = new QueryWrapper<UserInfo>().eq("username",username);
         List<UserInfo> UserList = userMapper.selectList(wrapper);
@@ -125,18 +137,6 @@ public class UserServiceImpl implements IUserService {
         }
     }
 
-
-    @Override
-    public UserDto loadUserByUsername(String username) {
-        UserInfo User = getByUsername(username);
-        if(User!=null){
-            UserDto userDto = new UserDto();
-            BeanUtil.copyProperties(User,userDto);
-            userDto.setRoles(CollUtil.toList("前台用户"));
-            return userDto;
-        }
-        return null;
-    }
 
     @Override
     public CommonResult login(String username, String password) {

@@ -23,6 +23,7 @@ import site.mizhuo.marry.filter.IgnoreUrlsRemoveJwtFilter;
 
 /**
  * 资源服务器配置
+ * @author mizhuo
  */
 @AllArgsConstructor
 @Configuration
