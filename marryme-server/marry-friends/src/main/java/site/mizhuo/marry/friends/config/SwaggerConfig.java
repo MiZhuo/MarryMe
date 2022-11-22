@@ -1,4 +1,4 @@
-package site.mizhuo.marry.portal.config;
+package site.mizhuo.marry.friends.config;
 
 import org.springframework.context.annotation.Configuration;
 import site.mizhuo.marry.config.BaseSwaggerConfig;
@@ -17,8 +17,8 @@ public class SwaggerConfig extends BaseSwaggerConfig {
     public SwaggerProperties swaggerProperties() {
         return SwaggerProperties.builder()
                 .apiBasePackage("com.macro.mall.portal.controller")
-                .title("marry-app首页")
-                .description("marry-app首页相关接口文档")
+                .title("marry-app亲友")
+                .description("marry-app亲友模块相关接口文档")
                 .contactName("mizhuo")
                 .version("1.0")
                 .enableSecurity(true)

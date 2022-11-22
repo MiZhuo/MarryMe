@@ -1,14 +1,16 @@
 package site.mizhuo.marry.friends;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * @author mizhuo
  */
 @SpringBootApplication
-@MapperScan("site.mizhuo.marryfriends.mapper")
+@EnableFeignClients
+@EnableDiscoveryClient
 public class MarryFriendsApplication {
 
     public static void main(String[] args) {
