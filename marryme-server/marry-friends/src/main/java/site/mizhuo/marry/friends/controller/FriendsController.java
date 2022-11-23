@@ -1,5 +1,7 @@
 package site.mizhuo.marry.friends.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,12 +18,14 @@ import java.util.List;
  * @author mizhuo
  */
 @RestController
+@Api(tags = "FriendsController", value = "亲友管理")
 @RequestMapping("/friends")
 public class FriendsController {
 
     @Autowired
     IFriendsService friendsService;
 
+    @ApiOperation("获取亲友列表")
     @PostMapping("/getGroups")
     public CommonResult<List<FriendGroup>> getGroupList(){
         UserDto userDto = new UserDto();

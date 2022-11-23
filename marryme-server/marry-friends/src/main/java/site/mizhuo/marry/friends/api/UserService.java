@@ -1,23 +1,23 @@
-package site.mizhuo.marry.auth.service;
+package site.mizhuo.marry.friends.api;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import site.mizhuo.marry.api.CommonResult;
 import site.mizhuo.marry.domain.UserDto;
 
 /**
  *
  * @author mizhuo
- * @date 2022/11/03
+ * @date 2022/11/23
  */
-@FeignClient("marry-portal")
+@FeignClient(name = "marry-portal",path = "/sso")
 public interface UserService {
 
     /**
-     * 根据用户名获取通用用户信息
-     * @param username
+     * 获取当前登陆用户信息
      * @return
      */
-    @PostMapping("/sso/loadByUsername")
-    UserDto loadUserByUsername(@RequestParam("username") String username);
+    @PostMapping("/info")
+    public CommonResult<?> info();
 }

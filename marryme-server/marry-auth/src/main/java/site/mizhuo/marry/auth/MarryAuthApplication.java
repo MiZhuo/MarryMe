@@ -8,7 +8,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 /**
  * @author mizhuo
  */
-@EnableFeignClients(basePackages = "site.mizhuo.marry.auth.service")
+@EnableFeignClients(basePackages = "site.mizhuo.marry.auth.api")
 @EnableDiscoveryClient
 @SpringBootApplication
 public class MarryAuthApplication {

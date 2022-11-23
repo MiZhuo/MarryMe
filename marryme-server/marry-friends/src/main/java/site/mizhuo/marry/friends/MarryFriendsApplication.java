@@ -8,9 +8,9 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 /**
  * @author mizhuo
  */
-@SpringBootApplication
-@EnableFeignClients
+@EnableFeignClients(basePackages = "site.mizhuo.marry.friends.api")
 @EnableDiscoveryClient
+@SpringBootApplication
 public class MarryFriendsApplication {
 
     public static void main(String[] args) {

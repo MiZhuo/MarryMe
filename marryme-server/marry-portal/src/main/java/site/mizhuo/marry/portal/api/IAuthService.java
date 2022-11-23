@@ -1,4 +1,4 @@
-package site.mizhuo.marry.portal.service;
+package site.mizhuo.marry.portal.api;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,7 +11,7 @@ import java.util.Map;
  * 认证服务远程调用
  * @author mizhuo
  */
-@FeignClient("marry-auth")
+@FeignClient(name = "marry-auth",path = "/oauth")
 public interface IAuthService {
 
     /**
@@ -19,7 +19,7 @@ public interface IAuthService {
      * @param parameters 用户信息
      * @return token
      */
-    @PostMapping(value = "/oauth/token")
+    @PostMapping(value = "/token")
     CommonResult<?> getAccessToken(@RequestParam Map<String, String> parameters);
 
 }

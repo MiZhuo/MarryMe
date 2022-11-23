@@ -9,9 +9,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import site.mizhuo.marry.auth.api.UserService;
 import site.mizhuo.marry.auth.constant.MessageConstant;
 import site.mizhuo.marry.auth.domain.SecurityUser;
-import site.mizhuo.marry.auth.service.UserService;
 import site.mizhuo.marry.domain.UserDto;
 
 import javax.servlet.http.HttpServletRequest;
