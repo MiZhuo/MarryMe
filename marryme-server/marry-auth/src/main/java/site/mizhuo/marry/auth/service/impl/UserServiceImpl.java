@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-         String clientId = request.getParameter("client_id");
+        String clientId = request.getParameter("client_id");
         UserDto userDto = userService.loadUserByUsername(username);
         if (userDto==null) {
             throw new UsernameNotFoundException(MessageConstant.USERNAME_PASSWORD_ERROR);

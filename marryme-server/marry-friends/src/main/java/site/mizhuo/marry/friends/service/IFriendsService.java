@@ -9,7 +9,16 @@ import java.util.List;
  * @author mizhuo
  */
 public interface IFriendsService {
-    List<FriendGroup> queryFriendsGroups(Long id);
+    /**
+     * 获取当前登陆用户的亲友分组
+     * @return
+     */
+    List<FriendGroup> queryFriendsGroups();
 
+    /**
+     * 根据分组ID获取亲友列表
+     * @param friendGroupId
+     * @return
+     */
     List<FriendInfo> queryFriendsList(String friendGroupId);
 }

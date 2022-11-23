@@ -5,12 +5,12 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import site.mizhuo.marry.friends.domain.FriendGroup;
 import site.mizhuo.marry.friends.domain.FriendInfo;
 import site.mizhuo.marry.friends.service.IFriendsService;
 import site.mizhuo.marry.api.CommonResult;
-import site.mizhuo.marry.domain.UserDto;
 
 import java.util.List;
 
@@ -25,17 +25,25 @@ public class FriendsController {
     @Autowired
     IFriendsService friendsService;
 
-    @ApiOperation("获取亲友列表")
+    /**
+     * 获取当前登陆用户的亲友分组
+     * @return
+     */
+    @ApiOperation("获取亲友分组")
     @PostMapping("/getGroups")
     public CommonResult<List<FriendGroup>> getGroupList(){
-        UserDto userDto = new UserDto();
-        List<FriendGroup> res = friendsService.queryFriendsGroups(userDto.getId());
+        List<FriendGroup> res = friendsService.queryFriendsGroups();
         return CommonResult.success(res);
     }
 
+    /**
+     * 根据分组ID获取亲友列表
+     * @param groupId
+     * @return
+     */
     @PostMapping("/getList")
-    public CommonResult<List<FriendInfo>> getFriendsList(String friendGroupId){
-        List<FriendInfo> res = friendsService.queryFriendsList(friendGroupId);
+    public CommonResult<List<FriendInfo>> getFriendsList(@RequestParam("groupId") String groupId){
+        List<FriendInfo> res = friendsService.queryFriendsList(groupId);
         return CommonResult.success(res);
     }
 }

@@ -21,6 +21,7 @@ public class UserDto {
     private String password;
     private Integer status;
     private String clientId;
+    private Long groupId;
     private List<String> roles;
 
 }

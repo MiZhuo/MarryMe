@@ -28,6 +28,12 @@ public class SecurityUser implements UserDetails {
      * 用户密码
      */
     private String password;
+
+    /**
+     * 用户组ID
+     */
+    private Long groupId;
+
     /**
      * 用户状态
      */
@@ -49,6 +55,7 @@ public class SecurityUser implements UserDetails {
         this.setId(userDto.getId());
         this.setUsername(userDto.getUsername());
         this.setPassword(userDto.getPassword());
+        this.setGroupId(userDto.getGroupId());
         this.setEnabled(userDto.getStatus() == 1);
         this.setClientId(userDto.getClientId());
         if (userDto.getRoles() != null) {

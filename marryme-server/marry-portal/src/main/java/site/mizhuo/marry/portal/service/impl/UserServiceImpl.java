@@ -5,6 +5,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.digest.BCrypt;
 import cn.hutool.json.JSONUtil;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,8 +19,10 @@ import site.mizhuo.marry.api.ResultCode;
 import site.mizhuo.marry.constant.AuthConstant;
 import site.mizhuo.marry.domain.UserDto;
 import site.mizhuo.marry.exception.Asserts;
+import site.mizhuo.marry.portal.domain.UserGroup;
 import site.mizhuo.marry.portal.domain.UserInfo;
 import site.mizhuo.marry.portal.api.IAuthService;
+import site.mizhuo.marry.portal.mapper.UserGroupMapper;
 import site.mizhuo.marry.portal.service.IUserCacheService;
 import site.mizhuo.marry.portal.service.IUserService;
 import site.mizhuo.marry.portal.mapper.UserInfoMapper;
@@ -39,6 +42,9 @@ public class UserServiceImpl implements IUserService {
     private UserInfoMapper userMapper;
 
     @Autowired
+    private UserGroupMapper groupMapper;
+
+    @Autowired
     private IUserCacheService userCacheService;
 
     @Value("${redis.key.authCode}")
@@ -55,11 +61,15 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserDto loadUserByUsername(String username) {
-        UserInfo User = getByUsername(username);
-        if(User!=null){
+        UserInfo user = getByUsername(username);
+        if(user!=null){
             UserDto userDto = new UserDto();
-            BeanUtil.copyProperties(User,userDto);
+            BeanUtil.copyProperties(user,userDto);
             userDto.setRoles(CollUtil.toList("前台用户"));
+            UserGroup group = getUserGroupInfo(user);
+            if(group != null){
+                userDto.setGroupId(group.getId());
+            }
             return userDto;
         }
         return null;
@@ -128,15 +138,12 @@ public class UserServiceImpl implements IUserService {
         }
         UserDto userDto = JSONUtil.toBean(userStr, UserDto.class);
         UserInfo userInfo = userCacheService.getUser(userDto.getId());
-        if(userInfo!=null){
-            return userInfo;
-        }else{
+        if (userInfo == null) {
             userInfo = getById(userDto.getId());
             userCacheService.setUser(userInfo);
-            return userInfo;
         }
+        return userInfo;
     }
-
 
     @Override
     public CommonResult login(String username, String password) {
@@ -160,4 +167,11 @@ public class UserServiceImpl implements IUserService {
         return authCode.equals(realAuthCode);
     }
 
+    @Override
+    public UserGroup getUserGroupInfo(UserInfo userInfo) {
+        // 根据用户角色,查询用户组信息
+        QueryWrapper<UserGroup> wrapper = new QueryWrapper<UserGroup>().eq(userInfo.getRole() == 1 ? "bride_groom_id" : "bride_id",userInfo.getId());
+        UserGroup userGroup = groupMapper.selectOne(wrapper);
+        return userGroup;
+    }
 }

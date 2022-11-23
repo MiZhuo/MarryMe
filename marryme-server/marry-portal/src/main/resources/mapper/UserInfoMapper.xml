@@ -5,6 +5,7 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="role" jdbcType="INTEGER" property="role" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
     <result column="wechart_open_id" jdbcType="VARCHAR" property="wechartOpenId" />

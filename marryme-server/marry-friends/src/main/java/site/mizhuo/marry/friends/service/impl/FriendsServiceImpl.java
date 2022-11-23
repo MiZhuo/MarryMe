@@ -25,10 +25,8 @@ public class FriendsServiceImpl implements IFriendsService {
 
 
     @Override
-    public List<FriendGroup> queryFriendsGroups(Long id) {
-        QueryWrapper<FriendGroup> wrapper = new QueryWrapper<>();
-        //todo add mybatis function
-        return groupMapper.selectList(null);
+    public List<FriendGroup> queryFriendsGroups() {
+        return null;
     }
 
     @Override

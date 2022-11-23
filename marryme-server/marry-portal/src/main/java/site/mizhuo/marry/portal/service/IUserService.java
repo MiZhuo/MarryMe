@@ -1,8 +1,10 @@
 package site.mizhuo.marry.portal.service;
 
+import io.swagger.models.auth.In;
 import org.springframework.transaction.annotation.Transactional;
 import site.mizhuo.marry.api.CommonResult;
 import site.mizhuo.marry.domain.UserDto;
+import site.mizhuo.marry.portal.domain.UserGroup;
 import site.mizhuo.marry.portal.domain.UserInfo;
 
 /**
@@ -71,4 +73,11 @@ public interface IUserService {
      * @return
      */
     CommonResult login(String username, String password);
+
+    /**
+     * 获取用户组信息
+     * @param user
+     * @return
+     */
+    UserGroup getUserGroupInfo(UserInfo user);
 }
