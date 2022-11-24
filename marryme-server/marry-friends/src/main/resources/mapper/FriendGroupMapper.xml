@@ -5,5 +5,6 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="user_group_id" jdbcType="BIGINT" property="userGroupId" />
     <result column="friend_type" jdbcType="VARCHAR" property="friendType" />
+    <result column="status" jdbcType="INTEGER" property="status" />
   </resultMap>
 </mapper>

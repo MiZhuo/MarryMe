@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -138,7 +139,8 @@ public class UserServiceImpl implements IUserService {
     @Override
     public UserGroup getUserGroupInfo(UserInfo userInfo) {
         // 根据用户角色,查询用户组信息
-        QueryWrapper<UserGroup> wrapper = new QueryWrapper<UserGroup>().eq(userInfo.getRole() == 1 ? "bride_groom_id" : "bride_id",userInfo.getId());
+        LambdaQueryWrapper<UserGroup> wrapper = new LambdaQueryWrapper<UserGroup>();
+        wrapper.eq(userInfo.getRole() == 1 ? UserGroup::getBrideGroomId : UserGroup::getBrideId,userInfo.getId());
         UserGroup userGroup = groupMapper.selectOne(wrapper);
         return userGroup;
     }

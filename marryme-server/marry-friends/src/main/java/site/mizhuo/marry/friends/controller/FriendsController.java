@@ -41,6 +41,7 @@ public class FriendsController {
      * @param groupId
      * @return
      */
+    @ApiOperation("根据分组ID获取亲友列表")
     @PostMapping("/getList")
     public CommonResult<List<FriendInfo>> getFriendsList(@RequestParam("groupId") String groupId){
         List<FriendInfo> res = friendsService.queryFriendsList(groupId);

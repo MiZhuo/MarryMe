@@ -51,7 +51,7 @@ public class UserInfoController {
      */
     @ApiOperation("获取用户信息")
     @PostMapping("/info")
-    public CommonResult<?> info() {
+    public CommonResult<UserDto> info() {
         UserDto User = userService.getCurrentUser();
         return CommonResult.success(User);
     }
@@ -63,7 +63,7 @@ public class UserInfoController {
      */
     @ApiOperation("获取验证码")
     @PostMapping("/getAuthCode")
-    public CommonResult<?> getAuthCode(@RequestParam String telephone) {
+    public CommonResult<String> getAuthCode(@RequestParam String telephone) {
         String authCode = userService.generateAuthCode(telephone);
         return CommonResult.success(authCode,"获取验证码成功");
     }
