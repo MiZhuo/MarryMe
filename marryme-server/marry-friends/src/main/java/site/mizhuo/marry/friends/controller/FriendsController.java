@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import site.mizhuo.marry.friends.domain.FriendGroup;
 import site.mizhuo.marry.friends.domain.FriendInfo;
 import site.mizhuo.marry.friends.service.IFriendsService;
-import site.mizhuo.marry.api.CommonResult;
+import site.mizhuo.marry.common.CommonResult;
 
 import java.util.List;
 

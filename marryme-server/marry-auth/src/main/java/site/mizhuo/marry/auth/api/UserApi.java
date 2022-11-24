@@ -11,7 +11,7 @@ import site.mizhuo.marry.domain.UserDto;
  * @date 2022/11/03
  */
 @FeignClient(name = "marry-portal",path = "/sso")
-public interface UserService {
+public interface UserApi {
 
     /**
      * 根据用户名获取通用用户信息

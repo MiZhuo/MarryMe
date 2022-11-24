@@ -1,4 +1,4 @@
-package site.mizhuo.marry.api;
+package site.mizhuo.marry.common;
 
 /**
  * 枚举了一些常用API操作码

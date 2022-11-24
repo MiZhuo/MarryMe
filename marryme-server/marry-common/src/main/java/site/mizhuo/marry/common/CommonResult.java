@@ -1,4 +1,4 @@
-package site.mizhuo.marry.api;
+package site.mizhuo.marry.common;
 
 /**
  * 通用返回对象

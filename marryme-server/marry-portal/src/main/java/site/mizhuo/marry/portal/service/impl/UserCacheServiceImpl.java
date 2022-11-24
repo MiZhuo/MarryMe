@@ -9,7 +9,7 @@ import site.mizhuo.marry.portal.service.IUserCacheService;
 import site.mizhuo.marry.service.RedisService;
 
 /**
- * UmsUserCacheService实现类
+ * UserCacheServiceImpl实现类
  * @author mizhuo
  */
 @Service

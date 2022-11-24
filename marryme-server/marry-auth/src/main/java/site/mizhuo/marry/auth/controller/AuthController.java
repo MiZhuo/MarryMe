@@ -9,7 +9,7 @@ import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.*;
 import site.mizhuo.marry.auth.domain.Oauth2TokenDto;
-import site.mizhuo.marry.api.CommonResult;
+import site.mizhuo.marry.common.CommonResult;
 import site.mizhuo.marry.constant.AuthConstant;
 
 import javax.servlet.http.HttpServletRequest;

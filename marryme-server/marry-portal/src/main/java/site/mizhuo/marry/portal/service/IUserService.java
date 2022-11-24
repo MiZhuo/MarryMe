@@ -1,8 +1,6 @@
 package site.mizhuo.marry.portal.service;
 
-import io.swagger.models.auth.In;
-import org.springframework.transaction.annotation.Transactional;
-import site.mizhuo.marry.api.CommonResult;
+import site.mizhuo.marry.common.CommonResult;
 import site.mizhuo.marry.domain.UserDto;
 import site.mizhuo.marry.portal.domain.UserGroup;
 import site.mizhuo.marry.portal.domain.UserInfo;
@@ -21,28 +19,18 @@ public interface IUserService {
     UserDto loadUserByUsername(String username);
     
     /**
-     * 根据用户名获取用户
+     * 根据用户名获取用户信息
      * @param username
      * @return
      */
     UserInfo getByUsername(String username);
 
     /**
-     * 根据编号获取用户
+     * 根据编号获取用户信息
      * @param id
      * @return
      */
     UserInfo getById(Long id);
-
-    /**
-     * 用户注册
-     * @param username
-     * @param password
-     * @param telephone
-     * @param authCode
-     */
-    @Transactional
-    void register(String username, String password, String telephone, String authCode);
 
     /**
      * 生成验证码
@@ -52,19 +40,10 @@ public interface IUserService {
     String generateAuthCode(String telephone);
 
     /**
-     * 修改密码
-     * @param telephone
-     * @param password
-     * @param authCode
-     */
-    @Transactional
-    void updatePassword(String telephone, String password, String authCode);
-
-    /**
-     * 获取当前登录用户
+     * 获取当前登录用户信息
      * @return
      */
-    UserInfo getCurrentUser();
+    UserDto getCurrentUser();
 
     /**
      * 登录后获取token

@@ -1,4 +1,4 @@
-package site.mizhuo.marry.api;
+package site.mizhuo.marry.common;
 
 /**
  * 封装API的错误码

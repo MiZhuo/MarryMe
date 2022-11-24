@@ -1,11 +1,9 @@
 package site.mizhuo.marry.auth.exception;
 
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import site.mizhuo.marry.api.CommonResult;
+import site.mizhuo.marry.common.CommonResult;
 
 /**
  * 全局处理Oauth2抛出的异常

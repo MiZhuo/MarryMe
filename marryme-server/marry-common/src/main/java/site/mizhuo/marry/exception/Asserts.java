@@ -1,6 +1,6 @@
 package site.mizhuo.marry.exception;
 
-import site.mizhuo.marry.api.IErrorCode;
+import site.mizhuo.marry.common.IErrorCode;
 
 /**
  * 断言处理类，用于抛出各种API异常

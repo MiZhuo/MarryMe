@@ -11,7 +11,7 @@ import org.springframework.security.web.server.ServerAuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
-import site.mizhuo.marry.api.CommonResult;
+import site.mizhuo.marry.common.CommonResult;
 
 import java.nio.charset.Charset;
 

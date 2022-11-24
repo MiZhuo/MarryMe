@@ -1,4 +1,4 @@
-package site.mizhuo.marry.api;
+package site.mizhuo.marry.common;
 
 import com.github.pagehelper.PageInfo;
 

@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import site.mizhuo.marry.auth.api.UserService;
+import site.mizhuo.marry.auth.api.UserApi;
 import site.mizhuo.marry.auth.constant.MessageConstant;
 import site.mizhuo.marry.auth.domain.SecurityUser;
 import site.mizhuo.marry.domain.UserDto;
@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 public class UserServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UserService userService;
+    private UserApi userApi;
 
     @Autowired
     private HttpServletRequest request;
@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         String clientId = request.getParameter("client_id");
-        UserDto userDto = userService.loadUserByUsername(username);
+        UserDto userDto = userApi.loadUserByUsername(username);
         if (userDto==null) {
             throw new UsernameNotFoundException(MessageConstant.USERNAME_PASSWORD_ERROR);
         }
