@@ -1,9 +1,16 @@
 package site.mizhuo.marry.friends.service.impl;
 
+import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import site.mizhuo.marry.domain.UserDto;
+import site.mizhuo.marry.exception.ApiException;
+import site.mizhuo.marry.friends.constant.MessageConstant;
 import site.mizhuo.marry.friends.domain.FriendGroup;
 import site.mizhuo.marry.friends.domain.FriendInfo;
 import site.mizhuo.marry.friends.mapper.FriendGroupMapper;
@@ -18,8 +25,11 @@ import java.util.Optional;
 /**
  * @author mizhuo
  */
+@Slf4j
 @Service
 public class FriendsServiceImpl implements FriendsService {
+
+    private static final int MAX_GROUP_COUNT = 3;
 
     @Autowired
     FriendInfoMapper infoMapper;
@@ -31,23 +41,94 @@ public class FriendsServiceImpl implements FriendsService {
     private HttpServletRequest request;
 
     @Override
+    @Transactional(rollbackFor=ApiException.class)
+    public void saveFriendGroup(String groupName) {
+        UserDto user = CommonUtils.getCurrentUser(request);
+        Long userGroupId = Optional.ofNullable(user)
+                .map(u -> u.getGroupId()).get();
+        LambdaQueryWrapper<FriendGroup> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(FriendGroup::getUserGroupId,userGroupId)
+                .eq(FriendGroup::getStatus,1);
+        Long count = groupMapper.selectCount(wrapper);
+        if(count >= MAX_GROUP_COUNT){
+            log.error(MessageConstant.ERROR_MESSAGE_001);
+            throw new ApiException(MessageConstant.ERROR_MESSAGE_001);
+        }
+        FriendGroup friendGroup = new FriendGroup();
+        friendGroup.setUserGroupId(userGroupId);
+        friendGroup.setFriendType(groupName);
+        friendGroup.setStatus(1);
+        groupMapper.insert(friendGroup);
+    }
+
+    @Override
     public List<FriendGroup> queryFriendsGroups() {
         UserDto user = CommonUtils.getCurrentUser(request);
-        Long groupId = Optional.ofNullable(user)
+        Long userGroupId = Optional.ofNullable(user)
                 .map(u -> u.getGroupId()).get();
-        LambdaQueryWrapper<FriendGroup> wrapper = new LambdaQueryWrapper<FriendGroup>();
-        wrapper.eq(FriendGroup::getUserGroupId,groupId)
+        LambdaQueryWrapper<FriendGroup> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(FriendGroup::getUserGroupId,userGroupId)
                 .eq(FriendGroup::getStatus,1)
                 .orderByAsc(FriendGroup::getId);
         return groupMapper.selectList(wrapper);
     }
 
     @Override
-    public List<FriendInfo> queryFriendsList(String friendGroupId) {
-        LambdaQueryWrapper<FriendInfo> wrapper = new LambdaQueryWrapper<FriendInfo>();
+    public void updateFriendGroup(Long groupId, String groupName, int status) {
+        UserDto user = CommonUtils.getCurrentUser(request);
+        Long userGroupId = Optional.ofNullable(user)
+                .map(u -> u.getGroupId()).get();
+        FriendGroup friendGroup = new FriendGroup();
+        friendGroup.setId(groupId);
+        friendGroup.setUserGroupId(userGroupId);
+        if(StringUtils.isNotEmpty(groupName)){
+            friendGroup.setFriendType(groupName);
+        }
+        friendGroup.setStatus(status);
+        LambdaUpdateWrapper<FriendGroup> wrapper = new LambdaUpdateWrapper<>();
+        wrapper.eq(FriendGroup::getId,groupId)
+                .eq(FriendGroup::getUserGroupId,userGroupId);
+        groupMapper.update(friendGroup,wrapper);
+    }
+
+    @Override
+    public void addFriend(FriendInfo friend) {
+        if(friend.getFriendGroupId() == null){
+            log.error(MessageConstant.ERROR_MESSAGE_003);
+            throw new ApiException(MessageConstant.ERROR_MESSAGE_003);
+        }
+        friend.setCreateTime(DateUtil.date());
+        friend.setUpdateTime(DateUtil.date());
+        infoMapper.insert(friend);
+    }
+
+    @Override
+    public List<FriendInfo> queryFriendsList(Long friendGroupId) {
+        LambdaQueryWrapper<FriendInfo> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(FriendInfo::getFriendGroupId,friendGroupId)
                 .eq(FriendInfo::getStatus,1)
                 .orderByAsc(FriendInfo::getFriendName);
         return infoMapper.selectList(wrapper);
+    }
+
+    @Override
+    public FriendInfo queryFriendInfoById(Long id) {
+        LambdaQueryWrapper<FriendInfo> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(FriendInfo::getId,id)
+                .eq(FriendInfo::getStatus,1)
+                .orderByAsc(FriendInfo::getFriendName);
+        return infoMapper.selectOne(wrapper);
+    }
+
+    @Override
+    @Transactional(rollbackFor=ApiException.class)
+    public void updateFriendInfo(FriendInfo friend) {
+        FriendInfo friendInfo = queryFriendInfoById(friend.getId());
+        if(friendInfo == null){
+            log.error(MessageConstant.ERROR_MESSAGE_004);
+            throw new ApiException(MessageConstant.ERROR_MESSAGE_004);
+        }
+        friend.setUpdateTime(DateUtil.date());
+        infoMapper.updateById(friend);
     }
 }
