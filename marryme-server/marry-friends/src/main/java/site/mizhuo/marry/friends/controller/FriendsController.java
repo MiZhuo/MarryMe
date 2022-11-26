@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import site.mizhuo.marry.friends.domain.FriendGroup;
 import site.mizhuo.marry.friends.domain.FriendInfo;
-import site.mizhuo.marry.friends.service.IFriendsService;
+import site.mizhuo.marry.friends.service.FriendsService;
 import site.mizhuo.marry.common.CommonResult;
 
 import java.util.List;
@@ -23,7 +23,7 @@ import java.util.List;
 public class FriendsController {
 
     @Autowired
-    IFriendsService friendsService;
+    FriendsService friendsService;
 
     /**
      * 获取当前登陆用户的亲友分组

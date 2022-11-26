@@ -7,7 +7,7 @@ import site.mizhuo.marry.portal.domain.UserInfo;
  * 用户信息缓存业务类
  * @author mizhuo
  */
-public interface IUserCacheService {
+public interface UserCacheService {
     /**
      * 删除用户用户缓存
      * @param UserId

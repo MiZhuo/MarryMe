@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * @author mizhuo
  */
-public interface IFriendsService {
+public interface FriendsService {
     /**
      * 获取当前登陆用户的亲友分组
      * @return

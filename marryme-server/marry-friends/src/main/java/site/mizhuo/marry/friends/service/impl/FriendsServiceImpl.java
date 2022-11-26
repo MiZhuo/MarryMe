@@ -1,17 +1,15 @@
 package site.mizhuo.marry.friends.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import site.mizhuo.marry.common.CommonResult;
 import site.mizhuo.marry.domain.UserDto;
-import site.mizhuo.marry.friends.api.UserApi;
 import site.mizhuo.marry.friends.domain.FriendGroup;
 import site.mizhuo.marry.friends.domain.FriendInfo;
 import site.mizhuo.marry.friends.mapper.FriendGroupMapper;
 import site.mizhuo.marry.friends.mapper.FriendInfoMapper;
-import site.mizhuo.marry.friends.service.IFriendsService;
+import site.mizhuo.marry.friends.service.FriendsService;
+import site.mizhuo.marry.utils.CommonUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -21,7 +19,7 @@ import java.util.Optional;
  * @author mizhuo
  */
 @Service
-public class FriendsServiceImpl implements IFriendsService {
+public class FriendsServiceImpl implements FriendsService {
 
     @Autowired
     FriendInfoMapper infoMapper;
@@ -30,16 +28,12 @@ public class FriendsServiceImpl implements IFriendsService {
     FriendGroupMapper groupMapper;
 
     @Autowired
-    UserApi userApi;
-
-    @Autowired
     private HttpServletRequest request;
 
     @Override
     public List<FriendGroup> queryFriendsGroups() {
-        CommonResult<UserDto> user = userApi.info();
+        UserDto user = CommonUtils.getCurrentUser(request);
         Long groupId = Optional.ofNullable(user)
-                .map(d -> d.getData())
                 .map(u -> u.getGroupId()).get();
         LambdaQueryWrapper<FriendGroup> wrapper = new LambdaQueryWrapper<FriendGroup>();
         wrapper.eq(FriendGroup::getUserGroupId,groupId)

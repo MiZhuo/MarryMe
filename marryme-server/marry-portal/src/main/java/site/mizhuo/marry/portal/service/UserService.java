@@ -9,7 +9,7 @@ import site.mizhuo.marry.portal.domain.UserInfo;
  * 用户管理Service
  * @author mizhuo
  */
-public interface IUserService {
+public interface UserService {
 
     /**
      * 获取用户信息
@@ -38,12 +38,6 @@ public interface IUserService {
      * @return
      */
     String generateAuthCode(String telephone);
-
-    /**
-     * 获取当前登录用户信息
-     * @return
-     */
-    UserDto getCurrentUser();
 
     /**
      * 登录后获取token

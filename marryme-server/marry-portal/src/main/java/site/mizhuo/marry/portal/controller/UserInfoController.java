@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import site.mizhuo.marry.common.CommonResult;
 import site.mizhuo.marry.domain.UserDto;
-import site.mizhuo.marry.portal.service.IUserService;
+import site.mizhuo.marry.portal.service.UserService;
 
 
 /**
@@ -19,7 +19,7 @@ import site.mizhuo.marry.portal.service.IUserService;
 public class UserInfoController {
 
     @Autowired
-    IUserService userService;
+    UserService userService;
 
     /**
      * 根据用户名获取用户信息
@@ -43,17 +43,6 @@ public class UserInfoController {
     public CommonResult<?> login(@RequestParam String username,
                               @RequestParam String password) {
         return userService.login(username, password);
-    }
-
-    /**
-     * 获取用户信息
-     * @return
-     */
-    @ApiOperation("获取用户信息")
-    @PostMapping("/info")
-    public CommonResult<UserDto> info() {
-        UserDto User = userService.getCurrentUser();
-        return CommonResult.success(User);
     }
 
     /**

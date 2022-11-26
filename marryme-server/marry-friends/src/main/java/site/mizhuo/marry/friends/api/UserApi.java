@@ -16,10 +16,4 @@ import javax.servlet.http.HttpServletRequest;
 @FeignClient(name = "marry-portal",path = "/sso")
 public interface UserApi {
 
-    /**
-     * 获取当前登陆用户信息
-     * @return
-     */
-    @PostMapping("/info")
-    public CommonResult<UserDto> info();
 }

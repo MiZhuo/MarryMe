@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import site.mizhuo.marry.annotation.CacheException;
 import site.mizhuo.marry.portal.domain.UserInfo;
-import site.mizhuo.marry.portal.service.IUserCacheService;
+import site.mizhuo.marry.portal.service.UserCacheService;
 import site.mizhuo.marry.service.RedisService;
 
 /**
@@ -13,7 +13,7 @@ import site.mizhuo.marry.service.RedisService;
  * @author mizhuo
  */
 @Service
-public class UserCacheServiceImpl implements IUserCacheService {
+public class UserCacheServiceImpl implements UserCacheService {
 
     @Autowired
     private RedisService redisService;

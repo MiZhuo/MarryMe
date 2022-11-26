@@ -3,7 +3,6 @@ package site.mizhuo.marry.portal.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.slf4j.Logger;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import site.mizhuo.marry.common.CommonResult;
-import site.mizhuo.marry.common.ResultCode;
 import site.mizhuo.marry.constant.AuthConstant;
 import site.mizhuo.marry.domain.UserDto;
 import site.mizhuo.marry.exception.Asserts;
@@ -21,8 +19,8 @@ import site.mizhuo.marry.portal.domain.UserGroup;
 import site.mizhuo.marry.portal.domain.UserInfo;
 import site.mizhuo.marry.portal.api.AuthApi;
 import site.mizhuo.marry.portal.mapper.UserGroupMapper;
-import site.mizhuo.marry.portal.service.IUserCacheService;
-import site.mizhuo.marry.portal.service.IUserService;
+import site.mizhuo.marry.portal.service.UserCacheService;
+import site.mizhuo.marry.portal.service.UserService;
 import site.mizhuo.marry.portal.mapper.UserInfoMapper;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,7 +31,7 @@ import java.util.*;
  * @author mizhuo
  */
 @Service
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl implements UserService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
@@ -43,7 +41,7 @@ public class UserServiceImpl implements IUserService {
     private UserGroupMapper groupMapper;
 
     @Autowired
-    private IUserCacheService userCacheService;
+    private UserCacheService userCacheService;
 
     @Autowired
     private AuthApi authApi;
@@ -95,20 +93,6 @@ public class UserServiceImpl implements IUserService {
     @Override
     public UserInfo getById(Long id) {
         return userMapper.selectById(id);
-    }
-
-    /**
-     * 获取当前登录用户信息
-     * @return
-     */
-    @Override
-    public UserDto getCurrentUser() {
-        String userStr = request.getHeader(AuthConstant.USER_TOKEN_HEADER);
-        if(StrUtil.isEmpty(userStr)){
-            Asserts.fail(ResultCode.UNAUTHORIZED);
-        }
-        UserDto userDto = JSONUtil.toBean(userStr, UserDto.class);
-        return userDto;
     }
 
     /**
