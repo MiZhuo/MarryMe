@@ -28,8 +28,8 @@ public class GoodsController {
 
     /**
      * 添加商品
-     * @param goods
-     * @return
+     * @param goods 商品信息
+     * @return void
      */
     @ApiOperation("添加商品")
     @PostMapping("/addGoods")
@@ -43,8 +43,8 @@ public class GoodsController {
 
     /**
      * 获取商品列表
-     * @param params 商品状态
-     * @return
+     * @param params 商品状态以及分页参数
+     * @return 商品列表
      */
     @ApiOperation("获取商品列表")
     @PostMapping("/getGoodsList")
@@ -55,8 +55,8 @@ public class GoodsController {
 
     /**
      * 获取商品详情
-     * @param id
-     * @return
+     * @param id 商品ID
+     * @return 商品详情
      */
     @ApiOperation("获取商品详情")
     @PostMapping("/getGoodsInfo")
@@ -70,8 +70,8 @@ public class GoodsController {
 
     /**
      * 修改商品信息
-     * @param goods
-     * @return
+     * @param goods 商品信息
+     * @return void
      */
     @ApiOperation("修改商品信息")
     @PostMapping("/updateGoodsInfo")
@@ -85,13 +85,13 @@ public class GoodsController {
 
     /**
      * 删除商品
-     * @param goodsId
-     * @return
+     * @param id 商品ID
+     * @return void
      */
     @ApiOperation("删除商品")
     @PostMapping("/deleteGoods")
-    public CommonResult<?> deleteGoods(@RequestParam("goodsId") Long goodsId){
-        goodsService.deleteGoods(goodsId);
+    public CommonResult<?> deleteGoods(@RequestParam("goodsId") Long id){
+        goodsService.deleteGoods(id);
         return CommonResult.success(MessageConstant.SUCCESS_MESSAGE_DELETE);
     }
 }

@@ -23,8 +23,8 @@ public class UserInfoController {
 
     /**
      * 根据用户名获取用户信息
-     * @param username
-     * @return
+     * @param username 用户名
+     * @return 用户信息
      */
     @ApiOperation("根据用户名获取用户信息")
     @PostMapping("/loadByUsername")
@@ -34,9 +34,9 @@ public class UserInfoController {
 
     /**
      * 用户登录
-     * @param username
-     * @param password
-     * @return
+     * @param username 用户名
+     * @param password 密码
+     * @return token
      */
     @ApiOperation("用户登录")
     @PostMapping( "/login")
@@ -47,8 +47,8 @@ public class UserInfoController {
 
     /**
      * 获取验证码
-     * @param telephone
-     * @return
+     * @param telephone 手机号
+     * @return 验证码
      */
     @ApiOperation("获取验证码")
     @PostMapping("/getAuthCode")

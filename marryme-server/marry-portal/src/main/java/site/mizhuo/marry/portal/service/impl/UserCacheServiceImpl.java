@@ -34,21 +34,21 @@ public class UserCacheServiceImpl implements UserCacheService {
     private String REDIS_KEY_AUTH_CODE;
 
     @Override
-    public void delUser(Long UserId) {
-        String key = REDIS_DATABASE + ":" + REDIS_KEY_USER + ":" + UserId;
+    public void delUser(Long userId) {
+        String key = REDIS_DATABASE + ":" + REDIS_KEY_USER + ":" + userId;
         redisService.del(key);
     }
 
     @Override
-    public UserInfo getUser(Long UserId) {
-        String key = REDIS_DATABASE + ":" + REDIS_KEY_USER + ":" + UserId;
+    public UserInfo getUser(Long userId) {
+        String key = REDIS_DATABASE + ":" + REDIS_KEY_USER + ":" + userId;
         return (UserInfo) redisService.get(key);
     }
 
     @Override
-    public void setUser(UserInfo User) {
-        String key = REDIS_DATABASE + ":" + REDIS_KEY_USER + ":" + User.getId();
-        redisService.set(key, User, REDIS_EXPIRE);
+    public void setUser(UserInfo user) {
+        String key = REDIS_DATABASE + ":" + REDIS_KEY_USER + ":" + user.getId();
+        redisService.set(key, user, REDIS_EXPIRE);
     }
 
     @CacheException

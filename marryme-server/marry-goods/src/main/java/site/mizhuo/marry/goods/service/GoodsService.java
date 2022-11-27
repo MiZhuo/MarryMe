@@ -19,7 +19,7 @@ public interface GoodsService {
     /**
      * 查询商品列表
      * @param params 商品状态以及分页参数 1未采购 2已采购 0已删除
-     * @return 商品数组
+     * @return 商品列表
      */
     Page<GoodsInfo> queryGoodsList(Map<String,Object> params);
 
@@ -38,7 +38,7 @@ public interface GoodsService {
 
     /**
      * 删除商品信息
-     * @param goodsId
+     * @param id
      */
-    void deleteGoods(Long goodsId);
+    void deleteGoods(Long id);
 }

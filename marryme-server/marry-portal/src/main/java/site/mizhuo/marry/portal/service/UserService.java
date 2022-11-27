@@ -13,44 +13,44 @@ public interface UserService {
 
     /**
      * 获取用户信息
-     * @param username
-     * @return
+     * @param username 用户名
+     * @return 用户信息
      */
     UserDto loadUserByUsername(String username);
     
     /**
      * 根据用户名获取用户信息
-     * @param username
-     * @return
+     * @param username 用户名
+     * @return 用户信息
      */
     UserInfo getByUsername(String username);
 
     /**
      * 根据编号获取用户信息
-     * @param id
-     * @return
+     * @param id 用户ID
+     * @return 用户信息
      */
     UserInfo getById(Long id);
 
     /**
      * 生成验证码
-     * @param telephone
-     * @return
+     * @param telephone 手机号
+     * @return 验证码
      */
     String generateAuthCode(String telephone);
 
     /**
      * 登录后获取token
-     * @param username
-     * @param password
-     * @return
+     * @param username 用户名
+     * @param password 密码
+     * @return token
      */
-    CommonResult login(String username, String password);
+    CommonResult<?> login(String username, String password);
 
     /**
      * 获取用户组信息
-     * @param user
-     * @return
+     * @param user 用户信息
+     * @return 用户组信息
      */
     UserGroup getUserGroupInfo(UserInfo user);
 }

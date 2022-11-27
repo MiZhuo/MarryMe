@@ -1,4 +1,4 @@
-package site.mizhuo.marry.goods.service;
+package site.mizhuo.marry.goods.service.impl;
 
 import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import site.mizhuo.marry.domain.UserDto;
 import site.mizhuo.marry.goods.domain.GoodsInfo;
 import site.mizhuo.marry.goods.mapper.GoodsInfoMapper;
+import site.mizhuo.marry.goods.service.GoodsService;
 import site.mizhuo.marry.utils.CommonUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +22,7 @@ import java.util.Optional;
  */
 @Slf4j
 @Service
-public class GoodsServiceImpl implements GoodsService{
+public class GoodsServiceImpl implements GoodsService {
 
     @Autowired
     GoodsInfoMapper mapper;
@@ -33,7 +34,7 @@ public class GoodsServiceImpl implements GoodsService{
     public void saveGoods(GoodsInfo goods) {
         UserDto user = CommonUtils.getCurrentUser(request);
         Long userGroupId = Optional.ofNullable(user)
-                .map(u -> u.getGroupId()).get();
+                .map(UserDto::getGroupId).orElse(null);
         goods.setUserGroupId(userGroupId);
         goods.setCreateTime(DateUtil.date());
         goods.setUpdateTime(DateUtil.date());
@@ -44,7 +45,7 @@ public class GoodsServiceImpl implements GoodsService{
     public Page<GoodsInfo> queryGoodsList(Map<String,Object> params) {
         UserDto user = CommonUtils.getCurrentUser(request);
         Long userGroupId = Optional.ofNullable(user)
-                .map(u -> u.getGroupId()).get();
+                .map(UserDto::getGroupId).orElse(null);
         Page<GoodsInfo> page = new Page<>((Long) params.getOrDefault("pageNum",0),(Long) params.getOrDefault("pageSize",0));
         LambdaQueryWrapper<GoodsInfo> wrapper = new LambdaQueryWrapper<>();
         wrapper.select(GoodsInfo::getId,GoodsInfo::getGoodsName,GoodsInfo::getGoodsPic)
@@ -58,7 +59,7 @@ public class GoodsServiceImpl implements GoodsService{
     public GoodsInfo queryGoodsInfo(Long id) {
         UserDto user = CommonUtils.getCurrentUser(request);
         Long userGroupId = Optional.ofNullable(user)
-                .map(u -> u.getGroupId()).get();
+                .map(UserDto::getGroupId).orElse(null);
         LambdaQueryWrapper<GoodsInfo> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(GoodsInfo::getId,id)
                 .eq(GoodsInfo::getUserGroupId,userGroupId)
@@ -71,7 +72,7 @@ public class GoodsServiceImpl implements GoodsService{
     public void updateGoodsInfo(GoodsInfo goods) {
         UserDto user = CommonUtils.getCurrentUser(request);
         Long userGroupId = Optional.ofNullable(user)
-                .map(u -> u.getGroupId()).get();
+                .map(UserDto::getGroupId).orElse(null);
         goods.setUpdateTime(DateUtil.date());
         LambdaUpdateWrapper<GoodsInfo> wrapper = new LambdaUpdateWrapper<>();
         wrapper.eq(GoodsInfo::getId,goods.getId())
@@ -80,13 +81,13 @@ public class GoodsServiceImpl implements GoodsService{
     }
 
     @Override
-    public void deleteGoods(Long goodsId) {
+    public void deleteGoods(Long id) {
         UserDto user = CommonUtils.getCurrentUser(request);
         Long userGroupId = Optional.ofNullable(user)
-                .map(u -> u.getGroupId()).get();
+                .map(UserDto::getGroupId).orElse(null);
         LambdaUpdateWrapper<GoodsInfo> wrapper = new LambdaUpdateWrapper<>();
         wrapper.set(GoodsInfo::getStatus,0)
-                .eq(GoodsInfo::getId,goodsId)
+                .eq(GoodsInfo::getId,id)
                 .eq(GoodsInfo::getUserGroupId,userGroupId);
         mapper.update(null,wrapper);
     }

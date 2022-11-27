@@ -9,6 +9,9 @@ import site.mizhuo.marry.common.IErrorCode;
  * @date 2020/2/27
  */
 public class ApiException extends RuntimeException {
+
+    private static final long serialVersionUID = -991112344362563600L;
+
     private IErrorCode errorCode;
 
     public ApiException(IErrorCode errorCode) {

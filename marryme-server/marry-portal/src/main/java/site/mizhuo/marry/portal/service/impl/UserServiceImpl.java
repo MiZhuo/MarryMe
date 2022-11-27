@@ -5,8 +5,6 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -23,7 +21,6 @@ import site.mizhuo.marry.portal.service.UserCacheService;
 import site.mizhuo.marry.portal.service.UserService;
 import site.mizhuo.marry.portal.mapper.UserInfoMapper;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 /**
@@ -32,7 +29,8 @@ import java.util.*;
  */
 @Service
 public class UserServiceImpl implements UserService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
+
+    private static final int MAX_AUTH_CODE_LENGTH = 6;
 
     @Autowired
     private UserInfoMapper userMapper;
@@ -46,13 +44,10 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private AuthApi authApi;
 
-    @Autowired
-    private HttpServletRequest request;
-
     /**
      * 获取用户信息
-     * @param username
-     * @return
+     * @param username 用户名
+     * @return 用户信息
      */
     @Override
     public UserDto loadUserByUsername(String username) {
@@ -72,23 +67,23 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 根据用户名获取用户信息
-     * @param username
-     * @return
+     * @param username 用户名
+     * @return 用户信息
      */
     @Override
     public UserInfo getByUsername(String username) {
         QueryWrapper<UserInfo> wrapper = new QueryWrapper<UserInfo>().eq("username",username);
-        List<UserInfo> UserList = userMapper.selectList(wrapper);
-        if (!CollectionUtils.isEmpty(UserList)) {
-            return UserList.get(0);
+        List<UserInfo> userInfoList = userMapper.selectList(wrapper);
+        if (!CollectionUtils.isEmpty(userInfoList)) {
+            return userInfoList.get(0);
         }
         return null;
     }
 
     /**
      * 根据编号获取用户信息
-     * @param id
-     * @return
+     * @param id 用户ID
+     * @return 用户信息
      */
     @Override
     public UserInfo getById(Long id) {
@@ -97,12 +92,12 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 登录后获取token
-     * @param username
-     * @param password
-     * @return
+     * @param username 用户名
+     * @param password 密码
+     * @return token
      */
     @Override
-    public CommonResult login(String username, String password) {
+    public CommonResult<?> login(String username, String password) {
         if(StrUtil.isEmpty(username)||StrUtil.isEmpty(password)){
             Asserts.fail("用户名或密码不能为空！");
         }
@@ -117,28 +112,27 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 获取用户组信息
-     * @param userInfo
-     * @return
+     * @param userInfo 用户信息
+     * @return 用户组信息
      */
     @Override
     public UserGroup getUserGroupInfo(UserInfo userInfo) {
         // 根据用户角色,查询用户组信息
-        LambdaQueryWrapper<UserGroup> wrapper = new LambdaQueryWrapper<UserGroup>();
+        LambdaQueryWrapper<UserGroup> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(userInfo.getRole() == 1 ? UserGroup::getBrideGroomId : UserGroup::getBrideId,userInfo.getId());
-        UserGroup userGroup = groupMapper.selectOne(wrapper);
-        return userGroup;
+        return groupMapper.selectOne(wrapper);
     }
 
     /**
      * 生成验证码
-     * @param telephone
-     * @return
+     * @param telephone 手机号
+     * @return 验证码
      */
     @Override
     public String generateAuthCode(String telephone) {
         StringBuilder sb = new StringBuilder();
         Random random = new Random();
-        for(int i=0;i<6;i++){
+        for(int i = 0;i < MAX_AUTH_CODE_LENGTH;i++){
             sb.append(random.nextInt(10));
         }
         userCacheService.setAuthCode(telephone,sb.toString());
@@ -147,9 +141,9 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 校验验证码
-     * @param authCode
-     * @param telephone
-     * @return
+     * @param authCode 验证码
+     * @param telephone 手机号
+     * @return 校验是否成功
      */
     private boolean verifyAuthCode(String authCode, String telephone){
         if(ObjectUtils.isEmpty(authCode)){

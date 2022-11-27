@@ -47,7 +47,7 @@ public class FriendsServiceImpl implements FriendsService {
     public void saveFriendGroup(String groupName) {
         UserDto user = CommonUtils.getCurrentUser(request);
         Long userGroupId = Optional.ofNullable(user)
-                .map(u -> u.getGroupId()).get();
+                .map(UserDto::getGroupId).orElse(null);
         LambdaQueryWrapper<FriendGroup> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(FriendGroup::getUserGroupId,userGroupId)
                 .eq(FriendGroup::getStatus,1);
@@ -67,7 +67,7 @@ public class FriendsServiceImpl implements FriendsService {
     public List<FriendGroup> queryFriendsGroups() {
         UserDto user = CommonUtils.getCurrentUser(request);
         Long userGroupId = Optional.ofNullable(user)
-                .map(u -> u.getGroupId()).get();
+                .map(UserDto::getGroupId).orElse(null);
         LambdaQueryWrapper<FriendGroup> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(FriendGroup::getUserGroupId,userGroupId)
                 .eq(FriendGroup::getStatus,1)
@@ -79,7 +79,7 @@ public class FriendsServiceImpl implements FriendsService {
     public void updateFriendGroup(Long groupId, String groupName, int status) {
         UserDto user = CommonUtils.getCurrentUser(request);
         Long userGroupId = Optional.ofNullable(user)
-                .map(u -> u.getGroupId()).get();
+                .map(UserDto::getGroupId).orElse(null);
         FriendGroup friendGroup = new FriendGroup();
         friendGroup.setId(groupId);
         friendGroup.setUserGroupId(userGroupId);

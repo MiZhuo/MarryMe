@@ -1,7 +1,6 @@
 package site.mizhuo.marry.friends.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import org.springframework.transaction.annotation.Transactional;
 import site.mizhuo.marry.friends.domain.FriendGroup;
 import site.mizhuo.marry.friends.domain.FriendInfo;
 
@@ -14,53 +13,53 @@ import java.util.Map;
 public interface FriendsService {
     /**
      * 添加亲友分组
-     * @param groupName
+     * @param groupName 分组名称
      */
     void saveFriendGroup(String groupName);
 
     /**
      * 获取当前登陆用户的亲友分组
-     * @return
+     * @return 分组列表
      */
     List<FriendGroup> queryFriendsGroups();
 
     /**
      * 更新分组名称
-     * @param groupId
-     * @param groupName
-     * @param status
+     * @param groupId 分组ID
+     * @param groupName 分组名称
+     * @param status 状态
      */
     void updateFriendGroup(Long groupId, String groupName, int status);
 
     /**
      * 添加亲友
-     * @param friend
+     * @param friend 亲友信息
      */
     void addFriend(FriendInfo friend);
 
     /**
      * 根据分组ID获取亲友列表
-     * @param params
-     * @return
+     * @param params 分组ID及分页参数
+     * @return 亲友列表
      */
     Page<FriendInfo> queryFriendsList(Map<String,Object> params);
 
     /**
      * 根据ID获取亲友信息
-     * @param id
-     * @return
+     * @param id 亲友ID
+     * @return 亲友信息
      */
     FriendInfo queryFriendInfoById(Long id);
 
     /**
      * 更新亲友信息
-     * @param friend
+     * @param friend 亲友信息
      */
     void updateFriendInfo(FriendInfo friend);
 
     /**
      * 删除亲友
-     * @param id
+     * @param id 亲友ID
      */
     void deleteFriend(Long id);
 }

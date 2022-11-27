@@ -150,6 +150,7 @@ public abstract class BaseSwaggerConfig {
 
     /**
      * 自定义Swagger配置
+     * @return
      */
     public abstract SwaggerProperties swaggerProperties();
 

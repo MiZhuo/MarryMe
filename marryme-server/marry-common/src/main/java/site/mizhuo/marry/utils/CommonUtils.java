@@ -18,7 +18,7 @@ public class CommonUtils {
 
     /**
      * 获取当前登录用户信息
-     * @return
+     * @return 用户信息
      */
     public static UserDto getCurrentUser(HttpServletRequest request) {
         String token = request.getHeader(AuthConstant.JWT_TOKEN_HEADER);
@@ -34,7 +34,6 @@ public class CommonUtils {
         if(StrUtil.isEmpty(userStr)){
             Asserts.fail(ResultCode.UNAUTHORIZED);
         }
-        UserDto userDto = JSONUtil.toBean(userStr, UserDto.class);
-        return userDto;
+        return JSONUtil.toBean(userStr, UserDto.class);
     }
 }

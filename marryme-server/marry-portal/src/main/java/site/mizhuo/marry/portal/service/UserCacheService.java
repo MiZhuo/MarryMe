@@ -10,34 +10,34 @@ import site.mizhuo.marry.portal.domain.UserInfo;
 public interface UserCacheService {
     /**
      * 删除用户用户缓存
-     * @param UserId
+     * @param userId 用户ID
      */
-    void delUser(Long UserId);
+    void delUser(Long userId);
 
     /**
      * 获取用户用户缓存
-     * @param UserId
-     * @return
+     * @param userId 用户ID
+     * @return 用户信息
      */
-    UserInfo getUser(Long UserId);
+    UserInfo getUser(Long userId);
 
     /**
      * 设置用户用户缓存
-     * @param User
+     * @param user 用户信息
      */
-    void setUser(UserInfo User);
+    void setUser(UserInfo user);
 
     /**
      * 设置验证码
-     * @param telephone
-     * @param authCode
+     * @param telephone 手机号
+     * @param authCode 验证码
      */
     void setAuthCode(String telephone, String authCode);
 
     /**
      * 获取验证码
-     * @param telephone
-     * @return
+     * @param telephone 手机号
+     * @return 验证码
      */
     String getAuthCode(String telephone);
 }

@@ -31,8 +31,8 @@ public class FriendsController {
 
     /**
      * 添加亲友分组
-     * @param groupName
-     * @return
+     * @param groupName 分组名称
+     * @return void
      */
     @ApiOperation("添加亲友分组")
     @PostMapping("/addFriendGroup")
@@ -43,7 +43,7 @@ public class FriendsController {
 
     /**
      * 获取当前登陆用户的亲友分组
-     * @return
+     * @return 分组列表
      */
     @ApiOperation("获取亲友分组")
     @PostMapping("/getGroups")
@@ -57,7 +57,7 @@ public class FriendsController {
 
     /**
      * 更新分组名称
-     * @return
+     * @return void
      */
     @ApiOperation("更新分组名称")
     @PostMapping("/updateGroupName")
@@ -68,7 +68,7 @@ public class FriendsController {
 
     /**
      * 更新分组名称
-     * @return
+     * @return void
      */
     @ApiOperation("删除分组")
     @PostMapping("/deleteFriendGroup")
@@ -79,8 +79,8 @@ public class FriendsController {
 
     /**
      * 添加亲友信息
-     * @param friend
-     * @return
+     * @param friend 亲友信息
+     * @return void
      */
     @ApiOperation("添加亲友信息")
     @PostMapping("/addFriend")
@@ -91,8 +91,8 @@ public class FriendsController {
 
     /**
      * 根据分组ID获取亲友列表
-     * @param params
-     * @return
+     * @param params 分组ID及分页参数
+     * @return 亲友列表
      */
     @ApiOperation("根据分组ID获取亲友列表")
     @PostMapping("/getList")
@@ -103,8 +103,8 @@ public class FriendsController {
 
     /**
      * 根据亲友ID获取亲友信息
-     * @param id
-     * @return
+     * @param id 亲友ID
+     * @return 亲友信息
      */
     @ApiOperation("根据亲友ID获取亲友信息")
     @PostMapping("/getFriendInfo")
@@ -115,8 +115,8 @@ public class FriendsController {
 
     /**
      * 更新亲友信息
-     * @param friend
-     * @return
+     * @param friend 亲友信息
+     * @return void
      */
     @ApiOperation("更新亲友信息")
     @PostMapping("/updateFriendInfo")
@@ -127,8 +127,8 @@ public class FriendsController {
 
     /**
      * 删除亲友
-     * @param id
-     * @return
+     * @param id 亲友ID
+     * @return void
      */
     @ApiOperation("删除亲友")
     @PostMapping("/deleteFriend")

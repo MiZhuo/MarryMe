@@ -2,9 +2,7 @@ package site.mizhuo.marry.log;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
-import cn.hutool.json.JSONUtil;
 import io.swagger.annotations.ApiOperation;
-//import net.logstash.logback.marker.Markers;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
@@ -39,6 +37,7 @@ import java.util.Map;
 @Component
 @Order(1)
 public class WebLogAspect {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(WebLogAspect.class);
 
     @Pointcut("execution(public * site.mizhuo.*.controller.*.*(..))")
@@ -81,7 +80,7 @@ public class WebLogAspect {
         webLog.setStartTime(startTime);
         webLog.setUri(request.getRequestURI());
         webLog.setUrl(request.getRequestURL().toString());
-        Map<String,Object> logMap = new HashMap<>();
+        Map<String,Object> logMap = new HashMap<>(16);
         logMap.put("url",webLog.getUrl());
         logMap.put("method",webLog.getMethod());
         logMap.put("parameter",webLog.getParameter());
@@ -106,7 +105,7 @@ public class WebLogAspect {
             //将RequestParam注解修饰的参数作为请求参数
             RequestParam requestParam = parameters[i].getAnnotation(RequestParam.class);
             if (requestParam != null) {
-                Map<String, Object> map = new HashMap<>();
+                Map<String, Object> map = new HashMap<>(16);
                 String key = parameters[i].getName();
                 if (StringUtils.hasLength(requestParam.value())) {
                     key = requestParam.value();
