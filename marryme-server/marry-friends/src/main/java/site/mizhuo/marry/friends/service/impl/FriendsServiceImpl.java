@@ -1,6 +1,7 @@
 package site.mizhuo.marry.friends.service.impl;
 
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.map.MapUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -106,12 +107,19 @@ public class FriendsServiceImpl implements FriendsService {
 
     @Override
     public Page<FriendInfo> queryFriendsList(Map<String,Object> params) {
-        Page<FriendInfo> page = new Page<>((Long) params.getOrDefault("pageNum",0),(Long) params.getOrDefault("pageSize",0));
-        LambdaQueryWrapper<FriendInfo> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(FriendInfo::getFriendGroupId,params.get("friendGroupId"))
+        LambdaQueryWrapper<FriendGroup> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(FriendGroup::getId,params.get("friendGroupId"))
+                .eq(FriendGroup::getStatus,1);
+        if(!groupMapper.exists(wrapper)){
+            log.error(MessageConstant.ERROR_MESSAGE_005);
+            throw new ApiException(MessageConstant.ERROR_MESSAGE_005);
+        }
+        Page<FriendInfo> page = new Page<>(MapUtil.getLong(params,"pageNum"),MapUtil.getLong(params,"pageSize"));
+        LambdaQueryWrapper<FriendInfo> wrapper2 = new LambdaQueryWrapper<>();
+        wrapper2.eq(FriendInfo::getFriendGroupId,params.get("friendGroupId"))
                 .eq(FriendInfo::getStatus,1)
                 .orderByAsc(FriendInfo::getFriendName);
-        return infoMapper.selectPage(page,wrapper);
+        return infoMapper.selectPage(page,wrapper2);
     }
 
     @Override

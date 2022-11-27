@@ -51,8 +51,8 @@ public class UserInfoController {
      * @return 验证码
      */
     @ApiOperation("获取验证码")
-    @PostMapping("/getAuthCode")
-    public CommonResult<String> getAuthCode(@RequestParam String telephone) {
+    @GetMapping("/getAuthCode/{telephone}")
+    public CommonResult<String> getAuthCode(@PathVariable String telephone) {
         String authCode = userService.generateAuthCode(telephone);
         return CommonResult.success(authCode,"获取验证码成功");
     }

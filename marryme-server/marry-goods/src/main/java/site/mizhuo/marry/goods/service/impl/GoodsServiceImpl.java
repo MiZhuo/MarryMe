@@ -1,6 +1,7 @@
 package site.mizhuo.marry.goods.service.impl;
 
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.map.MapUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -46,7 +47,7 @@ public class GoodsServiceImpl implements GoodsService {
         UserDto user = CommonUtils.getCurrentUser(request);
         Long userGroupId = Optional.ofNullable(user)
                 .map(UserDto::getGroupId).orElse(null);
-        Page<GoodsInfo> page = new Page<>((Long) params.getOrDefault("pageNum",0),(Long) params.getOrDefault("pageSize",0));
+        Page<GoodsInfo> page = new Page<>(MapUtil.getLong(params,"pageNum"),MapUtil.getLong(params,"pageSize"));
         LambdaQueryWrapper<GoodsInfo> wrapper = new LambdaQueryWrapper<>();
         wrapper.select(GoodsInfo::getId,GoodsInfo::getGoodsName,GoodsInfo::getGoodsPic)
                 .eq(GoodsInfo::getUserGroupId,userGroupId)
@@ -81,13 +82,13 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
-    public void deleteGoods(Long id) {
+    public void deleteGoods(Long[] ids) {
         UserDto user = CommonUtils.getCurrentUser(request);
         Long userGroupId = Optional.ofNullable(user)
                 .map(UserDto::getGroupId).orElse(null);
         LambdaUpdateWrapper<GoodsInfo> wrapper = new LambdaUpdateWrapper<>();
         wrapper.set(GoodsInfo::getStatus,0)
-                .eq(GoodsInfo::getId,id)
+                .in(GoodsInfo::getId,ids)
                 .eq(GoodsInfo::getUserGroupId,userGroupId);
         mapper.update(null,wrapper);
     }

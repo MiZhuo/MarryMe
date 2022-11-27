@@ -5,10 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import site.mizhuo.marry.friends.constant.MessageConstant;
 import site.mizhuo.marry.friends.domain.FriendGroup;
 import site.mizhuo.marry.friends.domain.FriendInfo;
@@ -35,7 +32,7 @@ public class FriendsController {
      * @return void
      */
     @ApiOperation("添加亲友分组")
-    @PostMapping("/addFriendGroup")
+    @PostMapping("/group")
     public CommonResult<?> addFriendGroup(@RequestParam("groupName") String groupName){
         friendsService.saveFriendGroup(groupName);
         return CommonResult.success(MessageConstant.SUCCESS_MESSAGE_001);
@@ -46,7 +43,7 @@ public class FriendsController {
      * @return 分组列表
      */
     @ApiOperation("获取亲友分组")
-    @PostMapping("/getGroups")
+    @GetMapping("/group")
     public CommonResult<List<FriendGroup>> getGroupList(){
         List<FriendGroup> res = friendsService.queryFriendsGroups();
         if(ArrayUtil.isEmpty(res)){
@@ -60,7 +57,7 @@ public class FriendsController {
      * @return void
      */
     @ApiOperation("更新分组名称")
-    @PostMapping("/updateGroupName")
+    @PutMapping("/group")
     public CommonResult<?> updateFriendGroup(@RequestParam("groupId") Long groupId,@RequestParam("groupName") String groupName){
         friendsService.updateFriendGroup(groupId,groupName,1);
         return CommonResult.success(MessageConstant.SUCCESS_MESSAGE_UPDATE);
@@ -71,8 +68,8 @@ public class FriendsController {
      * @return void
      */
     @ApiOperation("删除分组")
-    @PostMapping("/deleteFriendGroup")
-    public CommonResult<?> deleteFriendGroup(@RequestParam("groupId") Long groupId){
+    @DeleteMapping("/group/{id}")
+    public CommonResult<?> deleteFriendGroup(@PathVariable("id") Long groupId){
         friendsService.updateFriendGroup(groupId,null,0);
         return CommonResult.success(MessageConstant.SUCCESS_MESSAGE_DELETE);
     }
@@ -83,7 +80,7 @@ public class FriendsController {
      * @return void
      */
     @ApiOperation("添加亲友信息")
-    @PostMapping("/addFriend")
+    @PostMapping("/friend")
     public CommonResult<?> addFriend(FriendInfo friend){
         friendsService.addFriend(friend);
         return CommonResult.success(MessageConstant.SUCCESS_MESSAGE_003);
@@ -95,8 +92,8 @@ public class FriendsController {
      * @return 亲友列表
      */
     @ApiOperation("根据分组ID获取亲友列表")
-    @PostMapping("/getList")
-    public CommonResult<Page<FriendInfo>> getFriendsList(Map<String,Object> params){
+    @GetMapping("/friends")
+    public CommonResult<Page<FriendInfo>> getFriendsList(@RequestParam Map<String,Object> params){
         Page<FriendInfo> res = friendsService.queryFriendsList(params);
         return CommonResult.success(res,MessageConstant.SUCCESS_MESSAGE_004);
     }
@@ -107,8 +104,8 @@ public class FriendsController {
      * @return 亲友信息
      */
     @ApiOperation("根据亲友ID获取亲友信息")
-    @PostMapping("/getFriendInfo")
-    public CommonResult<FriendInfo> getFriendInfo(@RequestParam("id") Long id){
+    @GetMapping("/friend/{id}")
+    public CommonResult<FriendInfo> getFriendInfo(@PathVariable Long id){
         FriendInfo friend = friendsService.queryFriendInfoById(id);
         return CommonResult.success(friend,MessageConstant.SUCCESS_MESSAGE_005);
     }
@@ -119,7 +116,7 @@ public class FriendsController {
      * @return void
      */
     @ApiOperation("更新亲友信息")
-    @PostMapping("/updateFriendInfo")
+    @PutMapping("/friend")
     public CommonResult<FriendInfo> updateFriendInfo(FriendInfo friend){
         friendsService.updateFriendInfo(friend);
         return CommonResult.success(MessageConstant.SUCCESS_MESSAGE_UPDATE);
@@ -131,8 +128,8 @@ public class FriendsController {
      * @return void
      */
     @ApiOperation("删除亲友")
-    @PostMapping("/deleteFriend")
-    public CommonResult<FriendInfo> deleteFriend(@RequestParam("id") Long id){
+    @DeleteMapping("/friend/{id}")
+    public CommonResult<FriendInfo> deleteFriend(@PathVariable Long id){
         friendsService.deleteFriend(id);
         return CommonResult.success(MessageConstant.SUCCESS_MESSAGE_DELETE);
     }

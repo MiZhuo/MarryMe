@@ -4,10 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import site.mizhuo.marry.common.CommonResult;
 import site.mizhuo.marry.goods.constant.MessageConstant;
 import site.mizhuo.marry.goods.domain.GoodsInfo;
@@ -32,7 +29,7 @@ public class GoodsController {
      * @return void
      */
     @ApiOperation("添加商品")
-    @PostMapping("/addGoods")
+    @PostMapping("/goods")
     public CommonResult<?> addGoods(GoodsInfo goods){
         if(goods == null){
             return CommonResult.failed(MessageConstant.ERROR_MESSAGE_001);
@@ -47,7 +44,7 @@ public class GoodsController {
      * @return 商品列表
      */
     @ApiOperation("获取商品列表")
-    @PostMapping("/getGoodsList")
+    @GetMapping("/goodsList")
     public CommonResult<Page<GoodsInfo>> getGoodsList(Map<String,Object> params){
         Page<GoodsInfo> goodsList = goodsService.queryGoodsList(params);
         return CommonResult.success(goodsList,MessageConstant.SUCCESS_MESSAGE_002);
@@ -59,8 +56,8 @@ public class GoodsController {
      * @return 商品详情
      */
     @ApiOperation("获取商品详情")
-    @PostMapping("/getGoodsInfo")
-    public CommonResult<GoodsInfo> getGoodsInfo(@RequestParam("goodsId") Long id){
+    @GetMapping("/goodsInfo/{id}")
+    public CommonResult<GoodsInfo> getGoodsInfo(@PathVariable Long id){
         if(id == null){
             return CommonResult.failed(MessageConstant.ERROR_MESSAGE_002);
         }
@@ -74,7 +71,7 @@ public class GoodsController {
      * @return void
      */
     @ApiOperation("修改商品信息")
-    @PostMapping("/updateGoodsInfo")
+    @PutMapping("/goods")
     public CommonResult<?> updateGoodsInfo(GoodsInfo goods){
         if(goods == null){
             return CommonResult.failed(MessageConstant.ERROR_MESSAGE_001);
@@ -85,13 +82,13 @@ public class GoodsController {
 
     /**
      * 删除商品
-     * @param id 商品ID
+     * @param ids 商品ID
      * @return void
      */
     @ApiOperation("删除商品")
-    @PostMapping("/deleteGoods")
-    public CommonResult<?> deleteGoods(@RequestParam("goodsId") Long id){
-        goodsService.deleteGoods(id);
+    @DeleteMapping("/goods/{ids}")
+    public CommonResult<?> deleteGoods(@PathVariable Long[] ids){
+        goodsService.deleteGoods(ids);
         return CommonResult.success(MessageConstant.SUCCESS_MESSAGE_DELETE);
     }
 }

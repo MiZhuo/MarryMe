@@ -38,7 +38,7 @@ public interface GoodsService {
 
     /**
      * 删除商品信息
-     * @param id
+     * @param ids
      */
-    void deleteGoods(Long id);
+    void deleteGoods(Long[] ids);
 }
