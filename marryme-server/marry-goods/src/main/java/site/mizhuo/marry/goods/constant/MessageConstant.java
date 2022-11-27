@@ -1,4 +1,4 @@
-package site.mizhuo.marry.friends.constant;
+package site.mizhuo.marry.goods.constant;
 
 /**
  * 消息常量
@@ -10,22 +10,15 @@ public class MessageConstant {
 
     public static final String SUCCESS_MESSAGE_DELETE= "删除成功!";
 
-    public static final String SUCCESS_MESSAGE_001= "添加分组成功!";
+    public static final String SUCCESS_MESSAGE_001= "添加商品成功!";
 
-    public static final String SUCCESS_MESSAGE_002= "获取分组列表成功!";
+    public static final String SUCCESS_MESSAGE_002= "获取商品列表成功!";
 
-    public static final String SUCCESS_MESSAGE_003= "添加亲友信息成功!";
+    public static final String SUCCESS_MESSAGE_003= "获取商品信息成功!";
 
-    public static final String SUCCESS_MESSAGE_004= "获取亲友列表成功!";
+    public static final String ERROR_MESSAGE_001= "商品信息不能为空!";
 
-    public static final String SUCCESS_MESSAGE_005= "获取亲友信息成功!";
+    public static final String ERROR_MESSAGE_002= "商品ID不能为空!";
 
-    public static final String ERROR_MESSAGE_001= "最多设置3个分组!";
-
-    public static final String ERROR_MESSAGE_002= "暂未设置分组!";
-
-    public static final String ERROR_MESSAGE_003= "请先选择分组!";
-
-    public static final String ERROR_MESSAGE_004= "亲友信息不存在!";
 
 }
