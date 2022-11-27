@@ -66,10 +66,10 @@ subprojects{
         implementation "org.projectlombok:lombok:${lombokVersion}"
         implementation "io.netty:netty-all:${nettyVersion}"
         annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
-        testImplementation('org.springframework.boot:spring-boot-starter-test:2.7.5') {
+        testImplementation('org.springframework.boot:spring-boot-starter-test:${springBootVersion}') {
             exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
         }
-        testAnnotationProcessor "org.projectlombok:lombok:1.18.24"
+        testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     }
 }
 
