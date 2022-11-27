@@ -1,10 +1,12 @@
 package site.mizhuo.marry.friends.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.transaction.annotation.Transactional;
 import site.mizhuo.marry.friends.domain.FriendGroup;
 import site.mizhuo.marry.friends.domain.FriendInfo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author mizhuo
@@ -38,10 +40,10 @@ public interface FriendsService {
 
     /**
      * 根据分组ID获取亲友列表
-     * @param friendGroupId
+     * @param params
      * @return
      */
-    List<FriendInfo> queryFriendsList(Long friendGroupId);
+    Page<FriendInfo> queryFriendsList(Map<String,Object> params);
 
     /**
      * 根据ID获取亲友信息
@@ -55,4 +57,10 @@ public interface FriendsService {
      * @param friend
      */
     void updateFriendInfo(FriendInfo friend);
+
+    /**
+     * 删除亲友
+     * @param id
+     */
+    void deleteFriend(Long id);
 }

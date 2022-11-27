@@ -1,6 +1,7 @@
 package site.mizhuo.marry.friends.controller;
 
 import cn.hutool.core.util.ArrayUtil;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import site.mizhuo.marry.friends.service.FriendsService;
 import site.mizhuo.marry.common.CommonResult;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author mizhuo
@@ -89,13 +91,13 @@ public class FriendsController {
 
     /**
      * 根据分组ID获取亲友列表
-     * @param groupId
+     * @param params
      * @return
      */
     @ApiOperation("根据分组ID获取亲友列表")
     @PostMapping("/getList")
-    public CommonResult<List<FriendInfo>> getFriendsList(@RequestParam("groupId") Long groupId){
-        List<FriendInfo> res = friendsService.queryFriendsList(groupId);
+    public CommonResult<Page<FriendInfo>> getFriendsList(Map<String,Object> params){
+        Page<FriendInfo> res = friendsService.queryFriendsList(params);
         return CommonResult.success(res,MessageConstant.SUCCESS_MESSAGE_004);
     }
 
@@ -131,10 +133,7 @@ public class FriendsController {
     @ApiOperation("删除亲友")
     @PostMapping("/deleteFriend")
     public CommonResult<FriendInfo> deleteFriend(@RequestParam("id") Long id){
-        FriendInfo friend = new FriendInfo();
-        friend.setId(id);
-        friend.setStatus(0);
-        friendsService.updateFriendInfo(friend);
+        friendsService.deleteFriend(id);
         return CommonResult.success(MessageConstant.SUCCESS_MESSAGE_DELETE);
     }
 }

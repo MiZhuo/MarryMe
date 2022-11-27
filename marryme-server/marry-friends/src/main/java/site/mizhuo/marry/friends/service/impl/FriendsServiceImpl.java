@@ -3,6 +3,7 @@ package site.mizhuo.marry.friends.service.impl;
 import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import site.mizhuo.marry.utils.CommonUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -103,12 +105,13 @@ public class FriendsServiceImpl implements FriendsService {
     }
 
     @Override
-    public List<FriendInfo> queryFriendsList(Long friendGroupId) {
+    public Page<FriendInfo> queryFriendsList(Map<String,Object> params) {
+        Page<FriendInfo> page = new Page<>((Long) params.getOrDefault("pageNum",0),(Long) params.getOrDefault("pageSize",0));
         LambdaQueryWrapper<FriendInfo> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(FriendInfo::getFriendGroupId,friendGroupId)
+        wrapper.eq(FriendInfo::getFriendGroupId,params.get("friendGroupId"))
                 .eq(FriendInfo::getStatus,1)
                 .orderByAsc(FriendInfo::getFriendName);
-        return infoMapper.selectList(wrapper);
+        return infoMapper.selectPage(page,wrapper);
     }
 
     @Override
@@ -130,5 +133,15 @@ public class FriendsServiceImpl implements FriendsService {
         }
         friend.setUpdateTime(DateUtil.date());
         infoMapper.updateById(friend);
+    }
+
+    @Override
+    public void deleteFriend(Long id) {
+        LambdaUpdateWrapper<FriendInfo> wrapper = new LambdaUpdateWrapper<>();
+        wrapper.set(FriendInfo::getStatus,0)
+                .set(FriendInfo::getUpdateTime,DateUtil.date())
+                .eq(FriendInfo::getId,id)
+                .eq(FriendInfo::getStatus,1);
+        infoMapper.update(null,wrapper);
     }
 }
