@@ -68,7 +68,11 @@ public class GoodsController {
         return CommonResult.success(goods,MessageConstant.SUCCESS_MESSAGE_003);
     }
 
-
+    /**
+     * 修改商品信息
+     * @param goods
+     * @return
+     */
     @ApiOperation("修改商品信息")
     @PostMapping("/updateGoodsInfo")
     public CommonResult<?> updateGoodsInfo(GoodsInfo goods){
@@ -79,6 +83,11 @@ public class GoodsController {
         return CommonResult.success(MessageConstant.SUCCESS_MESSAGE_UPDATE);
     }
 
+    /**
+     * 删除商品
+     * @param goodsId
+     * @return
+     */
     @ApiOperation("删除商品")
     @PostMapping("/deleteGoods")
     public CommonResult<?> deleteGoods(@RequestParam("goodsId") Long goodsId){
