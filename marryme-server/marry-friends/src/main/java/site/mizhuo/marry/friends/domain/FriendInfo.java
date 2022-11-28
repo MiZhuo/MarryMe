@@ -24,6 +24,8 @@ public class FriendInfo implements Serializable {
 
     private String friendName;
 
+    private String friendNameEn;
+
     private String friendSex;
 
     private String friendMobile;

@@ -18,6 +18,7 @@ import site.mizhuo.marry.friends.domain.FriendInfo;
 import site.mizhuo.marry.friends.mapper.FriendGroupMapper;
 import site.mizhuo.marry.friends.mapper.FriendInfoMapper;
 import site.mizhuo.marry.friends.service.FriendsService;
+import site.mizhuo.marry.utils.ChineseCharacterUtils;
 import site.mizhuo.marry.utils.CommonUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +33,7 @@ import java.util.Optional;
 @Service
 public class FriendsServiceImpl implements FriendsService {
 
-    private static final int MAX_GROUP_COUNT = 3;
+    private static final int MAX_GROUP_COUNT = 4;
 
     @Autowired
     FriendInfoMapper infoMapper;
@@ -94,11 +95,21 @@ public class FriendsServiceImpl implements FriendsService {
         groupMapper.update(friendGroup,wrapper);
     }
 
+    @Transactional(rollbackFor=ApiException.class)
     @Override
     public void addFriend(FriendInfo friend) {
         if(friend.getFriendGroupId() == null){
             log.error(MessageConstant.ERROR_MESSAGE_003);
             throw new ApiException(MessageConstant.ERROR_MESSAGE_003);
+        }
+        LambdaQueryWrapper<FriendInfo> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(FriendInfo::getFriendName,friend.getFriendName());
+        if(infoMapper.exists(wrapper)){
+            log.error(MessageConstant.ERROR_MESSAGE_006);
+            throw new ApiException(MessageConstant.ERROR_MESSAGE_006);
+        }
+        if(StringUtils.isNotEmpty(friend.getFriendName())) {
+            friend.setFriendNameEn(ChineseCharacterUtils.getSpells(friend.getFriendName()));
         }
         friend.setCreateTime(DateUtil.date());
         friend.setUpdateTime(DateUtil.date());
@@ -138,6 +149,9 @@ public class FriendsServiceImpl implements FriendsService {
         if(friendInfo == null){
             log.error(MessageConstant.ERROR_MESSAGE_004);
             throw new ApiException(MessageConstant.ERROR_MESSAGE_004);
+        }
+        if(StringUtils.isNotEmpty(friend.getFriendName())) {
+            friend.setFriendNameEn(ChineseCharacterUtils.getSpells(friend.getFriendName()));
         }
         friend.setUpdateTime(DateUtil.date());
         infoMapper.updateById(friend);

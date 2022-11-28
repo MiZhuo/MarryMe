@@ -7,8 +7,11 @@ const service = axios.create({
 	// baseURL: process.env.VUE_APP_BASE_API,
 	baseURL: server.apiUrl,
 	// 超时（毫秒）
-	timeout: 10000,
-	crossDomain: true
+	timeout: 5000,
+	crossDomain: true,
+	headers: {
+		'Content-Type': 'application/json; charset=utf-8'
+	}
 })
  
  // request拦截器,在请求之前做一些处理

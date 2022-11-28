@@ -20,7 +20,7 @@ import java.util.Map;
  */
 @RestController
 @Api(tags = "FriendsController", value = "亲友管理")
-@RequestMapping("/friends")
+@RequestMapping("/")
 public class FriendsController {
 
     @Autowired

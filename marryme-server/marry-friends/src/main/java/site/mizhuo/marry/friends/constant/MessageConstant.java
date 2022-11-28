@@ -30,4 +30,6 @@ public class MessageConstant {
 
     public static final String ERROR_MESSAGE_005= "分组信息不存在!";
 
+    public static final String ERROR_MESSAGE_006= "该亲友信息已存在!";
+
 }

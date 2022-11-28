@@ -88,7 +88,7 @@ public class GoodsServiceImpl implements GoodsService {
                 .map(UserDto::getGroupId).orElse(null);
         LambdaUpdateWrapper<GoodsInfo> wrapper = new LambdaUpdateWrapper<>();
         wrapper.set(GoodsInfo::getStatus,0)
-                .in(GoodsInfo::getId,ids)
+                .in(GoodsInfo::getId,   ids)
                 .eq(GoodsInfo::getUserGroupId,userGroupId);
         mapper.update(null,wrapper);
     }

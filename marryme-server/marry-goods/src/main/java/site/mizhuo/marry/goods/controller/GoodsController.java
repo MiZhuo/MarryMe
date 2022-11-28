@@ -17,7 +17,7 @@ import java.util.Map;
  */
 @RestController
 @Api(tags = "GoodsController", value = "商品管理")
-@RequestMapping("/goods")
+@RequestMapping("/")
 public class GoodsController {
 
     @Autowired
@@ -45,7 +45,7 @@ public class GoodsController {
      */
     @ApiOperation("获取商品列表")
     @GetMapping("/goodsList")
-    public CommonResult<Page<GoodsInfo>> getGoodsList(Map<String,Object> params){
+    public CommonResult<Page<GoodsInfo>> getGoodsList(@RequestParam Map<String,Object> params){
         Page<GoodsInfo> goodsList = goodsService.queryGoodsList(params);
         return CommonResult.success(goodsList,MessageConstant.SUCCESS_MESSAGE_002);
     }

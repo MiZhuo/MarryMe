@@ -6,6 +6,7 @@
     <result column="friend_group_id" jdbcType="BIGINT" property="friendGroupId" />
     <result column="inviter_id" jdbcType="BIGINT" property="inviterId" />
     <result column="friend_name" jdbcType="VARCHAR" property="friendName" />
+    <result column="friend_name_en" jdbcType="VARCHAR" property="friendNameEn" />
     <result column="friend_sex" jdbcType="VARCHAR" property="friendSex" />
     <result column="friend_mobile" jdbcType="VARCHAR" property="friendMobile" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />

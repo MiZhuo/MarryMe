@@ -39,9 +39,9 @@
 	</view>
 </template>
 <script>
-	import {
-		wxLogin
-	} from '@/api/login.js';
+	// import {
+	// 	wxLogin
+	// } from '@/api/login.js';
 
 	export default {
 		data() {
@@ -61,21 +61,21 @@
 				return marryDate - now;
 			}
 		},
-		created() {
-			//调用
-			wxLogin(obj).then(res => {
+		// created() {
+		// 	//调用
+		// 	wxLogin(obj).then(res => {
 
-				console.log('登录结果：', res);
+		// 		console.log('登录结果：', res);
 
-			}).catch(err => {
+		// 	}).catch(err => {
 
-				console.error('登录结果:', err);
+		// 		console.error('登录结果:', err);
 
-			}).finally(() => {
-				console.error('最终回调');
+		// 	}).finally(() => {
+		// 		console.error('最终回调');
 
-			});
-		}
+		// 	});
+		// }
 	}
 </script>
 
