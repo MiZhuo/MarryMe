@@ -5,7 +5,7 @@
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		// pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "pages/tabBar/home/home",
+			"path": "src/pages/tabBar/home/home",
 			"style": {
 				"navigationBarTitleText": "首页",
 				"navigationBarBackgroundColor":"#FFFFFF", // 导航栏背景颜色
@@ -15,7 +15,7 @@
 					"titleNView": {
 						"buttons": [{
 							"text": "\ue534",
-							"fontSrc": "/static/uni.ttf",
+							"fontSrc": "src/static/uni.ttf",
 							"fontSize": "23px",
 							"color": "#FFFFFF"
 						}]
@@ -24,7 +24,7 @@
 			}
 		},
 		{
-			"path": "pages/tabBar/friends/friends",
+			"path": "src/pages/tabBar/friends/friends",
 			"style": {
 				"navigationBarTitleText": "亲友",
 				"navigationBarBackgroundColor":"#FFFFFF", // 导航栏背景颜色
@@ -33,7 +33,7 @@
 					"titleNView": {
 						"buttons": [{
 							"text": "\ue534",
-							"fontSrc": "/static/uni.ttf",
+							"fontSrc": "src/static/uni.ttf",
 							"fontSize": "22px",
 							"color": "#FFFFFF"
 						}]
@@ -42,7 +42,7 @@
 			}
 		},
 		{
-			"path": "pages/tabBar/goods/goods",
+			"path": "src/pages/tabBar/goods/goods",
 			"style": {
 				"navigationBarTitleText": "物品",
 				"navigationBarBackgroundColor":"#FFFFFF", // 导航栏背景颜色
@@ -51,7 +51,7 @@
 					"titleNView": {
 						"buttons": [{
 							"text": "\ue534",
-							"fontSrc": "/static/icon/iconfont.ttf",
+							"fontSrc": "src/static/icon/iconfont.ttf",
 							"fontSize": "22px",
 							"color": "#FFFFFF"
 						}]
@@ -60,7 +60,7 @@
 			}
 		},
 		{
-			"path": "pages/tabBar/mine/mine",
+			"path": "src/pages/tabBar/mine/mine",
 			"style": {
 				"navigationBarTitleText": "我的",
 				"navigationBarBackgroundColor":"#FFFFFF", // 导航栏背景颜色
@@ -69,7 +69,7 @@
 					"titleNView": {
 						"buttons": [{
 							"text": "\ue534",
-							"fontSrc": "/static/uni.ttf",
+							"fontSrc": "src/static/uni.ttf",
 							"fontSize": "22px",
 							"color": "#FFFFFF"
 						}]
@@ -102,23 +102,23 @@
 		"borderStyle": "black",
 		"backgroundColor": "#FFFFFF",
 		"list": [{
-				"pagePath": "pages/tabBar/home/home",
+				"pagePath": "src/pages/tabBar/home/home",
 				"iconPath": "static/tabBar/home.png",
 				"selectedIconPath": "static/tabBar/homeHL.png",
 				"text": "首页"
 			},
 			{
-				"pagePath": "pages/tabBar/friends/friends",
+				"pagePath": "src/pages/tabBar/friends/friends",
 				"iconPath": "static/tabBar/friends.png",
 				"selectedIconPath": "static/tabBar/friendsHL.png",
 				"text": "亲友"
 			}, {
-				"pagePath": "pages/tabBar/goods/goods",
+				"pagePath": "src/pages/tabBar/goods/goods",
 				"iconPath": "static/tabBar/goods.png",
 				"selectedIconPath": "static/tabBar/goodsHL.png",
 				"text": "物品"
 			}, {
-				"pagePath": "pages/tabBar/mine/mine",
+				"pagePath": "src/pages/tabBar/mine/mine",
 				"iconPath": "static/tabBar/cat.png",
 				"selectedIconPath": "static/tabBar/catHL.png",
 				"text": "我的"
