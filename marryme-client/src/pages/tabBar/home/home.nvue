@@ -39,9 +39,8 @@
 	</view>
 </template>
 <script>
-	// import {
-	// 	wxLogin
-	// } from '@/api/login.js';
+	import { accessToken } from '@/src/api/api.js';
+	import { getFriendsGroup } from '@/src/api/api.js';
 	export default {
 		data() {
 			return {
@@ -61,20 +60,19 @@
 			}
 		},
 		created() {
-		
-			// //调用
-			// wxLogin(obj).then(res => {
-
-			// 	console.log('登录结果：', res);
-
-			// }).catch(err => {
-
-			// 	console.error('登录结果:', err);
-
-			// }).finally(() => {
-			// 	console.error('最终回调');
-
-			// });
+			getFriendsGroup().then(res => {
+				// uni.setStorageSync('token',res.data.tokenHead + res.data.token);
+			
+				console.log('登录结果1：', res);
+		 
+				}).catch(err => {
+		 
+				console.error('登录结果2:', err);
+		 
+				}).finally(() => {
+				console.error('最终回调');
+			 
+			});
 		}
 	}
 </script>

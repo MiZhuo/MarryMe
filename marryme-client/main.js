@@ -22,7 +22,7 @@ export function createApp() {
 // #endif
 
 import axios from 'axios'
- 
+Vue.prototype.$axios = axios
 // 解决uniapp 适配axios请求，避免报adapter is not a function错误
 axios.defaults.adapter = config => {
 	return new Promise((resolve, reject) => {
@@ -37,7 +37,6 @@ axios.defaults.adapter = config => {
 			responseType: config.responseType,
 			sslVerify: config.sslVerify,
 			complete: function complete(response) {
-				// console.log("执行完成：", response)
 				response = {
 					data: response.data,
 					status: response.statusCode,
@@ -50,3 +49,6 @@ axios.defaults.adapter = config => {
 		})
 	})
 }
+
+import request from 'src/api/api.js'
+Vue.prototype.$request = request

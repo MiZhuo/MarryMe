@@ -1,12 +1,12 @@
 import axios from 'axios'
-import store from '@/store'
 
+const baseUrl = 'http://localhost:8929'  
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
 // 创建axios实例
 const service = axios.create({                                                             
 	// axios中请求配置有baseURL选项，表示请求URL公共部分
 	// baseURL: process.env.VUE_APP_BASE_API,
-	baseURL: server.apiUrl,
+	baseURL: baseUrl,
 	// 超时（毫秒）
 	timeout: 5000,
 	crossDomain: true
@@ -16,6 +16,7 @@ const service = axios.create({
  service.interceptors.request.use(
      config => {
         config.headers.Authorization = uni.getStorageSync('token');
+		console.log("拦截器:" + uni.getStorageSync('token'));
 		return config;
      },
      error => {
@@ -26,14 +27,15 @@ const service = axios.create({
  
  //配置成功后的拦截器
  service.interceptors.response.use(res => {
-     if (res.data.status== 200) {
-         return res.data
+	 
+     if (res.data.code== 200) {
+         return res.data;
      } else {
-         return Promise.reject(res.data.msg);
+         return Promise.reject(res.data.message);
      }
  }, error => {
- 	if (error.response.status) {
- 		switch (error.response.status) {
+ 	if (error.data.code) {
+ 		switch (error.data.code) {
  			case 401:
 				 //可能是token过期，清除它
 				uni.removeStorage('token')
