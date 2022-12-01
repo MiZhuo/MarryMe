@@ -1,5 +1,9 @@
 import service from './request.js'
 
+/**
+ * 获取token
+ * @param {Object} data
+ */
 export function accessToken(data) {
 	return service({
 		url: '/auth/oauth/token',
@@ -15,6 +19,10 @@ export function accessToken(data) {
 	})
 }
 
+/**
+ * 
+ * @param {Object} data
+ */
 export function getFriendsGroup(data) {
 	return service({
 		url: '/friends/group',

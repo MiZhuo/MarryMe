@@ -16,7 +16,6 @@ const service = axios.create({
  service.interceptors.request.use(
      config => {
         config.headers.Authorization = uni.getStorageSync('token');
-		console.log("拦截器:" + uni.getStorageSync('token'));
 		return config;
      },
      error => {
