@@ -39,14 +39,14 @@
 	</view>
 </template>
 <script>
-	import { accessToken } from '@/src/api/api.js';
+	import { accessToken } from '@/src/api/portal.js';
 	
 	export default {
 		data() {
 			return {
 				timeData: {},
-				bridegroom: '',
-				bride: ''
+				bridegroom: '吴礼彬',
+				bride: '陈苗苗'
 			}
 		},
 		methods: {
@@ -68,7 +68,9 @@
 			}
 		},
 		mounted() {
-			this.accessToken();
+			if(uni.getStorageSync('token') == ''){
+				this.accessToken();	
+			}
 		}
 	}
 </script>

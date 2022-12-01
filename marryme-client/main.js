@@ -50,5 +50,6 @@ axios.defaults.adapter = config => {
 	})
 }
 
-import request from 'src/api/api.js'
-Vue.prototype.$request = request
+import portal from 'src/api/portal.js'
+import friends from 'src/api/friends.js'
+import goods from 'src/api/goods.js'

@@ -2,9 +2,8 @@ import service from './request.js'
 
 /**
  * 获取token
- * @param {Object} data
  */
-export function accessToken(data) {
+export function accessToken() {
 	return service({
 		url: '/auth/oauth/token',
 		method: 'post',
@@ -14,20 +13,7 @@ export function accessToken(data) {
 			'grant_type' : 'password',
 			'password' : 'mizhuo123',
 			'username' : 'mizhuo',
-		},
-		data
+		}
 	})
 }
-
-/**
- * 
- * @param {Object} data
- */
-export function getFriendsGroup(data) {
-	return service({
-		url: '/friends/group',
-		method: 'get',
-		params: {},
-		data
-	})
-}
+ 

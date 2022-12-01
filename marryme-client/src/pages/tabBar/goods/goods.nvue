@@ -7,7 +7,7 @@
 						<u-grid :border="true" @click="openPopup(popupData)">
 							<u-grid-item v-for="(item, index) in swiperList" :index="index" :key="index">
 								<u-icon :customStyle="{paddingTop:20+'rpx'}" :name="item" :size="30"></u-icon>
-								<text class="grid-text">{{ '宫格' + (index + 1) }}</text>
+								<text class="grid-text" style="margin-top: 10px;">{{ '宫格' + (index + 1) }}</text>
 							</u-grid-item>
 							<u-grid-item>
 								<u-icon :customStyle="{paddingTop:20+'rpx'}" name="plus-circle" :size="40"></u-icon>
@@ -290,6 +290,8 @@
 			hideKeyboard() {
 				uni.hideKeyboard()
 			}
+		},
+		mounted() {
 		}
 	}
 </script>
