@@ -64,7 +64,7 @@ public class FriendsController {
     }
 
     /**
-     * 更新分组名称
+     * 删除分组
      * @return void
      */
     @ApiOperation("删除分组")
