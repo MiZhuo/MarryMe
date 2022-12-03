@@ -28,6 +28,16 @@
 </template>
 
 <script>
+	import { addFriendGroup } from '@/src/api/friends.js';
+	import { getGroupList } from '@/src/api/friends.js';
+	import { updateFriendGroup } from '@/src/api/friends.js';
+	import { deleteFriendGroup } from '@/src/api/friends.js';
+	import { addFriend } from '@/src/api/friends.js';
+	import { getFriendsList } from '@/src/api/friends.js';
+	import { getFriendInfo } from '@/src/api/friends.js';
+	import { updateFriendInfo } from '@/src/api/friends.js';
+	import { deleteFriend } from '@/src/api/friends.js';
+	
 	export default {
 		data() {
 			return {
@@ -54,7 +64,14 @@
 		methods: {
 			sectionChange(index) {
 				this.curNow = index;
-			}
+			},
+			getGroupList(){
+				getGroupList().then(res => {
+					console.log('获取group成功:', res.data);
+				}).catch(err => {
+					console.error('获取group失败:', err);
+				});
+			}	
 		},
 		computed: {
 			itemArr() {
@@ -70,6 +87,9 @@
 				})
 			}
 		},
+		mounted() {
+			this.getGroupList();	
+		}
 	}
 </script>
 <style lang="scss">
