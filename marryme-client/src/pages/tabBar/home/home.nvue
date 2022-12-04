@@ -68,6 +68,7 @@
 			}
 		},
 		mounted() {
+			console.log(uni.getStorageSync('token'));
 			if(uni.getStorageSync('token') == ''){
 				this.accessToken();	
 			}

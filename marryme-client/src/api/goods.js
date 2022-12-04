@@ -9,7 +9,7 @@ export function addGoods(data) {
 	return service({
 		url: SERVER_URL + '/goods',
 		method: 'post',
-		data
+		params: data
 	})
 }
  
@@ -20,7 +20,7 @@ export function getGoodsList(data){
 	return service({
 		url: SERVER_URL + 'goodsList',
 		method: 'get',
-		data
+		params: data
 	})
 }
 
@@ -41,7 +41,7 @@ export function updateGoodsInfo(data){
 	return service({
 		url: SERVER_URL + 'goods',
 		method: 'put',
-		data
+		params: data
 	})
 }
 
@@ -52,6 +52,6 @@ export function deleteGoods(ids){
 	return service({
 		url: SERVER_URL + 'goods/' + ids,
 		method: 'delete',
-		data
+		params: data
 	})
 }

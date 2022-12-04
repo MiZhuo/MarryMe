@@ -9,7 +9,7 @@ export function addFriendGroup(data){
 	return service({
 		url:  SERVER_URL + '/group',
 		method: 'post',
-		data
+		params: data
 	})
 }
 
@@ -30,7 +30,7 @@ export function updateFriendGroup(data){
 	return service({
 		url: SERVER_URL + '/group',
 		method: 'put',
-		data
+		params: data
 	})
 }
 
@@ -51,18 +51,17 @@ export function addFriend(data){
 	return service({
 		url:  SERVER_URL + '/friend',
 		method: 'post',
-		data
+		params: data
 	})
 }
 
 /**
  * 根据分组ID获取亲友列表
  */
-export function getFriendsList(data){
+export function getFriendsList(id){
 	return service({
-		url: SERVER_URL + '/friends',
-		method: 'get',
-		data
+		url: SERVER_URL + '/friends/' + id,
+		method: 'get'
 	})
 }
 
@@ -83,7 +82,7 @@ export function updateFriendInfo(data){
 	return service({
 		url: SERVER_URL + '/friend',
 		method: 'put',
-		data
+		params: data
 	})
 }
 

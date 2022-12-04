@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<u-subsection :list="list" :current="curNow" @change="sectionChange"></u-subsection>
+		<u-subsection :list="groupList" :current="curNow" @change="sectionChange"></u-subsection>
 		<u-search :showAction="true" actionText="搜索" :animation="true"></u-search>
 		<view class="list__item">
 			<u-avatar shape="square" size="35" icon="man-add-fill" fontSize="26" randomBgColor></u-avatar>
@@ -8,18 +8,18 @@
 		</view>
 		
 		<view>
-			<u-index-list :index-list="indexList">
-				<template v-for="(item, index) in itemArr">
+			<u-index-list >
+				<template v-for="(item, index) in friendArr">
 					<u-index-item>
-						<u-index-anchor :text="indexList[index]"></u-index-anchor>
+						<u-index-anchor :text="index"></u-index-anchor>
 						<view class="list-cell list__item" v-for="(cell, index) in item">
-							<image class="list__item__avatar" :src="cell.url"></image>
-							<text class="list__item__user-name">{{cell.name}}</text>
+							<image class="list__item__avatar" src="https://cdn.uviewui.com/uview/album/1.jpg"></image>
+							<text class="list__item__user-name">{{cell.friendName}}</text>
 						</view>
 					</u-index-item>
 				</template>
 				<view slot="footer" class="u-safe-area-inset--bottom">
-					<text class="list__footer">共305位好友</text>
+					<text class="list__footer">共{{totalSize}}位好友</text>
 				</view>
 				
 			</u-index-list>
@@ -41,54 +41,41 @@
 	export default {
 		data() {
 			return {
-				list: ['新郎朋友', '新娘朋友', '新郎亲人', '新娘亲人'],
+				groupList: [],
+				friendArr: [],
+				totalSize: 0,
 				curNow: 0,
-				indexList: ["A", "B", "C", "D", "E", "F", "G"],
+				// indexList: [],
 				urls: [
-					'https://cdn.uviewui.com/uview/album/1.jpg',
-					'https://cdn.uviewui.com/uview/album/2.jpg',
-					'https://cdn.uviewui.com/uview/album/3.jpg',
-					'https://cdn.uviewui.com/uview/album/4.jpg',
-					'https://cdn.uviewui.com/uview/album/5.jpg',
-					'https://cdn.uviewui.com/uview/album/6.jpg',
-					'https://cdn.uviewui.com/uview/album/7.jpg',
-					'https://cdn.uviewui.com/uview/album/8.jpg',
-					'https://cdn.uviewui.com/uview/album/9.jpg',
-					'https://cdn.uviewui.com/uview/album/10.jpg',
+					'https://cdn.uviewui.com/uview/album/1.jpg'
 				],
-				names: ["勇往无敌", "疯狂的迪飙", "磊爱可", "梦幻梦幻梦", "枫中飘瓢", "飞翔天使",
-					"曾经第一", "追风幻影族长", "麦小姐", "胡格罗雅", "Red磊磊", "乐乐立立", "青龙爆风", "跑跑卡叮车", "山里狼", "supersonic超"
-				]
+				names: ["勇往无敌"]
 			}
 		},
 		methods: {
 			sectionChange(index) {
 				this.curNow = index;
+				this.getFriendsList(this.groupList[index].id);
 			},
-			getGroupList(){
-				getGroupList().then(res => {
-					console.log('获取group成功:', res.data);
-				}).catch(err => {
-					console.error('获取group失败:', err);
-				});
-			}	
-		},
-		computed: {
-			itemArr() {
-				return this.indexList.map(item => {
-					const arr = []
-					for (let i = 0; i < 10; i++) {
-						arr.push({
-							name: this.names[uni.$u.random(0, this.names.length - 1)],
-							url: this.urls[uni.$u.random(0, this.urls.length - 1)]
-						})
-					}
-					return arr
+			getFriendsList(id){
+				//根据分组ID获取亲友列表
+				getFriendsList(id).then(res => {
+					this.friendArr = res.data.data;
+					this.totalSize = res.data.totalSize;
+					// this.indexList = res.data.indexArr;
+					// console.log(JSON.stringify(this.indexList[0]));
+				}).catch(err=>{
+					console.log(JSON.stringify(err.data));
 				})
 			}
 		},
 		mounted() {
-			this.getGroupList();	
+			getGroupList().then(res => {
+				this.groupList = res.data;
+				this.getFriendsList(this.groupList[0].id);
+			}).catch(err => {
+				console.error('获取分组列表失败:', err);
+			});	
 		}
 	}
 </script>
