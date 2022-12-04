@@ -20,7 +20,7 @@ public class FriendGroup implements Serializable {
 
     private Long userGroupId;
 
-    private String friendType;
+    private String name;
 
     private Integer status;
 }

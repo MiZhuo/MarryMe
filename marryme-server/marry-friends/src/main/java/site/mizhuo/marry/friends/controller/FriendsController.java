@@ -88,13 +88,13 @@ public class FriendsController {
 
     /**
      * 根据分组ID获取亲友列表
-     * @param params 分组ID及分页参数
+     * @param id 分组ID
      * @return 亲友列表
      */
     @ApiOperation("根据分组ID获取亲友列表")
-    @GetMapping("/friends")
-    public CommonResult<Page<FriendInfo>> getFriendsList(@RequestParam Map<String,Object> params){
-        Page<FriendInfo> res = friendsService.queryFriendsList(params);
+    @GetMapping("/friends/{id}")
+    public CommonResult<Map<String,Object>> getFriendsList(@PathVariable Long id){
+        Map<String, Object> res = friendsService.queryFriendsList(id);
         return CommonResult.success(res,MessageConstant.SUCCESS_MESSAGE_004);
     }
 

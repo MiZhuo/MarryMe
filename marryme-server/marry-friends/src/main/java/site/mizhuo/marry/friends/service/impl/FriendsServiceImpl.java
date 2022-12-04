@@ -1,10 +1,8 @@
 package site.mizhuo.marry.friends.service.impl;
 
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.map.MapUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +20,11 @@ import site.mizhuo.marry.utils.ChineseCharacterUtils;
 import site.mizhuo.marry.utils.CommonUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author mizhuo
@@ -60,7 +60,7 @@ public class FriendsServiceImpl implements FriendsService {
         }
         FriendGroup friendGroup = new FriendGroup();
         friendGroup.setUserGroupId(userGroupId);
-        friendGroup.setFriendType(groupName);
+        friendGroup.setName(groupName);
         friendGroup.setStatus(1);
         groupMapper.insert(friendGroup);
     }
@@ -71,7 +71,8 @@ public class FriendsServiceImpl implements FriendsService {
         Long userGroupId = Optional.ofNullable(user)
                 .map(UserDto::getGroupId).orElse(null);
         LambdaQueryWrapper<FriendGroup> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(FriendGroup::getUserGroupId,userGroupId)
+        wrapper.select(FriendGroup::getName,FriendGroup::getId)
+                .eq(FriendGroup::getUserGroupId,userGroupId)
                 .eq(FriendGroup::getStatus,1)
                 .orderByAsc(FriendGroup::getId);
         return groupMapper.selectList(wrapper);
@@ -86,7 +87,7 @@ public class FriendsServiceImpl implements FriendsService {
         friendGroup.setId(groupId);
         friendGroup.setUserGroupId(userGroupId);
         if(StringUtils.isNotEmpty(groupName)){
-            friendGroup.setFriendType(groupName);
+            friendGroup.setName(groupName);
         }
         friendGroup.setStatus(status);
         LambdaUpdateWrapper<FriendGroup> wrapper = new LambdaUpdateWrapper<>();
@@ -116,21 +117,30 @@ public class FriendsServiceImpl implements FriendsService {
         infoMapper.insert(friend);
     }
 
+    @Transactional(rollbackFor=ApiException.class)
     @Override
-    public Page<FriendInfo> queryFriendsList(Map<String,Object> params) {
+    public Map<String, Object> queryFriendsList(Long id) {
         LambdaQueryWrapper<FriendGroup> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(FriendGroup::getId,params.get("friendGroupId"))
+        wrapper.eq(FriendGroup::getId,id)
                 .eq(FriendGroup::getStatus,1);
         if(!groupMapper.exists(wrapper)){
             log.error(MessageConstant.ERROR_MESSAGE_005);
             throw new ApiException(MessageConstant.ERROR_MESSAGE_005);
         }
-        Page<FriendInfo> page = new Page<>(MapUtil.getLong(params,"pageNum"),MapUtil.getLong(params,"pageSize"));
         LambdaQueryWrapper<FriendInfo> wrapper2 = new LambdaQueryWrapper<>();
-        wrapper2.eq(FriendInfo::getFriendGroupId,params.get("friendGroupId"))
+        wrapper2.eq(FriendInfo::getFriendGroupId,id)
                 .eq(FriendInfo::getStatus,1)
                 .orderByAsc(FriendInfo::getFriendName);
-        return infoMapper.selectPage(page,wrapper2);
+        List<FriendInfo> friendInfos = infoMapper.selectList(wrapper2);
+        Map<String,Object> res = new HashMap<>(16);
+        //以姓名首字母分组
+        Map<String, List<FriendInfo>> flapMap = new HashMap<>(16);
+        friendInfos.parallelStream().collect(Collectors.groupingBy(f -> f.getFriendNameEn().substring(0, 1)))
+                .entrySet().stream().sorted(Map.Entry.<String, List<FriendInfo>>comparingByKey())
+                .forEachOrdered(e -> flapMap.put(e.getKey(), e.getValue()));
+        res.put("data",flapMap);
+        res.put("totalSize",friendInfos.size());
+        return res;
     }
 
     @Override

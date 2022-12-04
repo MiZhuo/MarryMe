@@ -39,10 +39,10 @@ public interface FriendsService {
 
     /**
      * 根据分组ID获取亲友列表
-     * @param params 分组ID及分页参数
+     * @param id 分组ID
      * @return 亲友列表
      */
-    Page<FriendInfo> queryFriendsList(Map<String,Object> params);
+    Map<String, Object> queryFriendsList(Long id);
 
     /**
      * 根据ID获取亲友信息
