@@ -2,13 +2,13 @@
 	<view>
 		<u-subsection :list="groupList" :current="curNow" @change="sectionChange"></u-subsection>
 		<u-search :showAction="true" actionText="搜索" :animation="true"></u-search>
-		<view class="list__item">
+		<view class="list__item" @click="openPopup(popupData)">
 			<u-avatar shape="square" size="35" icon="man-add-fill" fontSize="26" randomBgColor></u-avatar>
 			<text class="list__item__user-name">添加亲友</text>
 		</view>
 		
 		<view>
-			<u-index-list >
+			<u-index-list :indexList="indexList">
 				<template v-for="(item, index) in friendArr">
 					<u-index-item>
 						<u-index-anchor :text="index"></u-index-anchor>
@@ -21,9 +21,51 @@
 				<view slot="footer" class="u-safe-area-inset--bottom">
 					<text class="list__footer">共{{totalSize}}位好友</text>
 				</view>
-				
 			</u-index-list>
 		</view>
+		<u-popup :safeAreaInsetBottom="true" :safeAreaInsetTop="true" :mode="popupData.mode" :show="show"
+			:round="popupData.round" :overlay="popupData.overlay" :borderRadius="popupData.borderRadius"
+			:closeable="popupData.closeable" :closeOnClickOverlay="popupData.closeOnClickOverlay" @close="close"
+			@open="open">
+			<view class="u-popup-slot" :style="{
+					width: ['bottom', 'top'].includes(popupData.mode) ? '350px' : '280px',
+					marginTop: ['left', 'right'].includes(popupData.mode) ? '350px' : '250px',
+				}">
+				<view class="u-demo-block__content">
+					<u--form labelPosition="left" :model="model1" ref="form1">
+						<u-form-item label="姓名" prop="friendInfo.name" borderBottom ref="item1">
+							<u--input v-model="model1.friendInfo.name" border="none" placeholder="姓名,只能为中文">
+							</u--input>
+						</u-form-item>
+						<u-form-item label="性别" prop="sexRadio" borderBottom ref="item1">
+							<u-radio-group v-model="model1.sexRadio">
+								<u-radio :customStyle="{marginRight: '16px'}" v-for="(item, index) in sexRadiolist"
+									:key="index" :label="item.name" :name="item.name">
+								</u-radio>
+							</u-radio-group>
+						</u-form-item>
+						
+						<u-form-item label="手机号码" prop="friendInfo.telphone" labelWidth="80"  borderBottom ref="item1">
+							<u--input v-model="model1.friendInfo.telphone" border="none" placeholder="手机号码">
+							</u--input>
+						</u-form-item>
+						
+						<u-form-item label="请柬" prop="friendInfo.qjRadioRadio" borderBottom ref="item1">
+							<u-radio-group v-model="model1.qjRadioRadio">
+								<u-radio :customStyle="{marginRight: '16px'}" v-for="(item, index) in qjRadiolist"
+									:key="index" :label="item.name" :name="item.name">
+								</u-radio>
+							</u-radio-group>
+						</u-form-item>
+		
+					</u--form>
+					<u-button type="primary" text="提交" customStyle="margin-top: 50px" @click="submit">
+					</u-button>
+					<u-button type="error" text="删除" customStyle="margin-top: 10px" @click="reset"></u-button>
+					
+				</view>
+			</view>
+		</u-popup>
 	</view>
 </template>
 
@@ -37,19 +79,55 @@
 	import { getFriendInfo } from '@/src/api/friends.js';
 	import { updateFriendInfo } from '@/src/api/friends.js';
 	import { deleteFriend } from '@/src/api/friends.js';
-	
+
 	export default {
 		data() {
 			return {
+				indexList: [],
 				groupList: [],
 				friendArr: [],
 				totalSize: 0,
 				curNow: 0,
-				// indexList: [],
+				show: false,
 				urls: [
 					'https://cdn.uviewui.com/uview/album/1.jpg'
 				],
-				names: ["勇往无敌"]
+				popupData: {
+					overlay: true,
+					mode: 'center',
+					round: 10,
+					closeable: true,
+					closeOnClickOverlay: true
+				},
+				model1: {
+					friendInfo: {
+						name: '吴念橙',
+						sex: '2',
+						telphone: '18588953695'
+					},
+					sexRadio: '男',
+					qjRadioRadio: '未发',
+				},
+				sexRadiolist: [
+					{
+						name: '男',
+						disabled: false
+					},
+					{
+						name: '女',
+						disabled: false
+					}
+				],
+				qjRadiolist:[
+					{
+						name: '已发',
+						disabled: false
+					},
+					{
+						name: '未发',
+						disabled: false
+					}
+				]
 			}
 		},
 		methods: {
@@ -62,12 +140,43 @@
 				getFriendsList(id).then(res => {
 					this.friendArr = res.data.data;
 					this.totalSize = res.data.totalSize;
-					// this.indexList = res.data.indexArr;
-					// console.log(JSON.stringify(this.indexList[0]));
+					this.indexList = res.data.indexList;
+					console.log(JSON.stringify(this.friendArr));
 				}).catch(err=>{
 					console.log(JSON.stringify(err.data));
 				})
-			}
+			},
+			openPopup(popupData) {
+				this.popupData = popupData
+				uni.$u.sleep().then(() => {
+					this.show = !this.show
+				})
+			},
+			open() {
+				// console.log('open');
+			},
+			close() {
+				this.show = false
+			},
+			submit() {
+				// 如果有错误，会在catch中返回报错信息数组，校验通过则在then中返回true
+				this.$refs.form1.validate().then(res => {
+					uni.$u.toast('校验通过')
+				}).catch(errors => {
+					uni.$u.toast('校验失败')
+				})
+			},
+			reset() {
+				const validateList = ['goodsInfo.name', 'goodsInfo.sex', 'radiovalue1', 'checkboxValue1', 'intro',
+					'hotel', 'code', 'goodsInfo.birthday'
+				]
+				this.$refs.form1.resetFields()
+				this.$refs.form1.clearValidate()
+				setTimeout(() => {
+					this.$refs.form1.clearValidate(validateList)
+					// 或者使用 this.$refs.form1.clearValidate()
+				}, 10)
+			},
 		},
 		mounted() {
 			getGroupList().then(res => {
@@ -126,5 +235,21 @@
 	
 	.u-index-anchor{
 		height: 22px !important 
+	}
+	
+	.swiper {
+		height: 600px;
+	}
+	
+	.u-popup-slot {
+		width: 200px;
+		height: 150px;
+		@include flex;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.u-demo-block__content {
+		margin-top: -250px;
 	}
 </style>
