@@ -30,6 +30,8 @@ public class FriendInfo implements Serializable {
 
     private String friendMobile;
 
+    private Integer isInvit;
+
     private Date createTime;
 
     private Date updateTime;

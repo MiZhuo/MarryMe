@@ -9,6 +9,7 @@
     <result column="friend_name_en" jdbcType="VARCHAR" property="friendNameEn" />
     <result column="friend_sex" jdbcType="VARCHAR" property="friendSex" />
     <result column="friend_mobile" jdbcType="VARCHAR" property="friendMobile" />
+    <result column="is_invit" jdbcType="INTEGER" property="isInvit" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="status" jdbcType="INTEGER" property="status" />

@@ -136,7 +136,10 @@ public class FriendsServiceImpl implements FriendsService {
                 .entrySet().parallelStream().sorted(Map.Entry.comparingByKey())
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
                         (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+        //首字母集合
+        List<String> indexList = friendInfos.parallelStream().map(f -> f.getFriendNameEn().substring(0,1)).distinct().sorted().collect(Collectors.toList());
         res.put("data",flapMap);
+        res.put("indexList",indexList);
         res.put("totalSize",friendInfos.size());
         return res;
     }
