@@ -20,10 +20,7 @@ import site.mizhuo.marry.utils.ChineseCharacterUtils;
 import site.mizhuo.marry.utils.CommonUtils;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -133,11 +130,12 @@ public class FriendsServiceImpl implements FriendsService {
                 .orderByAsc(FriendInfo::getFriendName);
         List<FriendInfo> friendInfos = infoMapper.selectList(wrapper2);
         Map<String,Object> res = new HashMap<>(16);
-        //以姓名首字母分组
-        Map<String, List<FriendInfo>> flapMap = new HashMap<>(16);
-        friendInfos.parallelStream().collect(Collectors.groupingBy(f -> f.getFriendNameEn().substring(0, 1)))
-                .entrySet().stream().sorted(Map.Entry.<String, List<FriendInfo>>comparingByKey())
-                .forEachOrdered(e -> flapMap.put(e.getKey(), e.getValue()));
+        //以姓名首字母分组,并根据字母排序
+        Map<String, List<FriendInfo>> flapMap = friendInfos.parallelStream()
+                .collect(Collectors.groupingBy(f -> f.getFriendNameEn().substring(0, 1)))
+                .entrySet().parallelStream().sorted(Map.Entry.comparingByKey())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
         res.put("data",flapMap);
         res.put("totalSize",friendInfos.size());
         return res;
