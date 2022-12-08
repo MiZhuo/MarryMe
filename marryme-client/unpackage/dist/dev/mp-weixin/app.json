@@ -1,9 +1,9 @@
 {
   "pages": [
-    "pages/tabBar/home/home",
-    "pages/tabBar/friends/friends",
-    "pages/tabBar/goods/goods",
-    "pages/tabBar/mine/mine"
+    "src/pages/tabBar/home/home",
+    "src/pages/tabBar/friends/friends",
+    "src/pages/tabBar/goods/goods",
+    "src/pages/tabBar/mine/mine"
   ],
   "subPackages": [],
   "window": {
@@ -22,25 +22,25 @@
     "backgroundColor": "#FFFFFF",
     "list": [
       {
-        "pagePath": "pages/tabBar/home/home",
+        "pagePath": "src/pages/tabBar/home/home",
         "iconPath": "static/tabBar/home.png",
         "selectedIconPath": "static/tabBar/homeHL.png",
         "text": "首页"
       },
       {
-        "pagePath": "pages/tabBar/friends/friends",
+        "pagePath": "src/pages/tabBar/friends/friends",
         "iconPath": "static/tabBar/friends.png",
         "selectedIconPath": "static/tabBar/friendsHL.png",
         "text": "亲友"
       },
       {
-        "pagePath": "pages/tabBar/goods/goods",
+        "pagePath": "src/pages/tabBar/goods/goods",
         "iconPath": "static/tabBar/goods.png",
         "selectedIconPath": "static/tabBar/goodsHL.png",
         "text": "物品"
       },
       {
-        "pagePath": "pages/tabBar/mine/mine",
+        "pagePath": "src/pages/tabBar/mine/mine",
         "iconPath": "static/tabBar/cat.png",
         "selectedIconPath": "static/tabBar/catHL.png",
         "text": "我的"
