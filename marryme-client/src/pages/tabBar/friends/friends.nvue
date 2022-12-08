@@ -2,7 +2,7 @@
 	<view>
 		<u-subsection :list="groupList" :current="curNow" @change="sectionChange"></u-subsection>
 		<u-search :showAction="true" actionText="搜索" :animation="true"></u-search>
-		<view class="list__item" @click="openPopup(popupData)">
+		<view class="list__item" @click="toAddFriend(popupData)">
 			<u-avatar shape="square" size="35" icon="man-add-fill" fontSize="26" randomBgColor></u-avatar>
 			<text class="list__item__user-name">添加亲友</text>
 		</view>
@@ -12,7 +12,7 @@
 				<template v-for="(item, index) in friendArr">
 					<u-index-item>
 						<u-index-anchor :text="index"></u-index-anchor>
-						<view class="list-cell list__item" v-for="(cell, index) in item">
+						<view class="list-cell list__item" v-for="(cell, index) in item" @click="toFriendInfo(popupData,cell.id)">
 							<image class="list__item__avatar" src="https://cdn.uviewui.com/uview/album/1.jpg"></image>
 							<text class="list__item__user-name">{{cell.friendName}}</text>
 						</view>
@@ -61,7 +61,6 @@
 					</u--form>
 					<u-button type="primary" text="提交" customStyle="margin-top: 50px" @click="submit">
 					</u-button>
-					<u-button type="error" text="删除" customStyle="margin-top: 10px" @click="dropFriend"></u-button>
 					
 				</view>
 			</view>
@@ -101,10 +100,10 @@
 				},
 				model1: {
 					friendInfo: {
-						friendName: '吴念橙',
-						friendSex: '0',
-						friendMobile: '18588953695',
-						isInvit: '0',
+						friendName: '',
+						friendSex: '1',
+						friendMobile: '',
+						isInvit: 0,
 						friendGroupId: ''
 					},
 					
@@ -124,12 +123,12 @@
 				qjRadiolist:[
 					{
 						name: '已发',
-						value: '1',
+						value: 1,
 						disabled: false
 					},
 					{
 						name: '未发',
-						value: '0',
+						value: 0,
 						disabled: false
 					}
 				],
@@ -189,6 +188,13 @@
 			close() {
 				this.show = false
 			},
+			resetFriend(){
+				this.model1.friendInfo.friendName = '';
+				this.model1.friendInfo.friendSex = '1';
+				this.model1.friendInfo.friendMobile = '';
+				this.model1.friendInfo.isInvit = 0;
+				this.model1.friendInfo.friendGroupId = '';
+			},
 			submit() {
 				// 如果有错误，会在catch中返回报错信息数组，校验通过则在then中返回true
 				this.$refs.form1.validate().then(res => {
@@ -207,6 +213,18 @@
 			dropFriend() {
 				this.$refs.form1.submit();
 			},
+			toAddFriend(popupData){
+				this.resetFriend();
+				this.openPopup(popupData);
+			},
+			toFriendInfo(popupData,id){
+				getFriendInfo(id).then(res=>{
+					this.model1.friendInfo = res.data;
+				}).catch(err => {
+					uni.$u.toast('查询信息失败')
+				});	
+				this.openPopup(popupData);
+			}
 		},
 		// onReady() {
 		// 	//onReady 为uni-app支持的生命周期之一
