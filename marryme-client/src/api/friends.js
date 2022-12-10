@@ -29,7 +29,7 @@ export function getGroupList(){
 export function updateFriendGroup(data){
 	return service({
 		url: SERVER_URL + '/group',
-		method: 'put',
+		method: 'PUT',
 		params: data
 	})
 }

@@ -6,15 +6,23 @@
 			<u-avatar shape="square" size="35" icon="man-add-fill" fontSize="26" randomBgColor></u-avatar>
 			<text class="list__item__user-name">添加亲友</text>
 		</view>
-		
 		<view>
-			<u-index-list :indexList="indexList">
+			<u-index-list class="mizhuo" :indexList="indexList">
 				<template v-for="(item, index) in friendArr">
 					<u-index-item>
 						<u-index-anchor :text="index"></u-index-anchor>
-						<view class="list-cell list__item" v-for="(cell, index) in item" @click="toFriendInfo(popupData,cell.id)">
-							<image class="list__item__avatar" src="https://cdn.uviewui.com/uview/album/1.jpg"></image>
-							<text class="list__item__user-name">{{cell.friendName}}</text>
+						<view class="u-page__swipe-action-item" v-for="(cell, index) in item" >
+							<u-swipe-action>
+								<u-swipe-action-item
+									v-if="show1"
+									:options="options1"
+									@click="click">
+									<view class="list-cell list__item" @click="toFriendInfo(popupData,cell.id)">
+										<image class="list__item__avatar" src="https://cdn.uviewui.com/uview/album/1.jpg"></image>
+										<text class="list__item__user-name">{{cell.friendName}}</text>
+									</view>
+								</u-swipe-action-item>
+							</u-swipe-action>
 						</view>
 					</u-index-item>
 				</template>
@@ -100,6 +108,7 @@
 				},
 				model1: {
 					friendInfo: {
+						id: '',
 						friendName: '',
 						friendSex: '1',
 						friendMobile: '',
@@ -155,10 +164,29 @@
 						message: '请入真实手机号',
 						trigger: ['change', 'blur'],
 					},
-				}
+				},
+				show1: true,
+				options1: [{
+					text: '删除',
+					style: {
+						backgroundColor: '#f56c6c'
+					}
+				}]
 			}
 		},
 		methods: {
+			click(index) {
+				console.log('click', index);
+				uni.showModal({
+					title: '温馨提示',
+					content: '确定要删除吗？',
+					success: res => {
+						if (res.confirm) {
+							this.show1 = false
+						}
+					}
+				})
+			},
 			sectionChange(index) {
 				this.curNow = index;
 				var groupId = this.groupList[index].id;
@@ -171,7 +199,6 @@
 					this.friendArr = res.data.data;
 					this.totalSize = res.data.totalSize;
 					this.indexList = res.data.indexList;
-					console.log(JSON.stringify(this.friendArr));
 				}).catch(err=>{
 					console.log(JSON.stringify(err.data));
 				})
@@ -189,23 +216,35 @@
 				this.show = false
 			},
 			resetFriend(){
+				this.model1.friendInfo.id = '';
 				this.model1.friendInfo.friendName = '';
 				this.model1.friendInfo.friendSex = '1';
 				this.model1.friendInfo.friendMobile = '';
 				this.model1.friendInfo.isInvit = 0;
-				this.model1.friendInfo.friendGroupId = '';
 			},
 			submit() {
 				// 如果有错误，会在catch中返回报错信息数组，校验通过则在then中返回true
 				this.$refs.form1.validate().then(res => {
 					var data = this.model1.friendInfo;
-					addFriend(data).then(res=>{
-						uni.$u.toast('添加成功');
-						this.getFriendsList(this.model1.friendInfo.friendGroupId);
-						this.close();
-					}).catch(err => {
-						uni.$u.toast('添加失败')
-					});	
+					if(data.id === ""){
+						addFriend(data).then(res=>{
+							uni.$u.toast('添加成功');
+							this.getFriendsList(this.model1.friendInfo.friendGroupId);
+							this.close();
+						}).catch(err => {
+							uni.$u.toast('添加失败')
+						});	
+					}else{
+						//TODO put请求后端未接收到
+						updateFriendInfo(data).then(res=>{
+							uni.$u.toast('修改成功');
+							this.getFriendsList(this.model1.friendInfo.friendGroupId);
+							this.close();
+						}).catch(err => {
+							uni.$u.toast('修改失败')
+						});	
+					}
+					
 				}).catch(errors => {
 					uni.$u.toast('校验失败')
 				})
@@ -236,6 +275,7 @@
 				var groupId = this.groupList[0].id;
 				this.getFriendsList(groupId);
 				this.model1.friendInfo.friendGroupId = groupId;
+				console.log(groupId);
 			}).catch(err => {
 				uni.$u.toast('获取分组列表失败')
 			});	
@@ -305,5 +345,25 @@
 	
 	.u-demo-block__content {
 		margin-top: -250px;
+	}
+	
+	.u-page {
+			padding: 0;
+		}
+	
+	.u-demo-block__title {
+		padding: 10px 0 2px 15px;
+	}
+
+	.swipe-action {
+		&__content {
+			padding: 25rpx 0;
+
+			&__text {
+				font-size: 15px;
+				color: $u-main-color;
+				padding-left: 30rpx;
+			}
+		}
 	}
 </style>
