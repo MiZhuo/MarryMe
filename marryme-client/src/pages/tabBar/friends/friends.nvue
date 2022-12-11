@@ -235,7 +235,6 @@
 							uni.$u.toast('添加失败')
 						});	
 					}else{
-						//TODO put请求后端未接收到
 						updateFriendInfo(data).then(res=>{
 							uni.$u.toast('修改成功');
 							this.getFriendsList(this.model1.friendInfo.friendGroupId);
@@ -258,7 +257,11 @@
 			},
 			toFriendInfo(popupData,id){
 				getFriendInfo(id).then(res=>{
-					this.model1.friendInfo = res.data;
+					this.model1.friendInfo.id = res.data.id;
+					this.model1.friendInfo.friendName = res.data.friendName;
+					this.model1.friendInfo.friendSex = res.data.friendSex;
+					this.model1.friendInfo.friendMobile = res.data.friendMobile;
+					this.model1.friendInfo.isInvit = res.data.isInvit;
 				}).catch(err => {
 					uni.$u.toast('查询信息失败')
 				});	

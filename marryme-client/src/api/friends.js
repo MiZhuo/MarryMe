@@ -29,7 +29,7 @@ export function getGroupList(){
 export function updateFriendGroup(data){
 	return service({
 		url: SERVER_URL + '/group',
-		method: 'PUT',
+		method: 'put',
 		params: data
 	})
 }
@@ -49,7 +49,7 @@ export function deleteFriendGroup(id){
  */
 export function addFriend(data){
 	return service({
-		url:  SERVER_URL + '/friend',
+		url: SERVER_URL + '/friend',
 		method: 'post',
 		params: data
 	})
