@@ -11,13 +11,12 @@
 				<template v-for="(item, index) in friendArr">
 					<u-index-item>
 						<u-index-anchor :text="index"></u-index-anchor>
-						<view class="u-page__swipe-action-item" v-for="(cell, index) in item" >
+						<view class="u-page__swipe-action-item" >
 							<u-swipe-action>
-								<u-swipe-action-item
-									v-if="show1"
-									:options="options1"
-									@click="click">
-									<view class="list-cell list__item" @click="toFriendInfo(popupData,cell.id)">
+								<u-swipe-action-item v-for="(cell, index) in item" 
+									:options="options" :show="show1"
+									@click="click(index,cell.id)">
+									<view class="list-cell list__item"  @click="toFriendInfo(popupData,cell.id)">
 										<image class="list__item__avatar" src="https://cdn.uviewui.com/uview/album/1.jpg"></image>
 										<text class="list__item__user-name">{{cell.friendName}}</text>
 									</view>
@@ -96,6 +95,7 @@
 				totalSize: 0,
 				curNow: 0,
 				show: false,
+				show1: true,
 				urls: [
 					'https://cdn.uviewui.com/uview/album/1.jpg'
 				],
@@ -165,24 +165,33 @@
 						trigger: ['change', 'blur'],
 					},
 				},
-				show1: true,
-				options1: [{
-					text: '删除',
+				options: [{
+					icon: 'trash-fill',
 					style: {
-						backgroundColor: '#f56c6c'
+						backgroundColor: '#f56c6c',
+						width: '40px',
+						height: '40px',
+						borderRadius: '100px',
+						margin: '0 6px'
 					}
 				}]
 			}
 		},
 		methods: {
-			click(index) {
+			click(index,id) {
 				console.log('click', index);
 				uni.showModal({
 					title: '温馨提示',
 					content: '确定要删除吗？',
 					success: res => {
 						if (res.confirm) {
-							this.show1 = false
+							deleteFriend(id).then(res => {
+								uni.$u.toast('删除成功');
+								this.show1 = false;
+								this.getFriendsList(this.model1.friendInfo.friendGroupId);
+							}).catch(err=>{
+								uni.$u.toast('删除失败');
+							})
 						}
 					}
 				})
