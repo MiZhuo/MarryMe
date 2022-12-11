@@ -100,12 +100,7 @@ public class FriendsServiceImpl implements FriendsService {
             log.error(MessageConstant.ERROR_MESSAGE_003);
             throw new ApiException(MessageConstant.ERROR_MESSAGE_003);
         }
-        LambdaQueryWrapper<FriendInfo> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(FriendInfo::getFriendName,friend.getFriendName());
-        if(infoMapper.exists(wrapper)){
-            log.error(MessageConstant.ERROR_MESSAGE_006);
-            throw new ApiException(MessageConstant.ERROR_MESSAGE_006);
-        }
+        checkFriendExists(friend);
         if(StringUtils.isNotEmpty(friend.getFriendName())) {
             friend.setFriendNameEn(ChineseCharacterUtils.getSpells(friend.getFriendName()));
         }
@@ -161,6 +156,7 @@ public class FriendsServiceImpl implements FriendsService {
             log.error(MessageConstant.ERROR_MESSAGE_004);
             throw new ApiException(MessageConstant.ERROR_MESSAGE_004);
         }
+        checkFriendExists(friend);
         if(StringUtils.isNotEmpty(friend.getFriendName())) {
             friend.setFriendNameEn(ChineseCharacterUtils.getSpells(friend.getFriendName()));
         }
@@ -176,5 +172,14 @@ public class FriendsServiceImpl implements FriendsService {
                 .eq(FriendInfo::getId,id)
                 .eq(FriendInfo::getStatus,1);
         infoMapper.update(null,wrapper);
+    }
+
+    private void checkFriendExists(FriendInfo friend){
+        LambdaQueryWrapper<FriendInfo> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(FriendInfo::getFriendName,friend.getFriendName());
+        if(infoMapper.exists(wrapper)) {
+            log.error(MessageConstant.ERROR_MESSAGE_006);
+            throw new ApiException(MessageConstant.ERROR_MESSAGE_006);
+        }
     }
 }
