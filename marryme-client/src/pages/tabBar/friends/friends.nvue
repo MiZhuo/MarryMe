@@ -7,28 +7,30 @@
 			<text class="list__item__user-name">添加亲友</text>
 		</view>
 		<view>
-			<u-index-list class="mizhuo" :indexList="indexList">
-				<template v-for="(item, index) in friendArr">
-					<u-index-item>
-						<u-index-anchor :text="index"></u-index-anchor>
-						<view class="u-page__swipe-action-item" >
-							<u-swipe-action>
-								<u-swipe-action-item v-for="(cell, index) in item" 
-									:options="options" :show="show1"
-									@click="click(index,cell.id)">
-									<view class="list-cell list__item"  @click="toFriendInfo(popupData,cell.id)">
-										<image class="list__item__avatar" src="https://cdn.uviewui.com/uview/album/1.jpg"></image>
-										<text class="list__item__user-name">{{cell.friendName}}</text>
-									</view>
-								</u-swipe-action-item>
-							</u-swipe-action>
-						</view>
-					</u-index-item>
-				</template>
-				<view slot="footer" class="u-safe-area-inset--bottom">
-					<text class="list__footer">共{{totalSize}}位好友</text>
-				</view>
-			</u-index-list>
+			<u-swipe-action>
+				<u-index-list class="mizhuo" :indexList="indexList">
+					<template v-for="(item, index) in friendArr">
+						<u-index-item>
+							<u-index-anchor :text="index"></u-index-anchor>
+							<view class="u-page__swipe-action-item" >
+								
+									<u-swipe-action-item v-for="(cell, index) in item" 
+										:options="options"
+										@click="click(index,cell.id)">
+										<view class="list-cell list__item"  @click="toFriendInfo(popupData,cell.id)">
+											<image class="list__item__avatar" src="https://cdn.uviewui.com/uview/album/1.jpg"></image>
+											<text class="list__item__user-name">{{cell.friendName}}</text>
+										</view>
+									</u-swipe-action-item>
+								
+							</view>
+						</u-index-item>
+					</template>
+					<view slot="footer" class="u-safe-area-inset--bottom">
+						<text class="list__footer">共{{totalSize}}位好友</text>
+					</view>
+				</u-index-list>
+			</u-swipe-action>
 		</view>
 		<u-popup :safeAreaInsetBottom="true" :safeAreaInsetTop="true" :mode="popupData.mode" :show="show"
 			:round="popupData.round" :overlay="popupData.overlay" :borderRadius="popupData.borderRadius"
@@ -95,7 +97,6 @@
 				totalSize: 0,
 				curNow: 0,
 				show: false,
-				show1: true,
 				urls: [
 					'https://cdn.uviewui.com/uview/album/1.jpg'
 				],
@@ -187,7 +188,6 @@
 						if (res.confirm) {
 							deleteFriend(id).then(res => {
 								uni.$u.toast('删除成功');
-								this.show1 = false;
 								this.getFriendsList(this.model1.friendInfo.friendGroupId);
 							}).catch(err=>{
 								uni.$u.toast('删除失败');
