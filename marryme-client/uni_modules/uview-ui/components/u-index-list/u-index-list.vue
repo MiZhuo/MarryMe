@@ -74,7 +74,7 @@
 				position: 'fixed',
 				right: '50px',
 				top: $u.addUnit(indicatorTop),
-				zIndex: 2
+				zIndex: 999
 			}"
 		>
 			<view

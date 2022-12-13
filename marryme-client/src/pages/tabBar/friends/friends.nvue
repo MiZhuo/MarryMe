@@ -8,14 +8,15 @@
 				<text class="list__item__user-name">添加亲友</text>
 			</view>
 			<view>
-				<u-index-list :indexList="indexList">
+				<u-index-list :indexList="indexList" >
 					<template v-for="(item, index) in friendArr">
 						<u-index-item>
 							<u-index-anchor :text="index"></u-index-anchor>
 							<view class="u-page__swipe-action-item" >
 								<u-swipe-action-item v-for="(cell, index) in item" 
 									:options="options"
-									@click="click(index,cell.id)">
+									v-if="cell.status"
+									@click="click(cell)">
 									<view class="list-cell list__item"  @click="toFriendInfo(popupData,cell.id)">
 										<image class="list__item__avatar" src="https://cdn.uviewui.com/uview/album/1.jpg"></image>
 										<text class="list__item__user-name">{{cell.friendName}}</text>
@@ -95,6 +96,7 @@
 				totalSize: 0,
 				curNow: 0,
 				show: false,
+				show1: true,
 				urls: [
 					'https://cdn.uviewui.com/uview/album/1.jpg'
 				],
@@ -177,19 +179,21 @@
 			}
 		},
 		methods: {
-			click(index,id) {
-				console.log('click', index);
+			click(cell) {
+				console.log('click', cell);
 				uni.showModal({
 					title: '温馨提示',
 					content: '确定要删除吗？',
 					success: res => {
 						if (res.confirm) {
-							deleteFriend(id).then(res => {
+							deleteFriend(cell.id).then(res => {
 								uni.$u.toast('删除成功');
 								this.getFriendsList(this.model1.friendInfo.friendGroupId);
+								cell.status = 0;
 							}).catch(err=>{
 								uni.$u.toast('删除失败');
 							})
+							
 						}
 					}
 				})
@@ -273,7 +277,10 @@
 					uni.$u.toast('查询信息失败')
 				});	
 				this.openPopup(popupData);
-			}
+			},
+			select(index) {
+				console.log(111111111111+index)
+			},
 		},
 		// onReady() {
 		// 	//onReady 为uni-app支持的生命周期之一
@@ -381,12 +388,6 @@
 				color: $u-main-color;
 				padding-left: 30rpx;
 			}
-		}
-	}
-	.mizhuo{
-		.u-index-list__letter{
-			position: fixed;  
-			z-index: 999 !important;
 		}
 	}
 </style>
