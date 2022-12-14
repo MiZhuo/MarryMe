@@ -32,6 +32,8 @@ public class FriendsServiceImpl implements FriendsService {
 
     private static final int MAX_GROUP_COUNT = 4;
 
+    private static final String IGNORE_KEYWORD = "undefined";
+
     @Autowired
     FriendInfoMapper infoMapper;
 
@@ -111,7 +113,7 @@ public class FriendsServiceImpl implements FriendsService {
 
     @Transactional(rollbackFor=ApiException.class)
     @Override
-    public Map<String, Object> queryFriendsList(Long id) {
+    public Map<String, Object> queryFriendsList(Long id,String keyword) {
         LambdaQueryWrapper<FriendGroup> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(FriendGroup::getId,id)
                 .eq(FriendGroup::getStatus,1);
@@ -124,6 +126,14 @@ public class FriendsServiceImpl implements FriendsService {
                 .eq(FriendInfo::getStatus,1)
                 .orderByAsc(FriendInfo::getFriendName);
         List<FriendInfo> friendInfos = infoMapper.selectList(wrapper2);
+        //如果搜索条件不为空,则根据条件过滤结果集
+        if(StringUtils.isNotEmpty(keyword) && !IGNORE_KEYWORD.equals(keyword)){
+            friendInfos = friendInfos.parallelStream().filter(friendInfo -> {
+                return friendInfo.getFriendNameEn().toLowerCase().contains(keyword.toLowerCase())
+                        || friendInfo.getFriendName().contains(keyword)
+                        || friendInfo.getFriendMobile().contains(keyword);
+            }).collect(Collectors.toList());
+        }
         Map<String,Object> res = new HashMap<>(16);
         //以姓名首字母分组,并根据字母排序
         Map<String, List<FriendInfo>> flapMap = friendInfos.parallelStream()
@@ -177,6 +187,7 @@ public class FriendsServiceImpl implements FriendsService {
     private void checkFriendExists(FriendInfo friend){
         LambdaQueryWrapper<FriendInfo> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(FriendInfo::getFriendName,friend.getFriendName())
+                .eq(FriendInfo::getFriendGroupId,friend.getFriendGroupId())
                 .ne(FriendInfo::getId,friend.getId());
         if(infoMapper.exists(wrapper)) {
             log.error(MessageConstant.ERROR_MESSAGE_006);

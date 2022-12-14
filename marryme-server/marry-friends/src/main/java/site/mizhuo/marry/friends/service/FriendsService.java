@@ -1,6 +1,7 @@
 package site.mizhuo.marry.friends.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.web.bind.annotation.PathVariable;
 import site.mizhuo.marry.friends.domain.FriendGroup;
 import site.mizhuo.marry.friends.domain.FriendInfo;
 
@@ -40,9 +41,10 @@ public interface FriendsService {
     /**
      * 根据分组ID获取亲友列表
      * @param id 分组ID
+     * @param keyword 关键字
      * @return 亲友列表
      */
-    Map<String, Object> queryFriendsList(Long id);
+    Map<String, Object> queryFriendsList(Long id, String keyword);
 
     /**
      * 根据ID获取亲友信息
@@ -62,4 +64,5 @@ public interface FriendsService {
      * @param id 亲友ID
      */
     void deleteFriend(Long id);
+
 }

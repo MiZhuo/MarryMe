@@ -58,9 +58,9 @@ export function addFriend(data){
 /**
  * 根据分组ID获取亲友列表
  */
-export function getFriendsList(id){
+export function getFriendsList(id,keyword){
 	return service({
-		url: SERVER_URL + '/friends/' + id,
+		url: SERVER_URL + '/search/' + id + '/' + keyword,
 		method: 'get'
 	})
 }

@@ -2,7 +2,7 @@
 	<view>
 		<u-swipe-action>
 			<u-subsection :list="groupList" :current="curNow" @change="sectionChange"></u-subsection>
-			<u-search :showAction="true" :clearabled="true" actionText="搜索" :animation="true"></u-search>
+			<u-search :showAction="false" :clearabled="false" @change="changeSearch"></u-search>
 			<view class="list__item" @click="toAddFriend(popupData)">
 				<u-avatar shape="square" size="35" icon="man-add-fill" fontSize="26" randomBgColor></u-avatar>
 				<text class="list__item__user-name">添加亲友</text>
@@ -16,7 +16,7 @@
 								<u-swipe-action-item v-for="(cell, index) in item" 
 									:options="options"
 									v-if="cell.status"
-									@click="click(cell)">
+									@click="toDeleteFriend(cell)">
 									<view class="list-cell list__item"  @click="toFriendInfo(popupData,cell.id)">
 										<image class="list__item__avatar" src="https://cdn.uviewui.com/uview/album/1.jpg"></image>
 										<text class="list__item__user-name">{{cell.friendName}}</text>
@@ -179,7 +179,14 @@
 			}
 		},
 		methods: {
-			click(cell) {
+			clearSearch(e){
+				console.log(e);
+			}, 
+			changeSearch(text){
+				var groupId = this.groupList[0].id;
+				this.getFriendsList(groupId,text == '' ? 'undefined' : text);
+			},
+			toDeleteFriend(cell) {
 				console.log('click', cell);
 				uni.showModal({
 					title: '温馨提示',
@@ -204,9 +211,9 @@
 				this.getFriendsList(groupId);
 				this.model1.friendInfo.friendGroupId = groupId;
 			},
-			getFriendsList(id){
+			getFriendsList(id,keyword){
 				//根据分组ID获取亲友列表
-				getFriendsList(id).then(res => {
+				getFriendsList(id,keyword).then(res => {
 					this.friendArr = res.data.data;
 					this.totalSize = res.data.totalSize;
 					this.indexList = res.data.indexList;
@@ -289,7 +296,6 @@
 				var groupId = this.groupList[0].id;
 				this.getFriendsList(groupId);
 				this.model1.friendInfo.friendGroupId = groupId;
-				console.log(groupId);
 			}).catch(err => {
 				uni.$u.toast('获取分组列表失败')
 			});	

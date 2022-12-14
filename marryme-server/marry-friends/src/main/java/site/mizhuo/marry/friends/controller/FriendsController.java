@@ -92,9 +92,9 @@ public class FriendsController {
      * @return 亲友列表
      */
     @ApiOperation("根据分组ID获取亲友列表")
-    @GetMapping("/friends/{id}")
-    public CommonResult<Map<String,Object>> getFriendsList(@PathVariable Long id){
-        Map<String, Object> res = friendsService.queryFriendsList(id);
+    @GetMapping("/search/{id}/{keyword}")
+    public CommonResult<Map<String,Object>> getFriendsList(@PathVariable Long id,@PathVariable String keyword){
+        Map<String, Object> res = friendsService.queryFriendsList(id,keyword);
         return CommonResult.success(res,MessageConstant.SUCCESS_MESSAGE_004);
     }
 
@@ -133,4 +133,5 @@ public class FriendsController {
         friendsService.deleteFriend(id);
         return CommonResult.success(MessageConstant.SUCCESS_MESSAGE_DELETE);
     }
+
 }
