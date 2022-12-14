@@ -2,7 +2,7 @@
 	<view>
 		<u-swipe-action>
 			<u-subsection :list="groupList" :current="curNow" @change="sectionChange"></u-subsection>
-			<u-search :showAction="true" actionText="搜索" :animation="true"></u-search>
+			<u-search :showAction="true" :clearabled="true" actionText="搜索" :animation="true"></u-search>
 			<view class="list__item" @click="toAddFriend(popupData)">
 				<u-avatar shape="square" size="35" icon="man-add-fill" fontSize="26" randomBgColor></u-avatar>
 				<text class="list__item__user-name">添加亲友</text>
@@ -277,10 +277,7 @@
 					uni.$u.toast('查询信息失败')
 				});	
 				this.openPopup(popupData);
-			},
-			select(index) {
-				console.log(111111111111+index)
-			},
+			}
 		},
 		// onReady() {
 		// 	//onReady 为uni-app支持的生命周期之一

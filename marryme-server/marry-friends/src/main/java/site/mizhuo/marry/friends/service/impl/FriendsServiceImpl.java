@@ -176,7 +176,8 @@ public class FriendsServiceImpl implements FriendsService {
 
     private void checkFriendExists(FriendInfo friend){
         LambdaQueryWrapper<FriendInfo> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(FriendInfo::getFriendName,friend.getFriendName());
+        wrapper.eq(FriendInfo::getFriendName,friend.getFriendName())
+                .ne(FriendInfo::getId,friend.getId());
         if(infoMapper.exists(wrapper)) {
             log.error(MessageConstant.ERROR_MESSAGE_006);
             throw new ApiException(MessageConstant.ERROR_MESSAGE_006);
