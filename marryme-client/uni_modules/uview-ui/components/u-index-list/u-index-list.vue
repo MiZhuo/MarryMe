@@ -6,7 +6,7 @@
 			enable-back-to-top
 			:offset-accuracy="1"
 			:style="{
-				maxHeight: $u.addUnit(scrollViewHeight)
+				maxHeight: $u.addUnit(scrollViewHeight - 140)
 			}"
 			@scroll="scrollHandler"
 			ref="uList"
@@ -29,7 +29,7 @@
 			:scrollIntoView="scrollIntoView"
 			:offset-accuracy="1"
 			:style="{
-				maxHeight: $u.addUnit(scrollViewHeight)
+				maxHeight: $u.addUnit(scrollViewHeight - 140)
 			}"
 			scroll-y
 			@scroll="scrollHandler"

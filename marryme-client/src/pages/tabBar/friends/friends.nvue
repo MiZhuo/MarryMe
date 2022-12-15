@@ -300,9 +300,9 @@
 				uni.$u.toast('获取分组列表失败')
 			});	
 			//修改索引列表样式,解决被遮挡的问题
-			var x=document.getElementsByTagName('uni-scroll-view')[0];
-			var height = window.getComputedStyle(x).maxHeight;
-			x.style.maxHeight = height.replace("px","") - 140 + "px";
+			// var x=document.getElementsByTagName('uni-scroll-view')[0];
+			// var height = window.getComputedStyle(x).maxHeight;
+			// x.style.maxHeight = height.replace("px","") - 140 + "px";
 			//解决首字母索引被遮挡的问题
 			document.getElementsByClassName('u-index-list__letter')[0].style.zIndex = 999;
 		}
