@@ -4,10 +4,10 @@
 			<view>
 				<swiper :indicator-dots="true" class="swiper">
 					<swiper-item>
-						<u-grid :border="true" @click="openPopup(popupData)">
-							<u-grid-item v-for="(item, index) in swiperList" :index="index" :key="index">
-								<u-icon :customStyle="{paddingTop:20+'rpx'}" :name="item" :size="30"></u-icon>
-								<text class="grid-text" style="margin-top: 10px;">{{ '宫格' + (index + 1) }}</text>
+						<u-grid :border="true" >
+							<u-grid-item v-for="(item, index) in goodsArr" :index="index" :key="index" @click="openPopup(popupData,item.id)">
+								<u-icon :customStyle="{paddingTop:20+'rpx'}" :name="item.goodsPic" :size="30"></u-icon>
+								<text class="grid-text" style="margin-top: 10px;">{{ item.goodsName }}</text>
 							</u-grid-item>
 							<u-grid-item>
 								<u-icon :customStyle="{paddingTop:20+'rpx'}" name="plus-circle" :size="40"></u-icon>
@@ -18,7 +18,6 @@
 				</swiper>
 			</view>
 		</view>
-		<u-toast ref="uToast" />
 		<u-popup :safeAreaInsetBottom="true" :safeAreaInsetTop="true" :mode="popupData.mode" :show="show"
 			:round="popupData.round" :overlay="popupData.overlay" :borderRadius="popupData.borderRadius"
 			:closeable="popupData.closeable" :closeOnClickOverlay="popupData.closeOnClickOverlay" @close="close"
@@ -29,14 +28,14 @@
 				}">
 				<view class="u-demo-block__content">
 					<!-- 注意，如果需要兼容微信小程序，最好通过setRules方法设置rules规则 -->
-					<u--form labelPosition="left" :model="model1" ref="form">
+					<u--form labelPosition="left" :model="model1" :rules="rules" ref="form">
 						<u-form-item label="名称" prop="goodsInfo.goodsName" borderBottom ref="item1">
 							<u--input v-model="model1.goodsInfo.goodsName" border="none" placeholder="输入商品名称">
 							</u--input>
 						</u-form-item>
 						<u-form-item label="数量" prop="goodsInfo.goodsNum" borderBottom ref="item1">
 							<u-cell :border="false">
-								<u-number-box slot="right-icon" v-model="model1.goodsInfo.goodsNum" step="1" :min="1" @change="change">
+								<u-number-box slot="right-icon" v-model="model1.goodsInfo.goodsNum" step="1" :min="1" >
 								</u-number-box>
 							</u-cell>
 						</u-form-item>
@@ -50,7 +49,7 @@
 						<u-form-item label="购买渠道" prop="goodsInfo.goodsEqu" borderBottom labelWidth="80" ref="item1">
 							<u-radio-group v-model="model1.goodsInfo.goodsEqu">
 								<u-radio :customStyle="{marginRight: '16px'}" v-for="(item, index) in radiolist1"
-									:key="index" :label="item.name" :name="item.name">
+									:key="index" :label="item.name" :name="item.value">
 								</u-radio>
 							</u-radio-group>
 						</u-form-item>
@@ -87,6 +86,7 @@
 	export default {
 		data() {
 			return {
+				goodsArr: [],
 				swiperList: ['integral', 'kefu-ermai', 'coupon', 'gift', 'scan', 'pause-circle', 'wifi', 'email', 'list'],
 				show: false,
 				popupData: {
@@ -105,6 +105,7 @@
 				showBirthday: false,
 				model1: {
 					goodsInfo: {
+						id: '',
 						goodsName: '',
 						goodsNum: 0,
 						goodsPrice: 0.00,
@@ -150,8 +151,9 @@
 			// this.$refs.form1.setRules(this.rules)
 		},
 		methods: {
-			openPopup(popupData) {
+			openPopup(popupData,id) {
 				this.popupData = popupData
+				//todo 查询商品信息
 				uni.$u.sleep().then(() => {
 					this.show = !this.show
 				})
@@ -166,13 +168,28 @@
 				this.show = false
 				// console.log('close');
 			},
+			getGoodsList(){
+				let params = {
+					pageSize: 11,
+					pageNum: 0
+				};
+				getGoodsList(params).then(res=>{
+					this.goodsArr = res.data.records;
+					console.log(JSON.stringify(this.goodsArr));
+					uni.$u.toast('获取列表成功')
+				}).catch(err => {
+					uni.$u.toast('获取列表失败')
+				});	
+			},
 			submit() {
 				// 如果有错误，会在catch中返回报错信息数组，校验通过则在then中返回true
 				this.$refs.form.validate().then(res => {
 					var data = this.model1.goodsInfo;
+					console.log(JSON.stringify(data));
 					if(data.id === ""){
 						addGoods(data).then(res=>{
 							uni.$u.toast('添加成功');
+							console.log(data);
 							// this.getFriendsList(this.model1.goodsInfo.friendGroupId);
 							this.close();
 						}).catch(err => {
@@ -194,6 +211,7 @@
 			}
 		},
 		mounted() {
+			this.getGoodsList();
 		}
 	}
 </script>

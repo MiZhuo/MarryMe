@@ -18,7 +18,7 @@ export function addGoods(data) {
 */
 export function getGoodsList(data){
 	return service({
-		url: SERVER_URL + 'goodsList',
+		url: SERVER_URL + '/goodsList',
 		method: 'get',
 		params: data
 	})
@@ -29,7 +29,7 @@ export function getGoodsList(data){
 */
 export function getGoodsInfo(id){
 	return service({
-		url: SERVER_URL + 'goodsInfo/' + id,
+		url: SERVER_URL + '/goodsInfo/' + id,
 		method: 'get'
 	})
 }
@@ -39,7 +39,7 @@ export function getGoodsInfo(id){
 */
 export function updateGoodsInfo(data){
 	return service({
-		url: SERVER_URL + 'goods',
+		url: SERVER_URL + '/goods',
 		method: 'put',
 		params: data
 	})
@@ -50,7 +50,7 @@ export function updateGoodsInfo(data){
 */
 export function deleteGoods(ids){
 	return service({
-		url: SERVER_URL + 'goods/' + ids,
+		url: SERVER_URL + '/goods/' + ids,
 		method: 'delete',
 		params: data
 	})
