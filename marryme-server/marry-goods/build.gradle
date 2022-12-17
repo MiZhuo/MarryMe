@@ -1,6 +1,7 @@
 dependencies {
     implementation 'com.baomidou:mybatis-plus-core:3.5.2'
     implementation 'com.baomidou:mybatis-plus-boot-starter:3.5.2'
+    implementation 'com.baomidou:mybatis-plus-extension:3.5.2'
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.1.4'
     implementation 'org.springframework.cloud:spring-cloud-starter-loadbalancer:3.1.4'
     implementation ('com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery:2.2.9.RELEASE'){
