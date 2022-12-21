@@ -6,12 +6,9 @@
 					<swiper-item>
 						<u-grid :border="true" >
 							<u-grid-item v-for="(item, index) in goodsArr" :index="index" :key="index" @click="openPopup(popupData,item.id)">
-								<u-icon :customStyle="{paddingTop:20+'rpx'}" :name="item.goodsPic" :size="30"></u-icon>
-								<text class="grid-text" style="margin-top: 10px;">{{ item.goodsName }}</text>
-							</u-grid-item>
-							<u-grid-item>
-								<u-icon :customStyle="{paddingTop:20+'rpx'}" name="plus-circle" :size="40"></u-icon>
-								<text class="grid-text">添加</text>
+								<!-- <u-icon :customStyle="{paddingTop:20+'rpx'}" :name="item.goodsPic" :size="30"></u-icon> -->
+								<u--image :customStyle="{paddingTop:20+'rpx'}"  :showLoading="true" src="https://cdn.uviewui.com/uview/album/1.jpg" width="80px" height="80px"></u--image>
+								<text class="grid-text">{{ item.goodsName }}</text>
 							</u-grid-item>
 						</u-grid>
 					</swiper-item>
@@ -154,6 +151,7 @@
 			openPopup(popupData,id) {
 				this.popupData = popupData
 				//todo 查询商品信息
+				console.log(id);
 				uni.$u.sleep().then(() => {
 					this.show = !this.show
 				})
@@ -170,7 +168,7 @@
 			},
 			getGoodsList(){
 				let params = {
-					pageSize: 11,
+					pageSize: 18,
 					pageNum: 0
 				};
 				getGoodsList(params).then(res=>{
@@ -218,7 +216,7 @@
 
 <style lang="scss">
 	.swiper {
-		height: 600px;
+		height: 800px;
 	}
 
 	.u-popup-slot {
@@ -231,8 +229,7 @@
 
 	.grid-text {
 		font-size: 15px;
-		color: #909399;
-		padding: 10rpx 0 50rpx 0rpx;
+		padding: 20rpx 0 20rpx 0rpx;
 		/* #ifndef APP-PLUS */
 		box-sizing: border-box;
 		/* #endif */
