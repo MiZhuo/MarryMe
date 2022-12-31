@@ -6,7 +6,6 @@
 					<swiper-item>
 						<u-grid :border="true" >
 							<u-grid-item v-for="(item, index) in goodsArr" :index="index" :key="index" @click="openPopup(popupData,item.id)">
-								<!-- <u-icon :customStyle="{paddingTop:20+'rpx'}" :name="item.goodsPic" :size="30"></u-icon> -->
 								<u--image :customStyle="{paddingTop:20+'rpx'}"  :showLoading="true" src="https://cdn.uviewui.com/uview/album/1.jpg" width="80px" height="80px"></u--image>
 								<text class="grid-text">{{ item.goodsName }}</text>
 							</u-grid-item>
@@ -64,7 +63,7 @@
 					</u--form>
 					<u-button type="primary" text="提交" customStyle="margin-top: 50px" @click="submit">
 					</u-button>
-					<u-button type="error" text="删除" customStyle="margin-top: 10px" @click="reset"></u-button>
+					<u-button type="error" text="删除" customStyle="margin-top: 10px" @click="deleteGoods"></u-button>
 					
 				</view>
 
@@ -150,8 +149,19 @@
 		methods: {
 			openPopup(popupData,id) {
 				this.popupData = popupData
-				//todo 查询商品信息
-				console.log(id);
+				getGoodsInfo(id).then(res=>{
+					console.log(JSON.stringify(res.data));
+					this.model1.goodsInfo.id = res.data.id;
+					this.model1.goodsInfo.goodsName = res.data.goodsName;
+					this.model1.goodsInfo.goodsNum = res.data.goodsNum;
+					this.model1.goodsInfo.goodsPrice = res.data.goodsPrice;
+					this.model1.goodsInfo.goodsPic = res.data.goodsPic;
+					this.model1.goodsInfo.goodsEqu = res.data.goodsEqu;
+					this.model1.goodsInfo.remark = res.data.remark;
+					this.model1.goodsInfo.buyTime = res.data.buyTime;
+					this.model1.goodsInfo.status = res.data.status;
+				}).catch(err => {
+				});	
 				uni.$u.sleep().then(() => {
 					this.show = !this.show
 				})
@@ -187,8 +197,8 @@
 					if(data.id === ""){
 						addGoods(data).then(res=>{
 							uni.$u.toast('添加成功');
+							this.getGoodsList();
 							console.log(data);
-							// this.getFriendsList(this.model1.goodsInfo.friendGroupId);
 							this.close();
 						}).catch(err => {
 							uni.$u.toast('添加失败')
@@ -196,7 +206,7 @@
 					}else{
 						updateGoodsInfo(data).then(res=>{
 							uni.$u.toast('修改成功');
-							// this.getFriendsList(this.model1.goodsInfo.friendGroupId);
+							this.getGoodsList();
 							this.close();
 						}).catch(err => {
 							uni.$u.toast('修改失败')
@@ -206,6 +216,17 @@
 				}).catch(errors => {
 					uni.$u.toast('校验失败')
 				})
+			},
+			deleteGoods(){
+				let id = this.model1.goodsInfo.id;
+				console.log(id);
+				deleteGoods(id).then(res=>{
+					uni.$u.toast('删除成功');
+					this.getGoodsList();
+					this.close();
+				}).catch(err => {
+					uni.$u.toast('删除失败')
+				});	
 			}
 		},
 		mounted() {

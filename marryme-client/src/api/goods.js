@@ -51,7 +51,6 @@ export function updateGoodsInfo(data){
 export function deleteGoods(ids){
 	return service({
 		url: SERVER_URL + '/goods/' + ids,
-		method: 'delete',
-		params: data
+		method: 'delete'
 	})
 }
